@@ -16,5 +16,42 @@
 
 package io.github.ma1uta.jeonserver.server;
 
+import picocli.CommandLine;
+
+/**
+ * Server bootstrap.
+ */
+@CommandLine.Command(versionProvider = VersionProvider.class)
 public class Bootstrap {
+
+    @CommandLine.Option(names = {"-v", "--verbose"}, description = "be verbose.")
+    private boolean verbose = false;
+
+    @CommandLine.Option(names = {"-h", "--help"}, usageHelp = true, description = "display this help message.")
+    private boolean help;
+
+    @CommandLine.Option(names = {"-V", "--version"}, versionHelp = true, description = "display version info.")
+    private boolean version;
+
+    /**
+     * Main entry point.
+     *
+     * @param args program arguments.
+     */
+    public static void main(String[] args) {
+        Bootstrap bootstrap = new Bootstrap();
+        CommandLine commandLine = new CommandLine(bootstrap);
+        commandLine.parse(args);
+        if (commandLine.isVersionHelpRequested()) {
+            commandLine.printVersionHelp(System.out);
+            return;
+        } else if (commandLine.isUsageHelpRequested()) {
+            commandLine.usage(System.out);
+            return;
+        }
+
+        if (bootstrap.verbose) {
+            System.out.println("13");
+        }
+    }
 }
