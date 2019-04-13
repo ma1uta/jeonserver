@@ -17,8 +17,14 @@
 package io.github.ma1uta.jeonserver.server;
 
 import com.typesafe.config.Config;
+import com.typesafe.config.ConfigException;
 import com.typesafe.config.ConfigFactory;
 import picocli.CommandLine;
+
+import java.io.File;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Server bootstrap.
@@ -38,6 +44,12 @@ public class Bootstrap {
 
     @CommandLine.Option(names = {"--version"}, versionHelp = true, description = "display version info.")
     private boolean version = false;
+
+    @CommandLine.Option(names = {"-c", "--config"}, description = "specify configuration file.")
+    private List<File> files = new ArrayList<>();
+
+    @CommandLine.Option(names = {"-u", "--url"}, description = "specify configuration url.")
+    private List<URL> urls = new ArrayList<>();
 
     /**
      * Main entry point.
@@ -64,6 +76,22 @@ public class Bootstrap {
      */
     public void entry() {
         Config config = ConfigFactory.load().withFallback(ConfigFactory.load("application.conf"));
+
+        for (URL url : urls) {
+            try {
+                config = ConfigFactory.parseURL(url).withFallback(config);
+            } catch (ConfigException e) {
+                System.err.printf("Unable to read configuration from '%s'", url);
+            }
+        }
+
+        for (File file : files) {
+            try {
+                config = ConfigFactory.parseFile(file).withFallback(config);
+            } catch (ConfigException e) {
+                System.err.printf("Unable to read file '%s'", file.getAbsolutePath());
+            }
+        }
     }
 }
 
