@@ -28,7 +28,7 @@ public class Bootstrap {
     private boolean verbose = false;
 
     @CommandLine.Option(names = {"-h", "--help"}, usageHelp = true, description = "display this help message.")
-    private boolean help;
+    private boolean help = false;
 
     @CommandLine.Option(names = {"-V", "--version"}, versionHelp = true, description = "display version info.")
     private boolean version;
