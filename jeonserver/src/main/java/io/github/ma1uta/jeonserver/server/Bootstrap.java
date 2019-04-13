@@ -21,7 +21,11 @@ import picocli.CommandLine;
 /**
  * Server bootstrap.
  */
-@CommandLine.Command(versionProvider = VersionProvider.class)
+@CommandLine.Command(
+    name = "java -jar jeonserver.jar",
+    description = "Start JeonServer.",
+    versionProvider = VersionProvider.class
+)
 public class Bootstrap {
 
     @CommandLine.Option(names = {"-v", "--verbose"}, description = "be verbose.")
@@ -30,8 +34,8 @@ public class Bootstrap {
     @CommandLine.Option(names = {"-h", "--help"}, usageHelp = true, description = "display this help message.")
     private boolean help = false;
 
-    @CommandLine.Option(names = {"-V", "--version"}, versionHelp = true, description = "display version info.")
-    private boolean version;
+    @CommandLine.Option(names = {"--version"}, versionHelp = true, description = "display version info.")
+    private boolean version = false;
 
     /**
      * Main entry point.
@@ -55,3 +59,4 @@ public class Bootstrap {
         }
     }
 }
+
