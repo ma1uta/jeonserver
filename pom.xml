@@ -9,9 +9,10 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>jeonserver</module>
+        <module>jeon-core</module>
         <module>jeon-shade</module>
         <module>jeon-capsule</module>
+        <module>jeon-standalone</module>
     </modules>
 
     <name>JeonServer Parent</name>
@@ -52,6 +53,7 @@
         <version.jeonserver>1.0-SNAPSHOT</version.jeonserver>
 
         <!-- Plugin versions -->
+        <version.plugin.buildnumber-maven-plugin>1.4</version.plugin.buildnumber-maven-plugin>
         <version.plugin.maven-clean-plugin>3.1.0</version.plugin.maven-clean-plugin>
         <version.plugin.maven-install-plugin>2.5.2</version.plugin.maven-install-plugin>
         <version.plugin.maven-surefire-plugin>2.22.0</version.plugin.maven-surefire-plugin>
@@ -73,6 +75,11 @@
     <build>
         <pluginManagement>
             <plugins>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>buildnumber-maven-plugin</artifactId>
+                    <version>${version.plugin.buildnumber-maven-plugin}</version>
+                </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>build-helper-maven-plugin</artifactId>
@@ -102,6 +109,22 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-enforcer-plugin</artifactId>
                     <version>${version.plugin.maven-enforcer-plugin}</version>
+                    <executions>
+                        <execution>
+                            <id>enforce</id>
+                            <configuration>
+                                <rules>
+                                    <DependencyConvergence/>
+                                    <requireMavenVersion>
+                                        <version>3.3.9</version>
+                                    </requireMavenVersion>
+                                </rules>
+                            </configuration>
+                            <goals>
+                                <goal>enforce</goal>
+                            </goals>
+                        </execution>
+                    </executions>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -115,11 +138,26 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-source-plugin</artifactId>
                     <version>${version.plugin.maven-source-plugin}</version>
+                    <executions>
+                        <execution>
+                            <id>attach-sources</id>
+                            <goals>
+                                <goal>jar</goal>
+                            </goals>
+                        </execution>
+                    </executions>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-jar-plugin</artifactId>
                     <version>${version.plugin.maven-jar-plugin}</version>
+                    <configuration>
+                        <archive>
+                            <manifest>
+                                <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            </manifest>
+                        </archive>
+                    </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -148,6 +186,18 @@
                     <configuration>
                         <configLocation>etc/checkstyle.xml</configLocation>
                     </configuration>
+                    <executions>
+                        <execution>
+                            <id>checkstyle</id>
+                            <phase>validate</phase>
+                            <goals>
+                                <goal>check</goal>
+                            </goals>
+                            <configuration>
+                                <failOnViolation>true</failOnViolation>
+                            </configuration>
+                        </execution>
+                    </executions>
                     <dependencies>
                         <dependency>
                             <groupId>com.puppycrawl.tools</groupId>
@@ -159,7 +209,15 @@
                 <plugin>
                     <groupId>org.jacoco</groupId>
                     <artifactId>jacoco-maven-plugin</artifactId>
-                    <version>0.8.2</version>
+                    <version>${version.plugin.jacoco-maven-plugin}</version>
+                    <executions>
+                        <execution>
+                            <id>prepare-agent</id>
+                            <goals>
+                                <goal>prepare-agent</goal>
+                            </goals>
+                        </execution>
+                    </executions>
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>

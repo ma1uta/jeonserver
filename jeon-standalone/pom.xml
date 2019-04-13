@@ -25,47 +25,31 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>jeon-capsule</artifactId>
+    <artifactId>jeon-standalone</artifactId>
 
-    <properties>
-        <version.plugin.capsule-maven-plugin>1.5.1</version.plugin.capsule-maven-plugin>
-
-        <version.lib.capsule>1.0.3.1</version.lib.capsule>
-    </properties>
+    <description>JeonServer. Standalone server.</description>
 
     <dependencies>
         <dependency>
             <groupId>io.github.ma1uta</groupId>
-            <artifactId>jeon-standalone</artifactId>
+            <artifactId>jeon-core</artifactId>
             <version>1.0-SNAPSHOT</version>
-        </dependency>
-
-        <dependency>
-            <groupId>io.nextflow</groupId>
-            <artifactId>capsule</artifactId>
-            <version>${version.lib.capsule}</version>
         </dependency>
     </dependencies>
 
     <build>
-        <finalName>jeonserver</finalName>
         <plugins>
             <plugin>
-                <groupId>com.github.chrisdchristo</groupId>
-                <artifactId>capsule-maven-plugin</artifactId>
-                <version>${version.plugin.capsule-maven-plugin}</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>build</goal>
-                        </goals>
-                        <configuration>
-                            <appClass>io.github.ma1uta.jeonserver.Bootstrap</appClass>
-                            <type>fat</type>
-                            <chmod>true</chmod>
-                        </configuration>
-                    </execution>
-                </executions>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
             </plugin>
         </plugins>
     </build>
