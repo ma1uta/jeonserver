@@ -10,10 +10,12 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>jeonserver</module>
+        <module>jeon-shade</module>
+        <module>jeon-capsule</module>
     </modules>
 
-    <name>JeonServer</name>
-    <description>Java-based Matrix server.</description>
+    <name>JeonServer Parent</name>
+    <description>Java-based Matrix server. Parent module.</description>
 
     <organization>
         <name>ma1uta</name>
@@ -46,6 +48,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <release>11</release>
+
+        <version.jeonserver>1.0-SNAPSHOT</version.jeonserver>
 
         <!-- Plugin versions -->
         <version.plugin.maven-clean-plugin>3.1.0</version.plugin.maven-clean-plugin>

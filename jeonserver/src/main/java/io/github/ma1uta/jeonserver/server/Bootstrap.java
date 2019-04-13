@@ -16,6 +16,8 @@
 
 package io.github.ma1uta.jeonserver.server;
 
+import com.typesafe.config.Config;
+import com.typesafe.config.ConfigFactory;
 import picocli.CommandLine;
 
 /**
@@ -54,9 +56,14 @@ public class Bootstrap {
             return;
         }
 
-        if (bootstrap.verbose) {
-            System.out.println("13");
-        }
+        bootstrap.entry();
+    }
+
+    /**
+     * Start main program.
+     */
+    public void entry() {
+        Config config = ConfigFactory.load().withFallback(ConfigFactory.load("application.conf"));
     }
 }
 
