@@ -16,10 +16,17 @@
 
 package io.github.ma1uta.jeonserver;
 
+import com.google.inject.AbstractModule;
+import com.google.inject.Guice;
+import com.google.inject.Module;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 import picocli.CommandLine;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 import java.util.ServiceLoader;
 
@@ -51,8 +58,10 @@ public class Bootstrap {
         Bootstrap bootstrap = new Bootstrap();
         CommandLine commandLine = new CommandLine(bootstrap);
 
-        for (Module module : ServiceLoader.load(Module.class)) {
-            commandLine.addMixin(module.getName(), module);
+        Map<String, Bundle> bundles = new HashMap<>();
+        for (Bundle bundle : ServiceLoader.load(Bundle.class)) {
+            bundles.put(bundle.getName(), bundle);
+            commandLine.addMixin(bundle.getName(), bundle);
         }
 
         commandLine.parse(args);
@@ -64,25 +73,35 @@ public class Bootstrap {
             return;
         }
 
-        bootstrap.entry(commandLine);
+        bootstrap.entry(bundles);
     }
 
     /**
      * Start main program.
      *
-     * @param commandLine command line.
+     * @param bundles loaded bundles.
      */
-    public void entry(CommandLine commandLine) {
+    public void entry(Map<String, Bundle> bundles) {
         Config config = ConfigFactory.load().withFallback(ConfigFactory.load("application.conf"));
 
-        for (Object mixinItem : commandLine.getMixins().values()) {
-            if (mixinItem instanceof Module) {
-                Optional<Config> optionalConfig = ((Module) mixinItem).init();
-                if (optionalConfig.isPresent()) {
-                    config = optionalConfig.get().withFallback(config);
-                }
+        for (Bundle bundle : bundles.values()) {
+            Optional<Config> optionalConfig = bundle.init();
+            if (optionalConfig.isPresent()) {
+                config = optionalConfig.get().withFallback(config);
             }
         }
+
+        Collection<Module> modules = new ArrayList<>(bundles.values());
+
+        Config preparedConfig = config;
+        modules.add(new AbstractModule() {
+            @Override
+            protected void configure() {
+                bind(Config.class).toInstance(preparedConfig);
+                bind(Server.class).toInstance(new Server());
+            }
+        });
+        Guice.createInjector(modules).getInstance(Server.class).run();
     }
 }
 

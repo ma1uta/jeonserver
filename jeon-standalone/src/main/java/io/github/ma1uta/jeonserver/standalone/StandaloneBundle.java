@@ -16,10 +16,11 @@
 
 package io.github.ma1uta.jeonserver.standalone;
 
+import com.google.inject.AbstractModule;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigException;
 import com.typesafe.config.ConfigFactory;
-import io.github.ma1uta.jeonserver.Module;
+import io.github.ma1uta.jeonserver.Bundle;
 import picocli.CommandLine;
 
 import java.io.File;
@@ -31,7 +32,7 @@ import java.util.Optional;
 /**
  * Standalone module.
  */
-public class StandaloneModule implements Module {
+public class StandaloneBundle extends AbstractModule implements Bundle {
 
     @CommandLine.Option(names = {"-f", "--file"}, description = "specify configuration file.")
     private List<File> files = new ArrayList<>();
@@ -75,7 +76,10 @@ public class StandaloneModule implements Module {
 
     @Override
     public void restart() {
+    }
 
+    @Override
+    protected void configure() {
     }
 
     @Override

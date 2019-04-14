@@ -16,6 +16,7 @@
 
 package io.github.ma1uta.jeonserver;
 
+import com.google.inject.Module;
 import com.typesafe.config.Config;
 
 import java.util.Optional;
@@ -23,10 +24,10 @@ import java.util.Optional;
 /**
  * Server module.
  */
-public interface Module extends AutoCloseable {
+public interface Bundle extends AutoCloseable, Module {
 
     /**
-     * Module name.
+     * Bundle name.
      *
      * @return module name.
      */
