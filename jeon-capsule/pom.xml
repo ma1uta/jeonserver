@@ -60,7 +60,7 @@
                             <goal>build</goal>
                         </goals>
                         <configuration>
-                            <appClass>io.github.ma1uta.jeonserver.Bootstrap</appClass>
+                            <appClass>io.github.ma1uta.jeonserver.standalone.Bootstrap</appClass>
                             <type>fat</type>
                             <chmod>true</chmod>
                         </configuration>

@@ -14,13 +14,16 @@
  * limitations under the License.
  */
 
-package io.github.ma1uta.jeonserver;
+package io.github.ma1uta.jeonserver.standalone;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Module;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
+import io.github.ma1uta.jeonserver.Bundle;
+import io.github.ma1uta.jeonserver.Server;
+import io.github.ma1uta.jeonserver.VersionProvider;
 import picocli.CommandLine;
 
 import java.util.ArrayList;
