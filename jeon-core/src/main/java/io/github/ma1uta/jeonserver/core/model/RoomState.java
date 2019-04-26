@@ -23,38 +23,32 @@ import lombok.Setter;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
- * Server side event implementation.
+ * Room state.
  */
 @Entity
-@Table(name = "event")
+@Table(name = "room_state")
 @Getter
 @Setter
 @EqualsAndHashCode(of = "id")
-@Inheritance(strategy = InheritanceType.JOINED)
-public class Event implements Serializable {
+public class RoomState implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    private String type;
+    @ManyToOne
+    private Room room;
 
-    @Column(name = "event_id")
-    private String eventId;
+    @Column(name = "state_key")
+    private String stateKey;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    private EventContent content;
-
-    @OneToOne
-    private Redacts redacts;
+    @ManyToOne
+    private PersistentEvent event;
 }
