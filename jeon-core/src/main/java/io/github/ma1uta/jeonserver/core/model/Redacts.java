@@ -20,20 +20,30 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * Server side event implementation.
+ * Redacts.
  */
 @Entity
-@Table(name = "event")
+@Table(name = "redacts")
 @Getter
 @Setter
 @EqualsAndHashCode(of = "id")
-public class JeonEvent {
+public class Redacts implements Serializable {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
+
+    @Column(name = "txn_id")
+    private String txnId;
+
+    private String reason;
 }

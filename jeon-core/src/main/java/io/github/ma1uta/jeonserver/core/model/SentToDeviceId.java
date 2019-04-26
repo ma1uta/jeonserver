@@ -21,25 +21,16 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
 
 /**
- * Event content.
+ * Sent to device id class.
  */
-@Entity
-@Table(name = "event_content")
 @Getter
 @Setter
-@EqualsAndHashCode(of = "id")
-public class EventContent implements Serializable {
+@EqualsAndHashCode(of = {"user", "device"})
+public class SentToDeviceId implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
+    private String user;
 
-    private String content;
+    private String device;
 }

@@ -16,30 +16,32 @@
 
 package io.github.ma1uta.jeonserver.core.model;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
- * Event content.
+ * Send to device.
  */
 @Entity
-@Table(name = "event_content")
+@Table(name = "send_to_device")
 @Getter
 @Setter
-@EqualsAndHashCode(of = "id")
-public class EventContent implements Serializable {
+@IdClass(SentToDeviceId.class)
+public class SendToDevice implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
+    private String user;
 
-    private String content;
+    @Id
+    private String device;
+
+    @OneToOne
+    private EventContent content;
 }

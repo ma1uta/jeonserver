@@ -21,25 +21,37 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
- * Event content.
+ * Server side event implementation.
  */
 @Entity
-@Table(name = "event_content")
+@Table(name = "event")
 @Getter
 @Setter
 @EqualsAndHashCode(of = "id")
-public class EventContent implements Serializable {
+public class Event implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    private String content;
+    private String type;
+
+    @Column(name = "event_id")
+    private String eventId;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    private EventContent content;
+
+    @OneToOne
+    private Redacts redacts;
 }
