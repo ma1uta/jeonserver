@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.github.ma1uta.jeonserver.core.model;
+package io.github.ma1uta.jeonserver.model.room;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -23,14 +23,14 @@ import lombok.Setter;
 import java.io.Serializable;
 
 /**
- * Room timeline id class.
+ * Room servers id.
  */
 @Getter
 @Setter
-@EqualsAndHashCode(of = {"order", "room"})
-public class RoomTimelineId implements Serializable {
-
-    private Long order;
+@EqualsAndHashCode(of = {"room", "server"})
+public class RoomServerId implements Serializable {
 
     private Room room;
+
+    private String server;
 }

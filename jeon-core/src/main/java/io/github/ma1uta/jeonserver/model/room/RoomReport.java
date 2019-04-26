@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package io.github.ma1uta.jeonserver.core.model;
+package io.github.ma1uta.jeonserver.model.room;
 
+import io.github.ma1uta.jeonserver.model.core.PersistentEvent;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -30,25 +30,26 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
- * Room state.
+ * Room report.
  */
 @Entity
-@Table(name = "room_state")
+@Table(name = "room_report")
 @Getter
 @Setter
 @EqualsAndHashCode(of = "id")
-public class RoomState implements Serializable {
+public class RoomReport implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     @ManyToOne
-    private Room room;
-
-    @Column(name = "state_key")
-    private String stateKey;
+    private PersistentEvent event;
 
     @ManyToOne
-    private PersistentEvent event;
+    private Room room;
+
+    private Long score;
+
+    private String reason;
 }

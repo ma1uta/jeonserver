@@ -14,23 +14,38 @@
  * limitations under the License.
  */
 
-package io.github.ma1uta.jeonserver.core.model;
+package io.github.ma1uta.jeonserver.model.room;
 
+import io.github.ma1uta.jeonserver.model.core.Event;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 /**
- * Room servers id.
+ * Room ephemeral event.
  */
+@Entity
+@Table(name = "room_ephemeral")
 @Getter
 @Setter
-@EqualsAndHashCode(of = {"room", "server"})
-public class RoomServerId implements Serializable {
+@EqualsAndHashCode(of = "id")
+public class RoomEphemeral implements Serializable {
 
-    private Room room;
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private Long id;
 
-    private String server;
+    @ManyToOne
+    private RoomState sender;
+
+    @ManyToOne
+    private Event event;
 }

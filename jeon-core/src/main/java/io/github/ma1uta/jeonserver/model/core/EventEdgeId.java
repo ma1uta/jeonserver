@@ -14,34 +14,23 @@
  * limitations under the License.
  */
 
-package io.github.ma1uta.jeonserver.core.model;
+package io.github.ma1uta.jeonserver.model.core;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 
 /**
- * Room servers.
+ * Event edge id class.
  */
-@Entity
-@Table(name = "room_servers")
 @Getter
 @Setter
-@EqualsAndHashCode(of = "room")
-@IdClass(RoomServerId.class)
-public class RoomServer implements Serializable {
+@EqualsAndHashCode(of = {"from", "to"})
+public class EventEdgeId implements Serializable {
 
-    @ManyToOne
-    @Id
-    private Room room;
+    private Event from;
 
-    @Id
-    private String server;
+    private Event to;
 }

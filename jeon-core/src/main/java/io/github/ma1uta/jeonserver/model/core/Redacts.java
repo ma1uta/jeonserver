@@ -14,40 +14,36 @@
  * limitations under the License.
  */
 
-package io.github.ma1uta.jeonserver.core.model;
+package io.github.ma1uta.jeonserver.model.core;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
- * Room timeline.
+ * Redacts.
  */
 @Entity
-@Table(name = "room_timeline")
+@Table(name = "redacts")
 @Getter
 @Setter
-@EqualsAndHashCode(of = {"order", "room"})
-@IdClass(RoomTimelineId.class)
-public class RoomTimeline implements Serializable {
+@EqualsAndHashCode(of = "id")
+public class Redacts implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long order;
+    private Long id;
 
-    @Id
-    @ManyToOne
-    private Room room;
+    @Column(name = "txn_id")
+    private String txnId;
 
-    @ManyToOne
-    private Event event;
+    private String reason;
 }

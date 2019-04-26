@@ -14,23 +14,37 @@
  * limitations under the License.
  */
 
-package io.github.ma1uta.jeonserver.core.model;
+package io.github.ma1uta.jeonserver.model.core;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.IdClass;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 /**
- * Sent to device id class.
+ * Event edge.
  */
+@Entity
+@Table(name = "event_edge")
 @Getter
 @Setter
-@EqualsAndHashCode(of = {"user", "device"})
-public class SentToDeviceId implements Serializable {
+@EqualsAndHashCode(of = {"from", "to"})
+@IdClass(EventEdgeId.class)
+public class EventEdge implements Serializable {
 
-    private String user;
+    @Id
+    @ManyToOne
+    private Event from;
 
-    private String device;
+    @Id
+    @ManyToOne
+    private Event to;
+
+    private String type;
 }

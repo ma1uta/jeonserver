@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.github.ma1uta.jeonserver.core.model;
+package io.github.ma1uta.jeonserver.model.core;
 
 import lombok.Getter;
 import lombok.Setter;

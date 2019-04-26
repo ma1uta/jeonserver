@@ -14,14 +14,13 @@
  * limitations under the License.
  */
 
-package io.github.ma1uta.jeonserver.core.model;
+package io.github.ma1uta.jeonserver.model.core;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -29,21 +28,18 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * Redacts.
+ * Event content.
  */
 @Entity
-@Table(name = "redacts")
+@Table(name = "event_content")
 @Getter
 @Setter
 @EqualsAndHashCode(of = "id")
-public class Redacts implements Serializable {
+public class EventContent implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    @Column(name = "txn_id")
-    private String txnId;
-
-    private String reason;
+    private String content;
 }

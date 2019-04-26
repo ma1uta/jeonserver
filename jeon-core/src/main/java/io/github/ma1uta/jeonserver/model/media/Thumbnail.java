@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.github.ma1uta.jeonserver.core.model;
+package io.github.ma1uta.jeonserver.model.media;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -22,31 +22,46 @@ import lombok.Setter;
 
 import java.io.Serializable;
 import java.time.Instant;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
- * Room.
+ * Media thumbnail.
  */
 @Entity
-@Table(name = "room")
+@Table(name = "thumbnail")
 @Getter
 @Setter
 @EqualsAndHashCode(of = "id")
-public class Room implements Serializable {
+public class Thumbnail implements Serializable {
 
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private Long id;
 
-    private String version;
+    @ManyToOne
+    private Media media;
+
+    private Long width;
+
+    private Long height;
+
+    private String method;
+
+    @Column(name = "allow_remote")
+    private Boolean allowRemote;
+
+    private String path;
 
     @Temporal(TemporalType.TIMESTAMP)
     private Instant created;
 
-    private Boolean visible;
+    private Long size;
 }
-
-

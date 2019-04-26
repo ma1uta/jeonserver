@@ -14,34 +14,42 @@
  * limitations under the License.
  */
 
-package io.github.ma1uta.jeonserver.core.model;
+package io.github.ma1uta.jeonserver.model.room;
 
+import io.github.ma1uta.jeonserver.model.core.PersistentEvent;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
- * Send to device.
+ * Room state.
  */
 @Entity
-@Table(name = "send_to_device")
+@Table(name = "room_state")
 @Getter
 @Setter
-@IdClass(SentToDeviceId.class)
-public class SendToDevice implements Serializable {
+@EqualsAndHashCode(of = "id")
+public class RoomState implements Serializable {
 
     @Id
-    private String user;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private Long id;
 
-    @Id
-    private String device;
+    @ManyToOne
+    private Room room;
 
-    @OneToOne
-    private EventContent content;
+    @Column(name = "state_key")
+    private String stateKey;
+
+    @ManyToOne
+    private PersistentEvent event;
 }

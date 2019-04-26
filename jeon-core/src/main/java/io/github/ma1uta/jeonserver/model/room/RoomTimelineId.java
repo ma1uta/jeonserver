@@ -14,43 +14,23 @@
  * limitations under the License.
  */
 
-package io.github.ma1uta.jeonserver.core.model;
+package io.github.ma1uta.jeonserver.model.room;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
-import java.time.Instant;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 /**
- * Media.
+ * Room timeline id class.
  */
-@Entity
-@Table(name = "media")
 @Getter
 @Setter
-@EqualsAndHashCode(of = "id")
-public class Media implements Serializable {
+@EqualsAndHashCode(of = {"order", "room"})
+public class RoomTimelineId implements Serializable {
 
-    @Id
-    private String id;
+    private Long order;
 
-    private String filename;
-
-    private String path;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    private Instant created;
-
-    @Column("allow_remote")
-    private Boolean allowRemote;
-
-    private Long size;
+    private Room room;
 }
