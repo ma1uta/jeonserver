@@ -21,34 +21,47 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.time.Instant;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
- * Room report.
+ * Media thumbnail.
  */
 @Entity
-@Table(name = "room_report")
+@Table(name = "thumbnail")
 @Getter
 @Setter
 @EqualsAndHashCode(of = "id")
-public class RoomReport implements Serializable {
+public class Thumbnail implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     @ManyToOne
-    private PersistentEvent event;
+    private Media media;
 
-    @ManyToOne
-    private Room room;
+    private Long width;
 
-    private Long score;
+    private Long height;
 
-    private String reason;
+    private String method;
+
+    @Column(name = "allow_remote")
+    private Boolean allowRemote;
+
+    private String path;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Instant created;
+
+    private Long size;
 }
