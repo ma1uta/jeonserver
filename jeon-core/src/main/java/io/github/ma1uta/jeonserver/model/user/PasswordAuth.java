@@ -14,36 +14,22 @@
  * limitations under the License.
  */
 
-package io.github.ma1uta.jeonserver.model.room;
+package io.github.ma1uta.jeonserver.model.user;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.io.Serializable;
-import java.time.LocalDateTime;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * Room.
+ * Authentication with password.
  */
 @Entity
-@Table(name = "room")
+@Table(name = "password_auth")
 @Getter
 @Setter
-@EqualsAndHashCode(of = "id")
-public class Room implements Serializable {
+public class PasswordAuth extends AbstractAuth {
 
-    @Id
-    private String id;
-
-    private String version;
-
-    private LocalDateTime created;
-
-    private Boolean visible;
+    private String password;
 }
-
-

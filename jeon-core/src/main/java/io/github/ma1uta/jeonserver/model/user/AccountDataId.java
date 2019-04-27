@@ -14,36 +14,25 @@
  * limitations under the License.
  */
 
-package io.github.ma1uta.jeonserver.model.room;
+package io.github.ma1uta.jeonserver.model.user;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
 
 /**
- * Room.
+ * Account data id class.
  */
-@Entity
-@Table(name = "room")
 @Getter
 @Setter
-@EqualsAndHashCode(of = "id")
-public class Room implements Serializable {
+@EqualsAndHashCode
+public class AccountDataId implements Serializable {
 
-    @Id
-    private String id;
+    private String room;
 
-    private String version;
+    private User user;
 
-    private LocalDateTime created;
-
-    private Boolean visible;
+    private String type;
 }
-
-

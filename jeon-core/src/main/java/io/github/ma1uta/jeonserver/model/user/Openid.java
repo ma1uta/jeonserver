@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.github.ma1uta.jeonserver.model.room;
+package io.github.ma1uta.jeonserver.model.user;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -22,28 +22,41 @@ import lombok.Setter;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
- * Room.
+ * Open id class.
  */
 @Entity
-@Table(name = "room")
+@Table(name = "openid")
 @Getter
 @Setter
 @EqualsAndHashCode(of = "id")
-public class Room implements Serializable {
+public class Openid implements Serializable {
 
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private Long id;
 
-    private String version;
+    @ManyToOne
+    private User user;
+
+    @Column(name = "access_token")
+    private String accessToken;
+
+    @Column(name = "token_type")
+    private String tokenType;
+
+    @Column(name = "server_name")
+    private String serverName;
 
     private LocalDateTime created;
 
-    private Boolean visible;
+    private LocalDateTime expires;
 }
-
-

@@ -21,13 +21,11 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
-import java.time.Instant;
+import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 /**
  * Media.
@@ -46,8 +44,7 @@ public class Media implements Serializable {
 
     private String path;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Instant created;
+    private LocalDateTime created;
 
     @Column(name = "allow_remote")
     private Boolean allowRemote;

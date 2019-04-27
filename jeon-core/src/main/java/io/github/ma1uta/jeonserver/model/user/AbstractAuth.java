@@ -14,36 +14,36 @@
  * limitations under the License.
  */
 
-package io.github.ma1uta.jeonserver.model.room;
+package io.github.ma1uta.jeonserver.model.user;
+
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 
 /**
- * Room.
+ * Base class for authentication.
  */
 @Entity
-@Table(name = "room")
+@Table(name = "abstract_auth")
+@Inheritance(strategy = InheritanceType.JOINED)
 @Getter
 @Setter
 @EqualsAndHashCode(of = "id")
-public class Room implements Serializable {
+public class AbstractAuth implements Serializable {
 
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private Long id;
 
-    private String version;
-
-    private LocalDateTime created;
-
-    private Boolean visible;
+    private String type;
 }
-
-
