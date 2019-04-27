@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.github.ma1uta.jeonserver;
+package io.github.ma1uta.jeonserver.standalone;
 
 import picocli.CommandLine;
 

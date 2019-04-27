@@ -14,10 +14,19 @@
  * limitations under the License.
  */
 
-package io.github.ma1uta.jeonserver.service;
+package io.github.ma1uta.jeonserver;
+
+import com.typesafe.config.Config;
 
 /**
- * DAG service.
+ * Configuration provider.
  */
-public interface GraphService {
+public interface ConfigurationProvider {
+
+    /**
+     * Return configuration.
+     *
+     * @return configuration.
+     */
+    Config config();
 }

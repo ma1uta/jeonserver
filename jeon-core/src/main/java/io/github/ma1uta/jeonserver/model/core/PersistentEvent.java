@@ -19,7 +19,6 @@ package io.github.ma1uta.jeonserver.model.core;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -34,8 +33,6 @@ import javax.persistence.Table;
 public class PersistentEvent extends Event {
 
     private String creator;
-
-    private LocalDateTime created;
 
     private String sender;
 

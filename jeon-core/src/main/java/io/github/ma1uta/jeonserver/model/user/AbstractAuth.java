@@ -16,7 +16,6 @@
 
 package io.github.ma1uta.jeonserver.model.user;
 
-
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;

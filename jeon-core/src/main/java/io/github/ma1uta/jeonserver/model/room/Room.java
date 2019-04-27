@@ -16,14 +16,20 @@
 
 package io.github.ma1uta.jeonserver.model.room;
 
+import io.github.ma1uta.jeonserver.model.core.Event;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.OrderColumn;
 import javax.persistence.Table;
 
 /**
@@ -44,6 +50,28 @@ public class Room implements Serializable {
     private LocalDateTime created;
 
     private Boolean visible;
+
+    @OneToOne
+    private RoomState name;
+
+    @OneToOne
+    private RoomState topic;
+
+    @OneToOne
+    private RoomState avatar;
+
+    @OneToOne
+    private RoomState permissions;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<RoomState> members;
+
+    @OneToMany
+    private List<RoomState> aliases;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @OrderColumn(name = "received")
+    private List<Event> timeline;
 }
 
 

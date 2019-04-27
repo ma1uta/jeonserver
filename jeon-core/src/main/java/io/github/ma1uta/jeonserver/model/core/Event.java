@@ -21,6 +21,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -29,6 +31,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -57,4 +60,19 @@ public class Event implements Serializable {
 
     @OneToOne
     private Redacts redacts;
+
+    @Column(name = "origin_server")
+    private String originServer;
+
+    private String author;
+
+    private LocalDateTime created;
+
+    private LocalDateTime received;
+
+    @OneToMany
+    private List<Event> parents;
+
+    @OneToMany
+    private List<Event> children;
 }
