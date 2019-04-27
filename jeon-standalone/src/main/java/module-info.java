@@ -8,4 +8,5 @@ module jeonserver.standalone {
     requires org.slf4j;
     requires typesafe.config;
     requires jsr305;
+    requires java.persistence;
 }

@@ -80,31 +80,25 @@ public class StandaloneBundle extends AbstractModule implements Bundle {
     @Override
     protected void configure() {
         Map<String, String> persistProperties = new HashMap<>();
-        persistProperties.put("javax.persistence.jdbc.driver", config.getString("db.driver"));
-        persistProperties.put("javax.persistence.jdbc.user", config.getString("db.user"));
-        persistProperties.put("javax.persistence.jdbc.password", config.getString("db.password"));
-        persistProperties.put("javax.persistence.jdbc.url", config.getString("db.url"));
+        persistProperties.put("hibernate.connection.provider_class", "com.zaxxer.hikari.hibernate.HikariConnectionProvider");
+        persistProperties.put("hibernate.hikari.dataSourceClassName", config.getString("db.dataSource"));
+        persistProperties.put("hibernate.hikari.dataSource.user", config.getString("db.user"));
+        persistProperties.put("hibernate.hikari.dataSource.password", config.getString("db.password"));
+        persistProperties.put("hibernate.hikari.dataSource.url", config.getString("db.url"));
         persistProperties.put("hibernate.dialect", config.getString("db.dialect"));
 
         JpaPersistModule persistModule = new JpaPersistModule("jeonserver");
         persistModule.properties(persistProperties);
 
         install(persistModule);
+
+        bind(Server.class).to(StandaloneServer.class).asEagerSingleton();
+        bind(Initializer.class).asEagerSingleton();
     }
 
     @Override
     public void close() throws Exception {
 
-    }
-
-    /**
-     * JeonServer.
-     *
-     * @return JeonServer.
-     */
-    @Provides
-    public Server server() {
-        return new Server();
     }
 
     /**

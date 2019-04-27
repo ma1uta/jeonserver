@@ -14,10 +14,18 @@
  * limitations under the License.
  */
 
-package io.github.ma1uta.jeonserver;
+package io.github.ma1uta.jeonserver.standalone;
+
+import com.google.inject.Inject;
+import com.google.inject.persist.PersistService;
 
 /**
- * JeonServer main class.
+ * Initializer.
  */
-public interface Server extends Runnable {
+public class Initializer {
+
+    @Inject
+    public Initializer(PersistService persistService) {
+        persistService.start();
+    }
 }

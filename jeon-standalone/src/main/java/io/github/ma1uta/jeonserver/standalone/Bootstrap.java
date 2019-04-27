@@ -17,6 +17,7 @@
 package io.github.ma1uta.jeonserver.standalone;
 
 import com.google.inject.Guice;
+import com.google.inject.Injector;
 import io.github.ma1uta.jeonserver.Server;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -116,7 +117,9 @@ public class Bootstrap {
         }
 
         LOGGER.info("Run Server.");
-        Guice.createInjector(new ArrayList<>(bundles.values())).getInstance(Server.class).run();
+        Injector injector = Guice.createInjector(new ArrayList<>(bundles.values()));
+        injector.getInstance(Initializer.class);
+        injector.getInstance(Server.class).run();
     }
 }
 
