@@ -19,6 +19,7 @@ package io.github.ma1uta.jeonserver.standalone.core;
 import com.google.inject.AbstractModule;
 import com.google.inject.persist.jpa.JpaPersistModule;
 import com.typesafe.config.Config;
+import com.typesafe.config.ConfigValue;
 import io.github.ma1uta.jeonserver.Server;
 import io.github.ma1uta.jeonserver.standalone.StandaloneServer;
 
@@ -39,12 +40,17 @@ public class CoreModule extends AbstractModule {
     @Override
     protected void configure() {
         Map<String, String> persistProperties = new HashMap<>();
-        persistProperties.put("hibernate.connection.provider_class", "org.hibernate.hikaricp.internal.HikariCPConnectionProvider");
         persistProperties.put("hibernate.hikari.dataSourceClassName", config.getString("db.dataSource"));
-        persistProperties.put("hibernate.hikari.dataSource.user", config.getString("db.user"));
+        persistProperties.put("hibernate.hikari.dataSource.user",     config.getString("db.user"));
         persistProperties.put("hibernate.hikari.dataSource.password", config.getString("db.password"));
-        persistProperties.put("hibernate.hikari.dataSource.url", config.getString("db.url"));
-        persistProperties.put("hibernate.dialect", config.getString("db.dialect"));
+        persistProperties.put("hibernate.hikari.dataSource.url",      config.getString("db.url"));
+        persistProperties.put("hibernate.dialect",                    config.getString("db.dialect"));
+
+        if (config.hasPath("service.persist")) {
+            for (Map.Entry<String, ConfigValue> entry : config.getConfig("service.persist").entrySet()) {
+                persistProperties.put(entry.getKey(), entry.getValue().unwrapped().toString());
+            }
+        }
 
         JpaPersistModule persistModule = new JpaPersistModule("jeonserver");
         persistModule.properties(persistProperties);
