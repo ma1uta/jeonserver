@@ -39,9 +39,21 @@
         <version.lib.hibernate-ejb>5.4.2.Final</version.lib.hibernate-ejb>
         <version.lib.postgresql>42.2.5</version.lib.postgresql>
         <version.lib.jsr305>3.0.2</version.lib.jsr305>
+        <version.lib.pf4j>2.6.0</version.lib.pf4j>
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>org.pf4j</groupId>
+            <artifactId>pf4j</artifactId>
+            <version>${version.lib.pf4j}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-api</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>

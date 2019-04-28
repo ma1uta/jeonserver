@@ -17,52 +17,45 @@
 package io.github.ma1uta.jeonserver.standalone;
 
 import com.google.inject.Module;
+import com.typesafe.config.Config;
+import org.pf4j.ExtensionPoint;
+import org.pf4j.PluginManager;
+
+import java.util.Set;
 
 /**
- * JeonServer's bundle based n Google Guice.
+ * JeonServer's bundle.
  */
-public interface Bundle extends Module, AutoCloseable {
+public interface Bundle extends ExtensionPoint {
 
     /**
      * Bundle name.
      *
-     * @return module name.
+     * @return bundle name.
      */
-    String getName();
+    String name();
 
     /**
-     * Restart module.
-     */
-    void restart();
-
-    /**
-     * Parse command line.
-     * <br>
-     * Used to invoke commands.
+     * Prepare bundle for boot.
      *
-     * @return Status of the parsing command line.
-     * @throws Exception when unable invoke commands.
+     * @param config        bootstrap config.
+     * @param pluginManager plugin manager.
+     * @return Guice modules for server.
+     * @throws Exception when initialization was failed.
      */
-    ParseResult parseCommandLine() throws Exception;
+    Set<Module> init(Config config, PluginManager pluginManager) throws Exception;
 
     /**
-     * Initialize bundle.
+     * Command line mixin.
      *
-     * @throws Exception when unable to initialize bundle.
+     * @return command line mixin.
      */
-    void init() throws Exception;
+    CommandLineExtension cli();
 
     /**
-     * Bundle initialization result.
+     * Configuration module.
+     *
+     * @return configuration module.
      */
-    enum ParseResult {
-        /**
-         * Stop initialize other bundles.
-         */
-        STOP,
-        /**
-         * Invoke next bundle or start server initialization.
-         */
-        NEXT
-    }
+    ConfigurationModule configurationModule();
 }

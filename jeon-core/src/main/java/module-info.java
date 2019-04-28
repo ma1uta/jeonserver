@@ -1,4 +1,4 @@
-module jeonserver.core {
+open module jeonserver.core {
     exports io.github.ma1uta.jeonserver;
     exports io.github.ma1uta.jeonserver.model.user;
     exports io.github.ma1uta.jeonserver.model.media;

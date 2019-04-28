@@ -19,8 +19,6 @@
              xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
              version="2.0">
     <persistence-unit name="jeonserver" transaction-type="RESOURCE_LOCAL">
-        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-
         <!-- Mappings -->
         <class>io.github.ma1uta.jeonserver.model.core.Event</class>
         <class>io.github.ma1uta.jeonserver.model.core.PersistentEvent</class>
@@ -46,9 +44,5 @@
         <class>io.github.ma1uta.jeonserver.model.user.PasswordAuth</class>
         <class>io.github.ma1uta.jeonserver.model.user.Tag</class>
         <class>io.github.ma1uta.jeonserver.model.user.Token</class>
-
-        <properties>
-            <property name="hibernate.connection.provider_class" value="org.hibernate.hikaricp.internal.HikariCPConnectionProvider"/>
-        </properties>
     </persistence-unit>
 </persistence>
