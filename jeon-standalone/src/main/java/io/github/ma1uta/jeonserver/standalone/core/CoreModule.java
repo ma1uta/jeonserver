@@ -20,7 +20,6 @@ import com.google.inject.AbstractModule;
 import com.google.inject.persist.jpa.JpaPersistModule;
 import com.typesafe.config.Config;
 import io.github.ma1uta.jeonserver.Server;
-import io.github.ma1uta.jeonserver.standalone.Initializer;
 import io.github.ma1uta.jeonserver.standalone.StandaloneServer;
 
 import java.util.HashMap;
@@ -52,7 +51,7 @@ public class CoreModule extends AbstractModule {
 
         install(persistModule);
 
-        bind(Initializer.class).asEagerSingleton();
+        bind(CoreInitializer.class).asEagerSingleton();
         bind(Server.class).to(StandaloneServer.class).asEagerSingleton();
     }
 }

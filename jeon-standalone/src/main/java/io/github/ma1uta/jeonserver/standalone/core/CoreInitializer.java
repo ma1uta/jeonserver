@@ -14,18 +14,19 @@
  * limitations under the License.
  */
 
-package io.github.ma1uta.jeonserver.standalone;
+package io.github.ma1uta.jeonserver.standalone.core;
 
-import com.google.inject.Inject;
 import com.google.inject.persist.PersistService;
 
+import javax.inject.Inject;
+
 /**
- * Initializer.
+ * Core Initializer.
  */
-public class Initializer {
+public class CoreInitializer {
 
     @Inject
-    public Initializer(PersistService persistService) {
+    public CoreInitializer(PersistService persistService) {
         persistService.start();
     }
 }

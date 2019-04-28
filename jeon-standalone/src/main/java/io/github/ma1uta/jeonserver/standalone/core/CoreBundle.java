@@ -17,10 +17,8 @@
 package io.github.ma1uta.jeonserver.standalone.core;
 
 import com.google.inject.Module;
-import com.google.inject.Provides;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
-import io.github.ma1uta.jeonserver.ConfigurationProvider;
 import io.github.ma1uta.jeonserver.standalone.Bundle;
 import io.github.ma1uta.jeonserver.standalone.CommandLineExtension;
 import io.github.ma1uta.jeonserver.standalone.ConfigurationModule;
@@ -31,17 +29,15 @@ import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-import javax.inject.Inject;
 
 /**
  * Core bundle.
  * <br>
  * Used to provide common services.
  */
-public class CoreBundle extends ConfigurationModule implements CommandLineExtension, Bundle {
+public class CoreBundle implements CommandLineExtension, Bundle {
 
     @CommandLine.Option(names = {"-f", "--file"}, description = "specify configuration file.")
     private List<File> files = new ArrayList<>();
@@ -66,11 +62,6 @@ public class CoreBundle extends ConfigurationModule implements CommandLineExtens
 
     @Override
     public ConfigurationModule configurationModule() {
-        return this;
-    }
-
-    @Override
-    protected Config config() {
         var config = ConfigFactory.load().withFallback(ConfigFactory.load("application.conf"));
         for (URL url : urls) {
             config = ConfigFactory.parseURL(url).withFallback(config);
@@ -79,25 +70,7 @@ public class CoreBundle extends ConfigurationModule implements CommandLineExtens
         for (File file : files) {
             config = ConfigFactory.parseFile(file).withFallback(config);
         }
-
-        return config;
-    }
-
-    /**
-     * Configuration.
-     *
-     * @param providers config providers.
-     * @return configuration.
-     */
-    @Provides
-    @Inject
-    public Config config(Set<ConfigurationProvider> providers) {
-        Iterator<ConfigurationProvider> iterator = providers.iterator();
-        var config = iterator.next().config();
-        while (iterator.hasNext()) {
-            config = iterator.next().config().withFallback(config);
-        }
-        return config;
+        return new CoreConfigurationModule(config);
     }
 
     @Override
