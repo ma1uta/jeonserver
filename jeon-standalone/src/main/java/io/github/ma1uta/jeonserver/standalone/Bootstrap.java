@@ -97,18 +97,103 @@ public class Bootstrap {
             LOGGER.info("Be verbose.");
         }
 
-        DefaultPluginManager pluginManager = new DefaultPluginManager(pluginFolder) {
-            @Override
-            protected ExtensionFinder createExtensionFinder() {
-                DefaultExtensionFinder finder = (DefaultExtensionFinder) super.createExtensionFinder();
-                finder.addServiceProviderExtensionFinder();
-                return finder;
-            }
-        };
+        DefaultPluginManager pluginManager = initPluginManager();
 
+        Map<String, Bundle> bundles = loadBundles(pluginManager);
+
+        if (parseCommandLine(args, bundles)) {
+            return;
+        }
+
+        Injector rootInjector = Guice.createInjector(loadConfigurationModules(bundles));
+
+        List<Module> modules = loadModules(pluginManager, bundles, rootInjector);
+
+        LOGGER.info("Configure JeonServer.");
+        Injector childInjector = rootInjector.createChildInjector(modules);
+
+        LOGGER.info("Run JeonServer.");
+        childInjector.getInstance(Server.class).run();
+    }
+
+    private List<ConfigurationModule> loadConfigurationModules(Map<String, Bundle> bundles) {
+        List<ConfigurationModule> configModules = bundles.values()
+            .stream()
+            .map(Bundle::configurationModule)
+            .filter(Objects::nonNull)
+            .collect(Collectors.toList());
+        if (LOGGER.isTraceEnabled()) {
+            for (ConfigurationModule module : configModules) {
+                LOGGER.trace("Found configuration: {}", module.getClass().getName());
+            }
+        }
+        return configModules;
+    }
+
+    private List<Module> loadModules(DefaultPluginManager pluginManager, Map<String, Bundle> bundles, Injector rootInjector) {
+        List<Module> modules = new ArrayList<>(bundles.size() + 1);
+        modules.add(new AbstractModule() {
+
+            @Provides
+            PluginManager pluginManager() {
+                return pluginManager;
+            }
+        });
+        Config config = loadConfig(rootInjector);
+        for (Bundle bundle : bundles.values()) {
+            try {
+                modules.addAll(bundle.init(config, pluginManager));
+            } catch (Exception e) {
+                LOGGER.error(String.format("Unable to initialize bundle: %s", bundle.getClass().getName()), e);
+                System.exit(1);
+            }
+        }
+        if (LOGGER.isTraceEnabled()) {
+            for (Module module : modules) {
+                LOGGER.trace("Found module: {}", module.getClass().getName());
+            }
+        }
+        return modules;
+    }
+
+    private Config loadConfig(Injector rootInjector) {
+        Config config = rootInjector.getInstance(Config.class);
+
+        if (config == null) {
+            LOGGER.error("Unable to build configuration.");
+            System.exit(1);
+        }
+        return config;
+    }
+
+    private boolean parseCommandLine(String[] args, Map<String, Bundle> bundles) {
+        CommandLine cli = new CommandLine(this);
+        for (Map.Entry<String, Bundle> bundleEntry : bundles.entrySet()) {
+            cli.addMixin(bundleEntry.getKey(), bundleEntry.getValue().cli());
+        }
+        cli.parse(args);
+
+        if (cli.isVersionHelpRequested()) {
+            cli.printVersionHelp(System.out);
+            return true;
+        } else if (cli.isUsageHelpRequested()) {
+            cli.usage(System.out);
+            return true;
+        }
+
+        for (Bundle bundle : bundles.values()) {
+            if (bundle.cli().invokeCommand()) {
+                LOGGER.info("Stop JeonServer.");
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private Map<String, Bundle> loadBundles(DefaultPluginManager pluginManager) {
         pluginManager.loadPlugins();
         pluginManager.startPlugins();
-        boolean skipPlugins = pluginManager.getPlugins().isEmpty();
+
         for (PluginWrapper plugin : pluginManager.getPlugins()) {
             LOGGER.info("Found plugin: {}", plugin.getPluginId());
         }
@@ -117,7 +202,7 @@ public class Bootstrap {
         for (Bundle bundle : ServiceLoader.load(Bundle.class)) {
             bundles.put(bundle.name(), bundle);
         }
-        if (!skipPlugins) {
+        if (!pluginManager.getPlugins().isEmpty()) {
             for (Bundle bundle : pluginManager.getExtensions(Bundle.class)) {
                 bundles.put(bundle.name(), bundle);
             }
@@ -127,66 +212,18 @@ public class Bootstrap {
                 LOGGER.info("Found bundle: {}", name);
             }
         }
+        return bundles;
+    }
 
-        CommandLine cli = new CommandLine(this);
-        for (Map.Entry<String, Bundle> bundleEntry : bundles.entrySet()) {
-            cli.addMixin(bundleEntry.getKey(), bundleEntry.getValue().cli());
-        }
-        cli.parse(args);
-
-        if (cli.isVersionHelpRequested()) {
-            cli.printVersionHelp(System.out);
-            return;
-        } else if (cli.isUsageHelpRequested()) {
-            cli.usage(System.out);
-            return;
-        }
-
-        for (Bundle bundle : bundles.values()) {
-            if (bundle.cli().invokeCommand()) {
-                LOGGER.info("Stop JeonServer.");
-                return;
+    private DefaultPluginManager initPluginManager() {
+        return new DefaultPluginManager(pluginFolder) {
+            @Override
+            protected ExtensionFinder createExtensionFinder() {
+                DefaultExtensionFinder finder = (DefaultExtensionFinder) super.createExtensionFinder();
+                finder.addServiceProviderExtensionFinder();
+                return finder;
             }
-        }
-
-        List<ConfigurationModule> configModules = bundles.values()
-            .stream()
-            .map(Bundle::configurationModule)
-            .filter(Objects::nonNull)
-            .collect(Collectors.toList());
-        if (LOGGER.isWarnEnabled()) {
-            for (ConfigurationModule module : configModules) {
-                LOGGER.warn("Found configuration: {}", module.getClass().getName());
-            }
-        }
-
-        Injector rootInjector = Guice.createInjector(configModules);
-        Config config = rootInjector.getInstance(Config.class);
-
-        if (config == null) {
-            LOGGER.error("Unable to build configuration.");
-            System.exit(1);
-        }
-
-        List<Module> modules = new ArrayList<>(bundles.size() + 1);
-        modules.add(new AbstractModule() {
-
-            @Provides
-            PluginManager pluginManager() {
-                return pluginManager;
-            }
-        });
-        for (Bundle bundle : bundles.values()) {
-            try {
-                modules.addAll(bundle.init(config, pluginManager));
-            } catch (Exception e) {
-                LOGGER.error("Unable to initialize bundle", e);
-                System.exit(1);
-            }
-        }
-
-        LOGGER.info("Run JeonServer.");
-        rootInjector.createChildInjector(modules).getInstance(Server.class).run();
+        };
     }
 }
 
