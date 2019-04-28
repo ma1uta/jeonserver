@@ -20,12 +20,11 @@ import com.google.inject.AbstractModule;
 import com.google.inject.multibindings.Multibinder;
 import com.typesafe.config.Config;
 import io.github.ma1uta.jeonserver.ConfigurationProvider;
-import org.pf4j.ExtensionPoint;
 
 /**
  * Configuration module.
  */
-public abstract class ConfigurationModule extends AbstractModule implements ExtensionPoint {
+public abstract class ConfigurationModule extends AbstractModule {
 
     @Override
     protected void configure() {

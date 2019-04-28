@@ -16,12 +16,10 @@
 
 package io.github.ma1uta.jeonserver.standalone;
 
-import org.pf4j.ExtensionPoint;
-
 /**
  * Command line bundle.
  */
-public interface CommandLineExtension extends ExtensionPoint {
+public interface CommandLineExtension {
 
     /**
      * Process command line arguments.
