@@ -51,7 +51,7 @@ public class CoreConfigurationModule extends ConfigurationModule {
     @Inject
     public Config config(Set<ConfigurationProvider> providers) {
         Iterator<ConfigurationProvider> iterator = providers.iterator();
-        var config = iterator.next().config();
+        Config config = iterator.next().config();
         while (iterator.hasNext()) {
             config = iterator.next().config().withFallback(config);
         }

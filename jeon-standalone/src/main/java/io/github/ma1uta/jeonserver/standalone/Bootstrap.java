@@ -23,6 +23,8 @@ import com.google.inject.Module;
 import com.google.inject.Provides;
 import com.typesafe.config.Config;
 import io.github.ma1uta.jeonserver.Server;
+import io.github.ma1uta.jeonserver.standalone.core.CoreInitializer;
+import lombok.extern.slf4j.Slf4j;
 import org.pf4j.DefaultExtensionFinder;
 import org.pf4j.DefaultPluginManager;
 import org.pf4j.ExtensionFinder;
@@ -49,9 +51,8 @@ import java.util.stream.Collectors;
     description = "Run JeonServer.",
     versionProvider = VersionProvider.class
 )
+@Slf4j
 public class Bootstrap {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(Bootstrap.class);
 
     @CommandLine.Option(names = {"-v", "--verbose"}, description = "be verbose.")
     private boolean verbose = false;
@@ -74,7 +75,7 @@ public class Bootstrap {
      * @param args program arguments.
      */
     public static void main(String[] args) {
-        LOGGER.info("Boot JeonServer.");
+        log.info("Boot JeonServer.");
 
         Bootstrap bootstrap = new Bootstrap();
         CommandLine commandLine = new CommandLine(bootstrap);
@@ -94,7 +95,7 @@ public class Bootstrap {
             if (logger instanceof ch.qos.logback.classic.Logger) {
                 ((ch.qos.logback.classic.Logger) logger).setLevel(ch.qos.logback.classic.Level.ALL);
             }
-            LOGGER.info("Be verbose.");
+            log.info("Be verbose.");
         }
 
         DefaultPluginManager pluginManager = initPluginManager();
@@ -109,10 +110,11 @@ public class Bootstrap {
 
         List<Module> modules = loadModules(pluginManager, bundles, rootInjector);
 
-        LOGGER.info("Configure JeonServer.");
+        log.info("Configure JeonServer.");
         Injector childInjector = rootInjector.createChildInjector(modules);
+        childInjector.getInstance(CoreInitializer.class);
 
-        LOGGER.info("Run JeonServer.");
+        log.info("Run JeonServer.");
         childInjector.getInstance(Server.class).run();
     }
 
@@ -122,9 +124,9 @@ public class Bootstrap {
             .map(Bundle::configurationModule)
             .filter(Objects::nonNull)
             .collect(Collectors.toList());
-        if (LOGGER.isTraceEnabled()) {
+        if (log.isTraceEnabled()) {
             for (ConfigurationModule module : configModules) {
-                LOGGER.trace("Found configuration: {}", module.getClass().getName());
+                log.trace("Found configuration: {}", module.getClass().getName());
             }
         }
         return configModules;
@@ -144,13 +146,13 @@ public class Bootstrap {
             try {
                 modules.addAll(bundle.init(config, pluginManager));
             } catch (Exception e) {
-                LOGGER.error(String.format("Unable to initialize bundle: %s", bundle.getClass().getName()), e);
+                log.error(String.format("Unable to initialize bundle: %s", bundle.getClass().getName()), e);
                 System.exit(1);
             }
         }
-        if (LOGGER.isTraceEnabled()) {
+        if (log.isTraceEnabled()) {
             for (Module module : modules) {
-                LOGGER.trace("Found module: {}", module.getClass().getName());
+                log.trace("Found module: {}", module.getClass().getName());
             }
         }
         return modules;
@@ -160,7 +162,7 @@ public class Bootstrap {
         Config config = rootInjector.getInstance(Config.class);
 
         if (config == null) {
-            LOGGER.error("Unable to build configuration.");
+            log.error("Unable to build configuration.");
             System.exit(1);
         }
         return config;
@@ -183,7 +185,7 @@ public class Bootstrap {
 
         for (Bundle bundle : bundles.values()) {
             if (bundle.cli().invokeCommand()) {
-                LOGGER.info("Stop JeonServer.");
+                log.info("Stop JeonServer.");
                 return true;
             }
         }
@@ -195,7 +197,7 @@ public class Bootstrap {
         pluginManager.startPlugins();
 
         for (PluginWrapper plugin : pluginManager.getPlugins()) {
-            LOGGER.info("Found plugin: {}", plugin.getPluginId());
+            log.info("Found plugin: {}", plugin.getPluginId());
         }
 
         Map<String, Bundle> bundles = new HashMap<>();
@@ -207,9 +209,9 @@ public class Bootstrap {
                 bundles.put(bundle.name(), bundle);
             }
         }
-        if (LOGGER.isInfoEnabled()) {
+        if (log.isInfoEnabled()) {
             for (String name : bundles.keySet()) {
-                LOGGER.info("Found bundle: {}", name);
+                log.info("Found bundle: {}", name);
             }
         }
         return bundles;

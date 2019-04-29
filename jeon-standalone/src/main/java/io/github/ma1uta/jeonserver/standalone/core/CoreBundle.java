@@ -62,7 +62,7 @@ public class CoreBundle implements CommandLineExtension, Bundle {
 
     @Override
     public ConfigurationModule configurationModule() {
-        var config = ConfigFactory.load().withFallback(ConfigFactory.load("application.conf"));
+        Config config = ConfigFactory.load().withFallback(ConfigFactory.load("application.conf"));
         for (URL url : urls) {
             config = ConfigFactory.parseURL(url).withFallback(config);
         }

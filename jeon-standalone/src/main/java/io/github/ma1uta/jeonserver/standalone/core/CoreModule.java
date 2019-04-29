@@ -57,7 +57,7 @@ public class CoreModule extends AbstractModule {
 
         install(persistModule);
 
-        bind(CoreInitializer.class).asEagerSingleton();
+        bind(CoreInitializer.class);
         bind(Server.class).to(StandaloneServer.class).asEagerSingleton();
     }
 }

@@ -21,7 +21,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Set;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -45,14 +45,14 @@ public class EventFilter implements Serializable {
     private Long id;
 
     @ElementCollection(fetch = FetchType.EAGER)
-    private List<String> notSenders;
+    private Set<String> notSenders;
 
     @ElementCollection(fetch = FetchType.EAGER)
-    private List<String> notTypes;
+    private Set<String> notTypes;
 
     @ElementCollection(fetch = FetchType.EAGER)
-    private List<String> senders;
+    private Set<String> senders;
 
     @ElementCollection(fetch = FetchType.EAGER)
-    private List<String> types;
+    private Set<String> types;
 }

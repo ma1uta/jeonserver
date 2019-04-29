@@ -21,7 +21,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Set;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -45,10 +45,10 @@ public class Filter implements Serializable {
     private Long id;
 
     @ElementCollection
-    private List<String> eventFields;
+    private Set<String> eventFields;
 
     @ElementCollection
-    private List<String> eventFormat;
+    private Set<String> eventFormat;
 
     @OneToOne
     private EventFilter presence;

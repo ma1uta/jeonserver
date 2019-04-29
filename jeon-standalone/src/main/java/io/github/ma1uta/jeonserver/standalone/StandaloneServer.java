@@ -17,7 +17,7 @@
 package io.github.ma1uta.jeonserver.standalone;
 
 import com.google.inject.Inject;
-import com.google.inject.persist.PersistService;
+import com.google.inject.Provider;
 import io.github.ma1uta.jeonserver.Server;
 
 import javax.persistence.EntityManager;
@@ -29,18 +29,14 @@ import javax.persistence.EntityTransaction;
 public class StandaloneServer implements Server {
 
     @Inject
-    private EntityManager em;
-
-    @Inject
-    private PersistService persistService;
+    private Provider<EntityManager> em;
 
     @Override
     public void run() {
-        persistService.start();
-        EntityTransaction tx = em.getTransaction();
+        EntityManager entityManager = em.get();
+        EntityTransaction tx = entityManager.getTransaction();
         tx.begin();
-        em.createQuery("select e from Event e");
+        entityManager.createQuery("select e from Event e");
         tx.rollback();
-        persistService.stop();
     }
 }

@@ -21,7 +21,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -48,22 +48,22 @@ public class RoomEventFilter implements Serializable {
     private Long limit;
 
     @ElementCollection(fetch = FetchType.EAGER)
-    private List<String> notSenders;
+    private Set<String> notSenders;
 
     @ElementCollection(fetch = FetchType.EAGER)
-    private List<String> notTypes;
+    private Set<String> notTypes;
 
     @ElementCollection(fetch = FetchType.EAGER)
-    private List<String> senders;
+    private Set<String> senders;
 
     @ElementCollection(fetch = FetchType.EAGER)
-    private List<String> types;
+    private Set<String> types;
 
     @ElementCollection(fetch = FetchType.EAGER)
-    private List<String> notRooms;
+    private Set<String> notRooms;
 
     @ElementCollection(fetch = FetchType.EAGER)
-    private List<String> rooms;
+    private Set<String> rooms;
 
     @Column(name = "contains_url")
     private Boolean containsUrl;
