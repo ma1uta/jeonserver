@@ -22,12 +22,14 @@ import lombok.Setter;
 
 import java.io.Serializable;
 import java.util.Set;
+import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
@@ -41,18 +43,23 @@ import javax.persistence.Table;
 public class EventFilter implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "pk_sequence", sequenceName = "event_filter_id_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence")
     private Long id;
 
     @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "event_filter_not_senders")
     private Set<String> notSenders;
 
     @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "event_filter_not_types")
     private Set<String> notTypes;
 
     @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "event_filter_senders")
     private Set<String> senders;
 
     @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "event_filter_types")
     private Set<String> types;
 }

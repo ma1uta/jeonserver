@@ -16,18 +16,14 @@
 
 package io.github.ma1uta.jeonserver.model.room;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import java.io.Serializable;
 
 /**
  * Room servers id.
  */
-@Getter
-@Setter
-@EqualsAndHashCode(of = {"room", "server"})
+@Data
 public class RoomServerId implements Serializable {
 
     private Room room;

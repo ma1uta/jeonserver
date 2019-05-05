@@ -36,7 +36,7 @@ public class StandaloneServer implements Server {
         EntityManager entityManager = em.get();
         EntityTransaction tx = entityManager.getTransaction();
         tx.begin();
-        entityManager.createQuery("select e from Event e");
+        entityManager.createQuery("select e from Event e").getResultList();
         tx.rollback();
     }
 }

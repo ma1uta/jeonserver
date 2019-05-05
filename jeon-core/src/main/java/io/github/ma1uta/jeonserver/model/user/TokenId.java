@@ -16,34 +16,17 @@
 
 package io.github.ma1uta.jeonserver.model.user;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import java.io.Serializable;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
 
 /**
- * User tag.
+ * User token id.
  */
-@Entity
-@Table(name = "tag")
-@Getter
-@Setter
-@EqualsAndHashCode(of = "id")
-public class Tag implements Serializable {
+@Data
+public class TokenId implements Serializable {
 
-    @Id
-    @SequenceGenerator(name = "pk_sequence", sequenceName = "tag_id_seq")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence")
-    private Long id;
+    private String device;
 
-    private String name;
-
-    private Double order;
+    private User user;
 }

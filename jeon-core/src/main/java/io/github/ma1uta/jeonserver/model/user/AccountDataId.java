@@ -16,18 +16,14 @@
 
 package io.github.ma1uta.jeonserver.model.user;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import java.io.Serializable;
 
 /**
  * Account data id class.
  */
-@Getter
-@Setter
-@EqualsAndHashCode
+@Data
 public class AccountDataId implements Serializable {
 
     private String room;

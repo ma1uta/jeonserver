@@ -22,6 +22,7 @@ import lombok.Setter;
 
 import java.io.Serializable;
 import java.util.Set;
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -30,6 +31,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
@@ -43,15 +45,18 @@ import javax.persistence.Table;
 public class RoomFilter implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "pk_sequence", sequenceName = "room_filter_id_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence")
     private Long id;
 
     private Long limit;
 
     @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "room_filter_not_rooms")
     private Set<String> notRooms;
 
     @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "room_filter_rooms")
     private Set<String> rooms;
 
     @OneToOne

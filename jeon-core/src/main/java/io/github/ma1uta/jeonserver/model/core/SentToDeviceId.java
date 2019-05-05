@@ -16,18 +16,14 @@
 
 package io.github.ma1uta.jeonserver.model.core;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import java.io.Serializable;
 
 /**
  * Sent to device id class.
  */
-@Getter
-@Setter
-@EqualsAndHashCode(of = {"user", "device"})
+@Data
 public class SentToDeviceId implements Serializable {
 
     private String user;

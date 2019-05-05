@@ -22,6 +22,8 @@ import lombok.Setter;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import javax.persistence.Id;
+import javax.persistence.IdClass;
 
 /**
  * User token.
@@ -29,10 +31,13 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @EqualsAndHashCode(of = {"device", "user"})
+@IdClass(TokenId.class)
 public class Token implements Serializable {
 
+    @Id
     private String device;
 
+    @Id
     private User user;
 
     private String token;
