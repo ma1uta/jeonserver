@@ -43,7 +43,7 @@ import javax.persistence.Table;
 public class Filter implements Serializable {
 
     @Id
-    @SequenceGenerator(name = "pk_sequence", sequenceName = "filter_id_seq")
+    @SequenceGenerator(name = "pk_sequence", sequenceName = "filter_id_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence")
     private Long id;
 

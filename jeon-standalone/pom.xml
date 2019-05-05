@@ -41,6 +41,7 @@
         <version.lib.jsr305>3.0.2</version.lib.jsr305>
         <version.lib.pf4j>2.6.0</version.lib.pf4j>
         <version.lib.lombok>1.18.6</version.lib.lombok>
+        <version.lib.liquibase>3.6.3</version.lib.liquibase>
     </properties>
 
     <dependencies>
@@ -124,6 +125,21 @@
             <artifactId>hibernate-jcache</artifactId>
             <version>${version.lib.hibernate-jcache}</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+            <version>${version.lib.liquibase}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-api</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>ch.qos.logback</groupId>
+                    <artifactId>logback-classic</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
 

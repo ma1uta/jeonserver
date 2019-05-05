@@ -45,7 +45,7 @@ import javax.persistence.Table;
 public class RoomFilter implements Serializable {
 
     @Id
-    @SequenceGenerator(name = "pk_sequence", sequenceName = "room_filter_id_seq")
+    @SequenceGenerator(name = "pk_sequence", sequenceName = "room_filter_id_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence")
     private Long id;
 

@@ -17,7 +17,17 @@
 package io.github.ma1uta.jeonserver.standalone.core;
 
 import com.google.inject.persist.PersistService;
+import com.typesafe.config.Config;
+import liquibase.Liquibase;
+import liquibase.database.Database;
+import liquibase.database.DatabaseFactory;
+import liquibase.database.jvm.JdbcConnection;
+import liquibase.exception.LiquibaseException;
+import liquibase.resource.ClassLoaderResourceAccessor;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import javax.inject.Inject;
 
 /**
@@ -26,7 +36,16 @@ import javax.inject.Inject;
 public class CoreInitializer {
 
     @Inject
-    public CoreInitializer(PersistService persistService) {
+    public CoreInitializer(Config config, PersistService persistService) throws LiquibaseException, SQLException {
+
+        Connection connection = DriverManager
+            .getConnection(config.getString("db.url"), config.getString("db.user"), config.getString("db.password"));
+        Database database = DatabaseFactory.getInstance().findCorrectDatabaseImplementation(new JdbcConnection(connection));
+        Liquibase liquibase = new Liquibase("changelog.xml",
+            new ClassLoaderResourceAccessor(CoreInitializer.class.getClassLoader()), database);
+        String context = config.hasPath("db.context") ? config.getString("db.context") : null;
+        liquibase.update(context);
+
         persistService.start();
     }
 }
