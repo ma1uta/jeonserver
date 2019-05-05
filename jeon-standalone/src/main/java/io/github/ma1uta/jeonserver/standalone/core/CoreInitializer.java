@@ -24,6 +24,7 @@ import liquibase.database.DatabaseFactory;
 import liquibase.database.jvm.JdbcConnection;
 import liquibase.exception.LiquibaseException;
 import liquibase.resource.ClassLoaderResourceAccessor;
+import lombok.extern.slf4j.Slf4j;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -33,19 +34,32 @@ import javax.inject.Inject;
 /**
  * Core Initializer.
  */
+@Slf4j
 public class CoreInitializer {
 
     @Inject
     public CoreInitializer(Config config, PersistService persistService) throws LiquibaseException, SQLException {
 
-        Connection connection = DriverManager
-            .getConnection(config.getString("db.url"), config.getString("db.user"), config.getString("db.password"));
-        Database database = DatabaseFactory.getInstance().findCorrectDatabaseImplementation(new JdbcConnection(connection));
-        Liquibase liquibase = new Liquibase("changelog.xml",
-            new ClassLoaderResourceAccessor(CoreInitializer.class.getClassLoader()), database);
-        String context = config.hasPath("db.context") ? config.getString("db.context") : null;
-        liquibase.update(context);
+        updateSchema(config);
+
+        Runtime.getRuntime().addShutdownHook(new Thread(persistService::stop));
 
         persistService.start();
+    }
+
+    private void updateSchema(Config config) throws SQLException, LiquibaseException {
+        if (config.hasPath("db.schemaUpdate") && config.getBoolean("db.schemaUpdate")) {
+            log.info("Updating database schema...");
+            Connection connection = DriverManager
+                .getConnection(config.getString("db.url"), config.getString("db.user"), config.getString("db.password"));
+            Database database = DatabaseFactory.getInstance().findCorrectDatabaseImplementation(new JdbcConnection(connection));
+            Liquibase liquibase = new Liquibase("changelog.xml",
+                new ClassLoaderResourceAccessor(CoreInitializer.class.getClassLoader()), database);
+            String context = config.hasPath("db.context") ? config.getString("db.context") : null;
+            liquibase.update(context);
+            log.info("Updating database schema... Done.");
+        } else {
+            log.info("Updating database schema... Skip.");
+        }
     }
 }
