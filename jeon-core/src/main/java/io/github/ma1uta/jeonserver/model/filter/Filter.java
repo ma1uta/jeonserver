@@ -21,14 +21,11 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
-import java.util.Set;
-import javax.persistence.CollectionTable;
-import javax.persistence.ElementCollection;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -47,20 +44,6 @@ public class Filter implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence")
     private Long id;
 
-    @ElementCollection
-    @CollectionTable(name = "filter_event_fields")
-    private Set<String> eventFields;
-
-    @ElementCollection
-    @CollectionTable(name = "filter_event_format")
-    private Set<String> eventFormat;
-
-    @OneToOne
-    private EventFilter presence;
-
-    @OneToOne
-    private EventFilter accountData;
-
-    @OneToOne
-    private RoomFilter room;
+    @Column(length = 4000)
+    private String content;
 }

@@ -20,6 +20,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -32,6 +33,7 @@ import javax.persistence.Table;
 @Getter
 @Setter
 @SequenceGenerator(name = "pk_sequence", sequenceName = "persistent_event_id_seq", allocationSize = 1)
+@DiscriminatorValue("persistent_event")
 public class PersistentEvent extends Event {
 
     private String creator;

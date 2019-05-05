@@ -57,6 +57,6 @@ public class User implements Serializable {
     @Column(name = "currently_active")
     private Boolean currentlyActive;
 
-    @OneToMany
+    @OneToMany(mappedBy = "user")
     private List<Tag> tags;
 }

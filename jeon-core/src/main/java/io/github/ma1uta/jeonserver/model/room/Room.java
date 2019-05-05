@@ -27,6 +27,7 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.OrderColumn;
@@ -52,24 +53,10 @@ public class Room implements Serializable {
     private Boolean visible;
 
     @OneToOne
-    private RoomState name;
+    @JoinColumn(name = "latest_state_id")
+    private RoomStateSnapshot latestState;
 
-    @OneToOne
-    private RoomState topic;
-
-    @OneToOne
-    private RoomState avatar;
-
-    @OneToOne
-    private RoomState permissions;
-
-    @OneToMany(fetch = FetchType.LAZY)
-    private List<RoomState> members;
-
-    @OneToMany
-    private List<RoomState> aliases;
-
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "room")
     @OrderColumn(name = "received")
     private List<Event> timeline;
 }

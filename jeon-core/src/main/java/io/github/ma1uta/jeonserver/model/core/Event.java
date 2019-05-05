@@ -16,6 +16,7 @@
 
 package io.github.ma1uta.jeonserver.model.core;
 
+import io.github.ma1uta.jeonserver.model.room.Room;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,6 +25,8 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -31,7 +34,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -45,11 +50,14 @@ import javax.persistence.Table;
 @Setter
 @EqualsAndHashCode(of = "id")
 @Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn
+@DiscriminatorValue("event")
 public class Event implements Serializable {
 
     @Id
     @SequenceGenerator(name = "pk_sequence", sequenceName = "event_id_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence")
+    @Column(name = "id")
     private Long id;
 
     private String type;
@@ -72,9 +80,13 @@ public class Event implements Serializable {
 
     private LocalDateTime received;
 
-    @OneToMany
+    @ManyToOne
+    private Room room;
+
+    @ManyToMany
+    @JoinTable(name = "event_event")
     private List<Event> parents;
 
-    @OneToMany
+    @ManyToMany(mappedBy = "parents")
     private List<Event> children;
 }

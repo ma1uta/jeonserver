@@ -21,6 +21,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -39,6 +41,8 @@ import javax.persistence.Table;
 @Getter
 @Setter
 @EqualsAndHashCode(of = "id")
+@DiscriminatorColumn(name = "type")
+@DiscriminatorValue("abstract")
 public class AbstractAuth implements Serializable {
 
     @Id

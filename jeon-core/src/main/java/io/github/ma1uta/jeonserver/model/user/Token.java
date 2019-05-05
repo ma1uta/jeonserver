@@ -22,12 +22,18 @@ import lombok.Setter;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 /**
  * User token.
  */
+@Entity
+@Table(name = "token")
 @Getter
 @Setter
 @EqualsAndHashCode(of = {"device", "user"})
@@ -38,13 +44,16 @@ public class Token implements Serializable {
     private String device;
 
     @Id
+    @ManyToOne
     private User user;
 
     private String token;
 
     private LocalDateTime expires;
 
+    @Column(name = "last_seen")
     private LocalDateTime lastSeen;
 
+    @Column(name = "last_seen_ip")
     private String lastSeenIp;
 }
