@@ -23,48 +23,57 @@ import lombok.Setter;
 import java.io.Serializable;
 import java.util.Set;
 import javax.persistence.CollectionTable;
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
- * Filter.
+ * Room event filter.
  */
 @Entity
-@Table(name = "filter")
+@Table(name = "room_event_filter")
 @Getter
 @Setter
 @EqualsAndHashCode(of = "id")
-public class Filter implements Serializable {
+public class RoomEventFilter implements Serializable {
 
     @Id
-    @SequenceGenerator(name = "pk_sequence", sequenceName = "filter_id_seq", allocationSize = 1)
+    @SequenceGenerator(name = "pk_sequence", sequenceName = "room_event_filter_id_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence")
     private Long id;
 
-    @ElementCollection
-    @CollectionTable(name = "filter_event_fields")
-    private Set<String> eventFields;
+    private Long limit;
 
-    @ElementCollection
-    @CollectionTable(name = "filter_event_format")
-    private Set<String> eventFormat;
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "room_event_filter_not_senders")
+    private Set<String> notSenders;
 
-    @OneToOne
-    @JoinColumn(name = "presence_id")
-    private EventFilter presence;
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "room_event_filter_not_types")
+    private Set<String> notTypes;
 
-    @OneToOne
-    @JoinColumn(name = "account_data_id")
-    private EventFilter accountData;
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "room_event_filter_senders")
+    private Set<String> senders;
 
-    @OneToOne
-    @JoinColumn(name = "room_id")
-    private RoomFilter room;
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "room_event_filter_types")
+    private Set<String> types;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "room_event_filter_not_rooms")
+    private Set<String> notRooms;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "room_event_filter_rooms")
+    private Set<String> rooms;
+
+    @Column(name = "contains_url")
+    private Boolean containsUrl;
 }

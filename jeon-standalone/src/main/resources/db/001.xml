@@ -15,16 +15,19 @@
         <createSequence sequenceName="room_filter_id_seq"/>
         <createSequence sequenceName="room_report_id_seq"/>
         <createSequence sequenceName="room_state_id_seq"/>
+        <createSequence sequenceName="room_state_snapshot_id_seq"/>
         <createSequence sequenceName="state_filter_id_seq"/>
         <createSequence sequenceName="tag_id_seq"/>
         <createSequence sequenceName="thumbnail_id_seq"/>
     </changeSet>
     <changeSet author="ma1uta" id="001_02_create_user_tables">
         <createTable tableName="abstract_auth">
+            <column name="type" type="VARCHAR(31)">
+                <constraints nullable="false"/>
+            </column>
             <column name="id" type="BIGINT">
                 <constraints primaryKey="true" primaryKeyName="abstract_auth_pkey"/>
             </column>
-            <column name="type" type="VARCHAR(255)"/>
         </createTable>
         <createTable tableName="account_data">
             <column name="room" type="VARCHAR(255)">
@@ -61,6 +64,19 @@
             </column>
             <column name="name" type="VARCHAR(255)"/>
             <column name="order" type="FLOAT8"/>
+            <column name="username" type="VARCHAR(255)"/>
+        </createTable>
+        <createTable tableName="token">
+            <column name="device" type="VARCHAR(255)">
+                <constraints primaryKey="true" primaryKeyName="token_pkey"/>
+            </column>
+            <column name="expires" type="TIMESTAMP WITHOUT TIME ZONE"/>
+            <column name="last_seen" type="TIMESTAMP WITHOUT TIME ZONE"/>
+            <column name="last_seen_ip" type="VARCHAR(255)"/>
+            <column name="token" type="VARCHAR(255)"/>
+            <column name="username" type="VARCHAR(255)">
+                <constraints primaryKey="true" primaryKeyName="token_pkey"/>
+            </column>
         </createTable>
         <createTable tableName="user">
             <column name="username" type="VARCHAR(255)">
@@ -73,17 +89,12 @@
             <column name="presence" type="VARCHAR(255)"/>
             <column name="state_msg" type="VARCHAR(255)"/>
         </createTable>
-        <createTable tableName="user_tag">
-            <column name="User_username" type="VARCHAR(255)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="tags_id" type="BIGINT">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
     </changeSet>
     <changeSet author="ma1uta" id="001_03_create_event_tables">
         <createTable tableName="event">
+            <column name="DTYPE" type="VARCHAR(31)">
+                <constraints nullable="false"/>
+            </column>
             <column name="id" type="BIGINT">
                 <constraints primaryKey="true" primaryKeyName="event_pkey"/>
             </column>
@@ -95,6 +106,7 @@
             <column name="type" type="VARCHAR(255)"/>
             <column name="content_id" type="BIGINT"/>
             <column name="redacts_id" type="BIGINT"/>
+            <column name="room_id" type="VARCHAR(255)"/>
         </createTable>
         <createTable tableName="event_content">
             <column name="id" type="BIGINT">
@@ -103,13 +115,10 @@
             <column name="content" type="VARCHAR(255)"/>
         </createTable>
         <createTable tableName="event_event">
-            <column name="Event_id" type="BIGINT">
+            <column name="children_id" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
             <column name="parents_id" type="BIGINT">
-                <constraints nullable="false"/>
-            </column>
-            <column name="children_id" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
         </createTable>
@@ -135,10 +144,7 @@
             <column name="created" type="TIMESTAMP WITHOUT TIME ZONE"/>
             <column name="version" type="VARCHAR(255)"/>
             <column name="visible" type="BOOLEAN"/>
-            <column name="avatar_id" type="BIGINT"/>
-            <column name="name_id" type="BIGINT"/>
-            <column name="permissions_id" type="BIGINT"/>
-            <column name="topic_id" type="BIGINT"/>
+            <column name="latest_state_id" type="BIGINT"/>
         </createTable>
         <createTable tableName="room_ephemeral">
             <column name="id" type="BIGINT">
@@ -146,17 +152,6 @@
             </column>
             <column name="event_id" type="BIGINT"/>
             <column name="sender_id" type="BIGINT"/>
-        </createTable>
-        <createTable tableName="room_event">
-            <column name="Room_id" type="VARCHAR(255)">
-                <constraints primaryKey="true" primaryKeyName="room_event_pkey"/>
-            </column>
-            <column name="timeline_id" type="BIGINT">
-                <constraints nullable="false"/>
-            </column>
-            <column name="received" type="INTEGER">
-                <constraints primaryKey="true" primaryKeyName="room_event_pkey"/>
-            </column>
         </createTable>
         <createTable tableName="room_report">
             <column name="id" type="BIGINT">
@@ -166,17 +161,6 @@
             <column name="score" type="BIGINT"/>
             <column name="event_id" type="BIGINT"/>
             <column name="room_id" type="VARCHAR(255)"/>
-        </createTable>
-        <createTable tableName="room_room_state">
-            <column name="Room_id" type="VARCHAR(255)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="members_id" type="BIGINT">
-                <constraints nullable="false"/>
-            </column>
-            <column name="aliases_id" type="BIGINT">
-                <constraints nullable="false"/>
-            </column>
         </createTable>
         <createTable tableName="room_servers">
             <column name="server" type="VARCHAR(255)">
@@ -192,7 +176,27 @@
             </column>
             <column name="state_key" type="VARCHAR(255)"/>
             <column name="event_id" type="BIGINT"/>
+            <column name="room_state_id" type="BIGINT"/>
+        </createTable>
+        <createTable tableName="room_state_snapshot">
+            <column name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="room_state_snapshot_pkey"/>
+            </column>
+            <column name="created" type="TIMESTAMP WITHOUT TIME ZONE"/>
+            <column name="avatar_id" type="BIGINT"/>
+            <column name="canonical_alias_id" type="BIGINT"/>
+            <column name="encryption_id" type="BIGINT"/>
+            <column name="guest_access_id" type="BIGINT"/>
+            <column name="history_visibility_id" type="BIGINT"/>
+            <column name="initial_id" type="BIGINT"/>
+            <column name="join_rules_id" type="BIGINT"/>
+            <column name="name_id" type="BIGINT"/>
+            <column name="permissions_id" type="BIGINT"/>
+            <column name="prev_id" type="BIGINT"/>
             <column name="room_id" type="VARCHAR(255)"/>
+            <column name="server_acl_id" type="BIGINT"/>
+            <column name="tombstone_id" type="BIGINT"/>
+            <column name="topic_id" type="BIGINT"/>
         </createTable>
         <createTable tableName="send_to_device">
             <column name="device" type="VARCHAR(255)">
@@ -238,7 +242,8 @@
             <column name="id" type="BIGINT">
                 <constraints primaryKey="true" primaryKeyName="filter_pkey"/>
             </column>
-            <column name="accountData_id" type="BIGINT"/>
+            <column name="content" type="VARCHAR(4000)"/>
+            <column name="account_data_id" type="BIGINT"/>
             <column name="presence_id" type="BIGINT"/>
             <column name="room_id" type="BIGINT"/>
         </createTable>
@@ -392,199 +397,67 @@
         </createTable>
     </changeSet>
     <changeSet author="ma1uta" id="001_06_create_unique_constraint">
-        <addUniqueConstraint columnNames="aliases_id" constraintName="uk_69n9rl7ewui20c9fg9h2gctdr" tableName="room_room_state"/>
-        <addUniqueConstraint columnNames="members_id" constraintName="uk_8w9ax4sopph6y6j73erk35clv" tableName="room_room_state"/>
-        <addUniqueConstraint columnNames="timeline_id" constraintName="uk_lfhcue33s6cqcdr7k2tn3sd11" tableName="room_event"/>
-        <addUniqueConstraint columnNames="parents_id" constraintName="uk_mvacd9y7m1a02f4p8hjq6spws" tableName="event_event"/>
-        <addUniqueConstraint columnNames="tags_id" constraintName="uk_q5v1efyeiqamr7e23t4ckdkke" tableName="user_tag"/>
-        <addUniqueConstraint columnNames="children_id" constraintName="uk_rm6dbqgengg1xlp9vyv6fe5ew" tableName="event_event"/>
-        <addForeignKeyConstraint baseColumnNames="topic_id" baseTableName="room" constraintName="FK1mgs8isi6v17ply51vhwxsqcr"
-                                 deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
-                                 referencedColumnNames="id" referencedTableName="room_state" validate="true"/>
-        <addForeignKeyConstraint baseColumnNames="StateFilter_id" baseTableName="state_filter_types"
-                                 constraintName="FK232e2q7d0ks33i0h8h68ui9dx" deferrable="false" initiallyDeferred="false"
-                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="state_filter"
-                                 validate="true"/>
-        <addForeignKeyConstraint baseColumnNames="room_id" baseTableName="room_servers" constraintName="FK29uqusy2g4xr2ss6gjgb35bjv"
-                                 deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
-                                 referencedColumnNames="id" referencedTableName="room" validate="true"/>
-        <addForeignKeyConstraint baseColumnNames="StateFilter_id" baseTableName="state_filter_not_rooms"
-                                 constraintName="FK2dacrvdtu4qqgvqqro342cqcc" deferrable="false" initiallyDeferred="false"
-                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="state_filter"
-                                 validate="true"/>
-        <addForeignKeyConstraint baseColumnNames="presence_id" baseTableName="filter" constraintName="FK2kfw6v8e6w1pc2f198v0aw3ub"
-                                 deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
-                                 referencedColumnNames="id" referencedTableName="event_filter" validate="true"/>
-        <addForeignKeyConstraint baseColumnNames="accountData_id" baseTableName="room_filter" constraintName="FK2uvelnk0asaexeve3drxkqhbh"
-                                 deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
-                                 referencedColumnNames="id" referencedTableName="room_event_filter" validate="true"/>
-        <addForeignKeyConstraint baseColumnNames="StateFilter_id" baseTableName="state_filter_senders"
-                                 constraintName="FK31xwpec7kx9fc9fmunf3pnajq" deferrable="false" initiallyDeferred="false"
-                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="state_filter"
-                                 validate="true"/>
-        <addForeignKeyConstraint baseColumnNames="StateFilter_id" baseTableName="state_filter_rooms"
-                                 constraintName="FK3t5x3e7kbexoh015c340p7maa" deferrable="false" initiallyDeferred="false"
-                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="state_filter"
-                                 validate="true"/>
-        <addForeignKeyConstraint baseColumnNames="accountData_id" baseTableName="filter" constraintName="FK4l78oq1tg09yvysl64ecq67go"
-                                 deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
-                                 referencedColumnNames="id" referencedTableName="event_filter" validate="true"/>
-        <addForeignKeyConstraint baseColumnNames="Room_id" baseTableName="room_event" constraintName="FK5fnk231y4ycy60dxur0dynmqa"
-                                 deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
-                                 referencedColumnNames="id" referencedTableName="room" validate="true"/>
-        <addForeignKeyConstraint baseColumnNames="RoomEventFilter_id" baseTableName="room_event_filter_not_types"
-                                 constraintName="FK5mpuhnax1e5vns0k93ibh7puf" deferrable="false" initiallyDeferred="false"
-                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id"
-                                 referencedTableName="room_event_filter" validate="true"/>
-        <addForeignKeyConstraint baseColumnNames="Event_id" baseTableName="event_event" constraintName="FK5nmk8e4pt260k31b6hxndbuy"
-                                 deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
-                                 referencedColumnNames="id" referencedTableName="event" validate="true"/>
-        <addForeignKeyConstraint baseColumnNames="RoomEventFilter_id" baseTableName="room_event_filter_not_senders"
-                                 constraintName="FK6i0sfbvtvhu64xrdat7sdkexf" deferrable="false" initiallyDeferred="false"
-                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id"
-                                 referencedTableName="room_event_filter" validate="true"/>
-        <addForeignKeyConstraint baseColumnNames="aliases_id" baseTableName="room_room_state" constraintName="FK6rok1w925g64kvley1fikmcqo"
-                                 deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
-                                 referencedColumnNames="id" referencedTableName="room_state" validate="true"/>
-        <addForeignKeyConstraint baseColumnNames="permissions_id" baseTableName="room" constraintName="FK7wuk7csltnofmc2rmq6np7vrl"
-                                 deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
-                                 referencedColumnNames="id" referencedTableName="room_state" validate="true"/>
-        <addForeignKeyConstraint baseColumnNames="Filter_id" baseTableName="filter_event_fields"
-                                 constraintName="FK8mcuxyehffx7gad094eqjsokn" deferrable="false" initiallyDeferred="false"
-                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="filter"
-                                 validate="true"/>
-        <addForeignKeyConstraint baseColumnNames="timeline_id" baseTableName="room_filter" constraintName="FK8pqk7o5yeyn2n6j9sifpu190d"
-                                 deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
-                                 referencedColumnNames="id" referencedTableName="room_event_filter" validate="true"/>
-        <addForeignKeyConstraint baseColumnNames="EventFilter_id" baseTableName="event_filter_not_types"
-                                 constraintName="FK9r0qf0s3yyesr8hrcxw2i07me" deferrable="false" initiallyDeferred="false"
-                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="event_filter"
-                                 validate="true"/>
-        <addForeignKeyConstraint baseColumnNames="avatar_id" baseTableName="room" constraintName="FKay1r7fuo20t1u0noum2jvcw8y"
-                                 deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
-                                 referencedColumnNames="id" referencedTableName="room_state" validate="true"/>
-        <addForeignKeyConstraint baseColumnNames="EventFilter_id" baseTableName="event_filter_types"
-                                 constraintName="FKb04718aejsuk0wwepc0lvbilr" deferrable="false" initiallyDeferred="false"
-                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="event_filter"
-                                 validate="true"/>
-        <addForeignKeyConstraint baseColumnNames="User_username" baseTableName="user_tag" constraintName="FKb1vgru3bsi893brgjsfo853wr"
-                                 deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
-                                 referencedColumnNames="username" referencedTableName="user" validate="true"/>
-        <addForeignKeyConstraint baseColumnNames="state_id" baseTableName="room_filter" constraintName="FKb89w7xap0yq7panv4mpnmabmg"
-                                 deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
-                                 referencedColumnNames="id" referencedTableName="state_filter" validate="true"/>
-        <addForeignKeyConstraint baseColumnNames="user_username" baseTableName="openid" constraintName="FKbeexowd11yeivytpa13lklg85"
-                                 deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
-                                 referencedColumnNames="username" referencedTableName="user" validate="true"/>
-        <addForeignKeyConstraint baseColumnNames="media_id" baseTableName="thumbnail" constraintName="FKcb84ww7b8vj45jtqa0mxg32l7"
-                                 deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
-                                 referencedColumnNames="id" referencedTableName="media" validate="true"/>
-        <addForeignKeyConstraint baseColumnNames="RoomEventFilter_id" baseTableName="room_event_filter_not_rooms"
-                                 constraintName="FKchjhjgse74gt6dtkdb8pkyhog" deferrable="false" initiallyDeferred="false"
-                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id"
-                                 referencedTableName="room_event_filter" validate="true"/>
-        <addForeignKeyConstraint baseColumnNames="EventFilter_id" baseTableName="event_filter_not_senders"
-                                 constraintName="FKcvp4x6mqx5kxv1qv0xbp7vfd6" deferrable="false" initiallyDeferred="false"
-                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="event_filter"
-                                 validate="true"/>
-        <addForeignKeyConstraint baseColumnNames="user_username" baseTableName="account_data" constraintName="FKd923aixw7rckoceklkddrsy04"
-                                 deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
-                                 referencedColumnNames="username" referencedTableName="user" validate="true"/>
-        <addForeignKeyConstraint baseColumnNames="StateFilter_id" baseTableName="state_filter_not_types"
-                                 constraintName="FKdkpw08eoqxudscnctvkfq8t7c" deferrable="false" initiallyDeferred="false"
-                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="state_filter"
-                                 validate="true"/>
-        <addForeignKeyConstraint baseColumnNames="members_id" baseTableName="room_room_state" constraintName="FKdl30oucgumymb0nptrcshjcmt"
-                                 deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
-                                 referencedColumnNames="id" referencedTableName="room_state" validate="true"/>
-        <addForeignKeyConstraint baseColumnNames="sender_id" baseTableName="room_ephemeral" constraintName="FKe75le49g2ypmuid70rktgde61"
-                                 deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
-                                 referencedColumnNames="id" referencedTableName="room_state" validate="true"/>
-        <addForeignKeyConstraint baseColumnNames="redacts_id" baseTableName="event" constraintName="FKg098ogqqbhhtmi8kkruv3b3on"
-                                 deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
-                                 referencedColumnNames="id" referencedTableName="redacts" validate="true"/>
-        <addForeignKeyConstraint baseColumnNames="room_id" baseTableName="room_report" constraintName="FKg5rjbs3sdqb7tlavmd2fx36x2"
-                                 deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
-                                 referencedColumnNames="id" referencedTableName="room" validate="true"/>
-        <addForeignKeyConstraint baseColumnNames="event_id" baseTableName="room_report" constraintName="FKg65kjibuuosp6a29nc87gdl4r"
-                                 deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
-                                 referencedColumnNames="id" referencedTableName="persistent_event" validate="true"/>
-        <addForeignKeyConstraint baseColumnNames="room_id" baseTableName="room_state" constraintName="FKgip2m7y84uyt9xq88fnmd39vd"
-                                 deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
-                                 referencedColumnNames="id" referencedTableName="room" validate="true"/>
-        <addForeignKeyConstraint baseColumnNames="ephemeral_id" baseTableName="room_filter" constraintName="FKhdrojel2y7jpyrimvysydyqoq"
-                                 deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
-                                 referencedColumnNames="id" referencedTableName="room_event_filter" validate="true"/>
-        <addForeignKeyConstraint baseColumnNames="timeline_id" baseTableName="room_event" constraintName="FKhpuravb5w8e97jsiyip9egmbh"
-                                 deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
-                                 referencedColumnNames="id" referencedTableName="event" validate="true"/>
-        <addForeignKeyConstraint baseColumnNames="Filter_id" baseTableName="filter_event_format"
-                                 constraintName="FKjca465saupjl1qrb02domxrwg" deferrable="false" initiallyDeferred="false"
-                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="filter"
-                                 validate="true"/>
-        <addForeignKeyConstraint baseColumnNames="EventFilter_id" baseTableName="event_filter_senders"
-                                 constraintName="FKjehf7hmf7wu3vaj5pqalylbg3" deferrable="false" initiallyDeferred="false"
-                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="event_filter"
-                                 validate="true"/>
-        <addForeignKeyConstraint baseColumnNames="children_id" baseTableName="event_event" constraintName="FKkidltp4unol01vq3gxf93t3nf"
-                                 deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
-                                 referencedColumnNames="id" referencedTableName="event" validate="true"/>
-        <addForeignKeyConstraint baseColumnNames="RoomFilter_id" baseTableName="room_filter_rooms"
-                                 constraintName="FKkxhbbncaacdi123j5a8dkn71x" deferrable="false" initiallyDeferred="false"
-                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="room_filter"
-                                 validate="true"/>
-        <addForeignKeyConstraint baseColumnNames="Room_id" baseTableName="room_room_state" constraintName="FKkyy3dlw805t6qxu0vhfg2wn1x"
-                                 deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
-                                 referencedColumnNames="id" referencedTableName="room" validate="true"/>
-        <addForeignKeyConstraint baseColumnNames="content_id" baseTableName="event" constraintName="FKl5c45sb3l7ghfh4w0xgbjb8vb"
-                                 deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
-                                 referencedColumnNames="id" referencedTableName="event_content" validate="true"/>
-        <addForeignKeyConstraint baseColumnNames="StateFilter_id" baseTableName="state_filter_not_senders"
-                                 constraintName="FKmtg0qbwjk2dbkp24l9xykb25v" deferrable="false" initiallyDeferred="false"
-                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="state_filter"
-                                 validate="true"/>
-        <addForeignKeyConstraint baseColumnNames="id" baseTableName="persistent_event" constraintName="FKn1rhqp2yasygo99q7w9u0q1um"
-                                 deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
-                                 referencedColumnNames="id" referencedTableName="event" validate="true"/>
-        <addForeignKeyConstraint baseColumnNames="RoomEventFilter_id" baseTableName="room_event_filter_senders"
-                                 constraintName="FKnq3156rur6v7gbymfw67jgvpt" deferrable="false" initiallyDeferred="false"
-                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id"
-                                 referencedTableName="room_event_filter" validate="true"/>
-        <addForeignKeyConstraint baseColumnNames="id" baseTableName="password_auth" constraintName="FKppfos629e04vpuox0cpxmvf98"
-                                 deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
-                                 referencedColumnNames="id" referencedTableName="abstract_auth" validate="true"/>
-        <addForeignKeyConstraint baseColumnNames="tags_id" baseTableName="user_tag" constraintName="FKqau6oxh1skhh9taju7fklcug7"
-                                 deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
-                                 referencedColumnNames="id" referencedTableName="tag" validate="true"/>
-        <addForeignKeyConstraint baseColumnNames="RoomFilter_id" baseTableName="room_filter_not_rooms"
-                                 constraintName="FKqy2utgurswqrahxh36v533vau" deferrable="false" initiallyDeferred="false"
-                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="room_filter"
-                                 validate="true"/>
-        <addForeignKeyConstraint baseColumnNames="RoomEventFilter_id" baseTableName="room_event_filter_rooms"
-                                 constraintName="FKr0sn9kflcclt01mxlsxnqqr0g" deferrable="false" initiallyDeferred="false"
-                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id"
-                                 referencedTableName="room_event_filter" validate="true"/>
-        <addForeignKeyConstraint baseColumnNames="name_id" baseTableName="room" constraintName="FKrani8txcxhld7na7mxv47vro4"
-                                 deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
-                                 referencedColumnNames="id" referencedTableName="room_state" validate="true"/>
-        <addForeignKeyConstraint baseColumnNames="event_id" baseTableName="room_ephemeral" constraintName="FKrsdkxww9sxm091elei7myedlo"
-                                 deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
-                                 referencedColumnNames="id" referencedTableName="event" validate="true"/>
-        <addForeignKeyConstraint baseColumnNames="event_id" baseTableName="room_state" constraintName="FKskjf8n0r93hwsm4f9r283rjc8"
-                                 deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
-                                 referencedColumnNames="id" referencedTableName="persistent_event" validate="true"/>
-        <addForeignKeyConstraint baseColumnNames="room_id" baseTableName="filter" constraintName="FKsy1arn2jcqyypj71oqx4t07g5"
-                                 deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
-                                 referencedColumnNames="id" referencedTableName="room_filter" validate="true"/>
-        <addForeignKeyConstraint baseColumnNames="RoomEventFilter_id" baseTableName="room_event_filter_types"
-                                 constraintName="FKt0xttx06wq6kotxmxgc17h2ix" deferrable="false" initiallyDeferred="false"
-                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id"
-                                 referencedTableName="room_event_filter" validate="true"/>
-        <addForeignKeyConstraint baseColumnNames="parents_id" baseTableName="event_event" constraintName="FKtnfryx2abmesexp4fkesksbp"
-                                 deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
-                                 referencedColumnNames="id" referencedTableName="event" validate="true"/>
-        <addForeignKeyConstraint baseColumnNames="content_id" baseTableName="send_to_device" constraintName="FKtpaaesita5jc6vdb0w7bbqg6q"
-                                 deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
-                                 referencedColumnNames="id" referencedTableName="event_content" validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="join_rules_id" baseTableName="room_state_snapshot" constraintName="FK1xcjrqybkntexnu4bob5iqmqh" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="room_state" validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="topic_id" baseTableName="room_state_snapshot" constraintName="FK1ywkgik1ju54qwqu3l2mo7t4k" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="room_state" validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="StateFilter_id" baseTableName="state_filter_types" constraintName="FK232e2q7d0ks33i0h8h68ui9dx" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="state_filter" validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="room_id" baseTableName="room_servers" constraintName="FK29uqusy2g4xr2ss6gjgb35bjv" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="room" validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="StateFilter_id" baseTableName="state_filter_not_rooms" constraintName="FK2dacrvdtu4qqgvqqro342cqcc" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="state_filter" validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="presence_id" baseTableName="filter" constraintName="FK2kfw6v8e6w1pc2f198v0aw3ub" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="event_filter" validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="accountData_id" baseTableName="room_filter" constraintName="FK2uvelnk0asaexeve3drxkqhbh" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="room_event_filter" validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="StateFilter_id" baseTableName="state_filter_senders" constraintName="FK31xwpec7kx9fc9fmunf3pnajq" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="state_filter" validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="tombstone_id" baseTableName="room_state_snapshot" constraintName="FK38sotr3fqw1dvdwfcuy3anetd" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="room_state" validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="initial_id" baseTableName="room_state_snapshot" constraintName="FK3o5saal0dmkm5gijrki0q4rul" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="room_state" validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="StateFilter_id" baseTableName="state_filter_rooms" constraintName="FK3t5x3e7kbexoh015c340p7maa" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="state_filter" validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="username" baseTableName="token" constraintName="FK53ykb7ndegqgxhvyjs94pff4n" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="username" referencedTableName="user" validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="RoomEventFilter_id" baseTableName="room_event_filter_not_types" constraintName="FK5mpuhnax1e5vns0k93ibh7puf" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="room_event_filter" validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="RoomEventFilter_id" baseTableName="room_event_filter_not_senders" constraintName="FK6i0sfbvtvhu64xrdat7sdkexf" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="room_event_filter" validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="avatar_id" baseTableName="room_state_snapshot" constraintName="FK7v19gdx350ebpfunina9uflo5" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="room_state" validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="Filter_id" baseTableName="filter_event_fields" constraintName="FK8mcuxyehffx7gad094eqjsokn" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="filter" validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="timeline_id" baseTableName="room_filter" constraintName="FK8pqk7o5yeyn2n6j9sifpu190d" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="room_event_filter" validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="guest_access_id" baseTableName="room_state_snapshot" constraintName="FK8t4nypcllbblx3p2grxme81ad" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="room_state" validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="server_acl_id" baseTableName="room_state_snapshot" constraintName="FK8vobabs3mt8hipl8i2pb3bhcf" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="room_state" validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="EventFilter_id" baseTableName="event_filter_not_types" constraintName="FK9r0qf0s3yyesr8hrcxw2i07me" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="event_filter" validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="room_state_id" baseTableName="room_state" constraintName="FKa9pal6dqniwpqj0ro2jbou7c7" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="room_state_snapshot" validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="EventFilter_id" baseTableName="event_filter_types" constraintName="FKb04718aejsuk0wwepc0lvbilr" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="event_filter" validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="state_id" baseTableName="room_filter" constraintName="FKb89w7xap0yq7panv4mpnmabmg" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="state_filter" validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="user_username" baseTableName="openid" constraintName="FKbeexowd11yeivytpa13lklg85" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="username" referencedTableName="user" validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="room_id" baseTableName="room_state_snapshot" constraintName="FKc70vbrdct003fd62smedxc15s" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="room" validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="media_id" baseTableName="thumbnail" constraintName="FKcb84ww7b8vj45jtqa0mxg32l7" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="media" validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="RoomEventFilter_id" baseTableName="room_event_filter_not_rooms" constraintName="FKchjhjgse74gt6dtkdb8pkyhog" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="room_event_filter" validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="EventFilter_id" baseTableName="event_filter_not_senders" constraintName="FKcvp4x6mqx5kxv1qv0xbp7vfd6" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="event_filter" validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="account_data_id" baseTableName="filter" constraintName="FKcyg30c0huar0gcq9u60hrgcd6" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="event_filter" validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="user_username" baseTableName="account_data" constraintName="FKd923aixw7rckoceklkddrsy04" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="username" referencedTableName="user" validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="StateFilter_id" baseTableName="state_filter_not_types" constraintName="FKdkpw08eoqxudscnctvkfq8t7c" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="state_filter" validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="sender_id" baseTableName="room_ephemeral" constraintName="FKe75le49g2ypmuid70rktgde61" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="room_state" validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="name_id" baseTableName="room_state_snapshot" constraintName="FKeddxivsndn8bk6hkjq8g6advr" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="room_state" validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="redacts_id" baseTableName="event" constraintName="FKg098ogqqbhhtmi8kkruv3b3on" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="redacts" validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="room_id" baseTableName="room_report" constraintName="FKg5rjbs3sdqb7tlavmd2fx36x2" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="room" validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="event_id" baseTableName="room_report" constraintName="FKg65kjibuuosp6a29nc87gdl4r" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="persistent_event" validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="ephemeral_id" baseTableName="room_filter" constraintName="FKhdrojel2y7jpyrimvysydyqoq" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="room_event_filter" validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="latest_state_id" baseTableName="room" constraintName="FKir92gphj673pdtkponwv4r0si" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="room_state_snapshot" validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="Filter_id" baseTableName="filter_event_format" constraintName="FKjca465saupjl1qrb02domxrwg" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="filter" validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="EventFilter_id" baseTableName="event_filter_senders" constraintName="FKjehf7hmf7wu3vaj5pqalylbg3" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="event_filter" validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="children_id" baseTableName="event_event" constraintName="FKkidltp4unol01vq3gxf93t3nf" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="event" validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="RoomFilter_id" baseTableName="room_filter_rooms" constraintName="FKkxhbbncaacdi123j5a8dkn71x" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="room_filter" validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="room_id" baseTableName="event" constraintName="FKl3exk22scrvo1lyuy27wol2kq" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="room" validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="content_id" baseTableName="event" constraintName="FKl5c45sb3l7ghfh4w0xgbjb8vb" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="event_content" validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="StateFilter_id" baseTableName="state_filter_not_senders" constraintName="FKmtg0qbwjk2dbkp24l9xykb25v" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="state_filter" validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="id" baseTableName="persistent_event" constraintName="FKn1rhqp2yasygo99q7w9u0q1um" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="event" validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="permissions_id" baseTableName="room_state_snapshot" constraintName="FKn427wqjyqttbxc14d6ixxld0e" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="room_state" validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="history_visibility_id" baseTableName="room_state_snapshot" constraintName="FKncm8vr0wgq1iog8b51k5kq1yu" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="room_state" validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="username" baseTableName="tag" constraintName="FKni0ei9mx4fc1ehrnuu3xr2to3" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="username" referencedTableName="user" validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="RoomEventFilter_id" baseTableName="room_event_filter_senders" constraintName="FKnq3156rur6v7gbymfw67jgvpt" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="room_event_filter" validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="prev_id" baseTableName="room_state_snapshot" constraintName="FKnx1owbpe4n35x8dpvf6v2s26a" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="room_state_snapshot" validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="canonical_alias_id" baseTableName="room_state_snapshot" constraintName="FKpg0vnu04rewgfu8hbxi7tsm7e" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="room_state" validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="id" baseTableName="password_auth" constraintName="FKppfos629e04vpuox0cpxmvf98" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="abstract_auth" validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="RoomFilter_id" baseTableName="room_filter_not_rooms" constraintName="FKqy2utgurswqrahxh36v533vau" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="room_filter" validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="RoomEventFilter_id" baseTableName="room_event_filter_rooms" constraintName="FKr0sn9kflcclt01mxlsxnqqr0g" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="room_event_filter" validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="event_id" baseTableName="room_ephemeral" constraintName="FKrsdkxww9sxm091elei7myedlo" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="event" validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="event_id" baseTableName="room_state" constraintName="FKskjf8n0r93hwsm4f9r283rjc8" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="persistent_event" validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="encryption_id" baseTableName="room_state_snapshot" constraintName="FKsmu5vp4eh9bflyxtm9gb4ukia" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="room_state" validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="room_id" baseTableName="filter" constraintName="FKsy1arn2jcqyypj71oqx4t07g5" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="room_filter" validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="RoomEventFilter_id" baseTableName="room_event_filter_types" constraintName="FKt0xttx06wq6kotxmxgc17h2ix" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="room_event_filter" validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="parents_id" baseTableName="event_event" constraintName="FKtnfryx2abmesexp4fkesksbp" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="event" validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="content_id" baseTableName="send_to_device" constraintName="FKtpaaesita5jc6vdb0w7bbqg6q" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="event_content" validate="true"/>
     </changeSet>
 </databaseChangeLog>
