@@ -30,6 +30,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -52,25 +53,31 @@ public class RoomFilter implements Serializable {
     private Long limit;
 
     @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "room_filter_not_rooms")
+    @CollectionTable(name = "room_filter_not_rooms", joinColumns = @JoinColumn(name = "id"))
+    @Column(name = "not_rooms")
     private Set<String> notRooms;
 
     @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "room_filter_rooms")
+    @CollectionTable(name = "room_filter_rooms", joinColumns = @JoinColumn(name = "id"))
+    @Column(name = "rooms")
     private Set<String> rooms;
 
     @OneToOne
+    @JoinColumn(name = "ephemeral_id")
     private RoomEventFilter ephemeral;
 
     @Column(name = "include_leave")
     private Boolean includeLeave;
 
     @OneToOne
+    @JoinColumn(name = "state_id")
     private StateFilter state;
 
     @OneToOne
+    @JoinColumn(name = "timeline_id")
     private RoomEventFilter timeline;
 
     @OneToOne
+    @JoinColumn(name = "account_data_id")
     private RoomEventFilter accountData;
 }

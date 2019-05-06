@@ -23,6 +23,7 @@ import lombok.Setter;
 import java.io.Serializable;
 import java.util.Set;
 import javax.persistence.CollectionTable;
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -49,11 +50,13 @@ public class Filter implements Serializable {
     private Long id;
 
     @ElementCollection
-    @CollectionTable(name = "filter_event_fields")
+    @CollectionTable(name = "filter_event_fields", joinColumns = @JoinColumn(name = "id"))
+    @Column(name = "event_fields")
     private Set<String> eventFields;
 
     @ElementCollection
-    @CollectionTable(name = "filter_event_format")
+    @CollectionTable(name = "filter_event_format", joinColumns = @JoinColumn(name = "id"))
+    @Column(name = "event_format")
     private Set<String> eventFormat;
 
     @OneToOne

@@ -23,12 +23,14 @@ import lombok.Setter;
 import java.io.Serializable;
 import java.util.Set;
 import javax.persistence.CollectionTable;
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -45,21 +47,26 @@ public class EventFilter implements Serializable {
     @Id
     @SequenceGenerator(name = "pk_sequence", sequenceName = "event_filter_id_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence")
+    @Column(name = "id")
     private Long id;
 
     @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "event_filter_not_senders")
+    @CollectionTable(name = "event_filter_not_senders", joinColumns = @JoinColumn(name = "id"))
+    @Column(name = "not_senders")
     private Set<String> notSenders;
 
     @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "event_filter_not_types")
+    @CollectionTable(name = "event_filter_not_types", joinColumns = @JoinColumn(name = "id"))
+    @Column(name = "not_types")
     private Set<String> notTypes;
 
     @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "event_filter_senders")
+    @CollectionTable(name = "event_filter_senders", joinColumns = @JoinColumn(name = "id"))
+    @Column(name = "senders")
     private Set<String> senders;
 
     @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "event_filter_types")
+    @CollectionTable(name = "event_filter_types", joinColumns = @JoinColumn(name = "id"))
+    @Column(name = "types")
     private Set<String> types;
 }

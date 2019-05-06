@@ -30,6 +30,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -51,27 +52,33 @@ public class StateFilter implements Serializable {
     private Long limit;
 
     @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "state_filter_not_senders")
+    @CollectionTable(name = "state_filter_not_senders", joinColumns = @JoinColumn(name = "id"))
+    @Column(name = "not_senders")
     private Set<String> notSenders;
 
     @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "state_filter_not_types")
+    @CollectionTable(name = "state_filter_not_types", joinColumns = @JoinColumn(name = "id"))
+    @Column(name = "not_types")
     private Set<String> notTypes;
 
     @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "state_filter_senders")
+    @CollectionTable(name = "state_filter_senders", joinColumns = @JoinColumn(name = "id"))
+    @Column(name = "senders")
     private Set<String> senders;
 
     @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "state_filter_types")
+    @CollectionTable(name = "state_filter_types", joinColumns = @JoinColumn(name = "id"))
+    @Column(name = "types")
     private Set<String> types;
 
     @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "state_filter_not_rooms")
+    @CollectionTable(name = "state_filter_not_rooms", joinColumns = @JoinColumn(name = "id"))
+    @Column(name = "not_rooms")
     private Set<String> notRooms;
 
     @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "state_filter_rooms")
+    @CollectionTable(name = "state_filter_rooms", joinColumns = @JoinColumn(name = "id"))
+    @Column(name = "rooms")
     private Set<String> rooms;
 
     @Column(name = "contains_url")
