@@ -14,21 +14,19 @@
  * limitations under the License.
  */
 
-package io.github.ma1uta.jeonserver.model.core;
+package io.github.ma1uta.jeonserver.model.federation;
 
 import lombok.Data;
 
 import java.io.Serializable;
 
 /**
- * Federated transaction id.
+ * Outgoing transaction id.
  */
 @Data
-public class FederatedTransactionId implements Serializable {
+public class OutgoingTransactionId implements Serializable {
 
-    private String txnId;
+    private FederatedTransaction transaction;
 
-    private String originServer;
-
-    private Domain domain;
+    private String target;
 }

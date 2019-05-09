@@ -14,8 +14,11 @@
  * limitations under the License.
  */
 
-package io.github.ma1uta.jeonserver.model.core;
+package io.github.ma1uta.jeonserver.model.federation;
 
+import io.github.ma1uta.jeonserver.model.core.Domain;
+import io.github.ma1uta.jeonserver.model.core.Event;
+import io.github.ma1uta.jeonserver.model.core.PersistentEvent;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -61,12 +64,12 @@ public class FederatedTransaction implements Serializable {
 
     private LocalDateTime received;
 
-    @OneToMany(mappedBy = "transaction")
+    @OneToMany
     @JoinTable(name = "pdu", joinColumns = @JoinColumn(name = "pdu_id"), inverseJoinColumns = @JoinColumn(name = "id"))
     @JoinColumn(name = "pdus_id")
     private Set<PersistentEvent> pdus;
 
-    @OneToMany(mappedBy = "transaction")
+    @OneToMany
     @JoinTable(name = "edu", joinColumns = @JoinColumn(name = "edu_id"), inverseJoinColumns = @JoinColumn(name = "id"))
     @JoinColumn(name = "edus_id")
     private Set<Event> edus;
