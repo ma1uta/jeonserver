@@ -17,45 +17,17 @@
 package io.github.ma1uta.jeonserver.model.media;
 
 import io.github.ma1uta.jeonserver.model.core.Domain;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 
 /**
- * Media.
+ * Media id.
  */
-@Entity
-@Table(name = "media")
-@Getter
-@Setter
-@EqualsAndHashCode(of = {"id", "domain"})
-@IdClass(MediaId.class)
-public class Media implements Serializable {
+@Data
+public class MediaId implements Serializable {
 
-    @Id
     private String id;
 
-    @Id
-    @ManyToOne
     private Domain domain;
-
-    private String filename;
-
-    private String path;
-
-    private LocalDateTime created;
-
-    @Column(name = "allow_remote")
-    private Boolean allowRemote;
-
-    private Long size;
 }

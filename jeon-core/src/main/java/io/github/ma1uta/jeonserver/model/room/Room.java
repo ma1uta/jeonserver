@@ -16,6 +16,7 @@
 
 package io.github.ma1uta.jeonserver.model.room;
 
+import io.github.ma1uta.jeonserver.model.core.Domain;
 import io.github.ma1uta.jeonserver.model.core.Event;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -27,7 +28,9 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.OrderColumn;
@@ -40,11 +43,16 @@ import javax.persistence.Table;
 @Table(name = "room")
 @Getter
 @Setter
-@EqualsAndHashCode(of = "id")
+@EqualsAndHashCode(of = {"id", "domain"})
+@IdClass(RoomId.class)
 public class Room implements Serializable {
 
     @Id
     private String id;
+
+    @Id
+    @ManyToOne
+    private Domain domain;
 
     private String version;
 

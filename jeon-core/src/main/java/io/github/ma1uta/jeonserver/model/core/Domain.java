@@ -16,39 +16,25 @@
 
 package io.github.ma1uta.jeonserver.model.core;
 
-import io.github.ma1uta.jeonserver.model.room.RoomState;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
- * Auth events.
+ * Domain.
  */
 @Entity
-@Table(name = "auth_event")
+@Table(name = "domain")
 @Getter
 @Setter
-@EqualsAndHashCode(of = "id")
-public class AuthEvent implements Serializable {
+@EqualsAndHashCode(of = "domain")
+public class Domain implements Serializable {
 
     @Id
-    @SequenceGenerator(name = "pk_sequence", sequenceName = "auth_event_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence")
-    private Long id;
-
-    @ManyToOne
-    private PersistentEvent event;
-
-    @OneToOne
-    private RoomState auth;
+    private String domain;
 }
