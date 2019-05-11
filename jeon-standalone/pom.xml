@@ -25,42 +25,31 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>jeon-standalone</artifactId>
+    <artifactId>jeonserver-standalone</artifactId>
+    <name>JeonServer Standalone</name>
 
-    <description>JeonServer. Standalone server.</description>
+    <description>JeonServer Standalone node</description>
 
-    <properties>
-        <version.lib.picocli>3.9.6</version.lib.picocli>
-        <version.lib.guice>4.2.2</version.lib.guice>
-        <version.lib.guice-persist>4.2.2</version.lib.guice-persist>
-        <version.lib.hibernate-core>5.4.2.Final</version.lib.hibernate-core>
-        <version.lib.hibernate-hikaricp>5.4.2.Final</version.lib.hibernate-hikaricp>
-        <version.lib.hibernate-jcache>5.4.2.Final</version.lib.hibernate-jcache>
-        <version.lib.hibernate-ejb>5.4.2.Final</version.lib.hibernate-ejb>
-        <version.lib.postgresql>42.2.5</version.lib.postgresql>
-        <version.lib.jsr305>3.0.2</version.lib.jsr305>
-        <version.lib.pf4j>2.6.0</version.lib.pf4j>
-        <version.lib.lombok>1.18.6</version.lib.lombok>
-        <version.lib.liquibase>3.6.3</version.lib.liquibase>
-    </properties>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>io.github.ma1uta</groupId>
+                <artifactId>jeonserver-bom</artifactId>
+                <version>1.0-SNAPSHOT</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <dependencies>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>${version.lib.lombok}</version>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.pf4j</groupId>
             <artifactId>pf4j</artifactId>
-            <version>${version.lib.pf4j}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-api</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
@@ -76,70 +65,45 @@
         <dependency>
             <groupId>info.picocli</groupId>
             <artifactId>picocli</artifactId>
-            <version>${version.lib.picocli}</version>
         </dependency>
         <dependency>
             <groupId>com.google.inject</groupId>
             <artifactId>guice</artifactId>
-            <version>${version.lib.guice}</version>
         </dependency>
         <dependency>
             <groupId>com.google.inject.extensions</groupId>
             <artifactId>guice-persist</artifactId>
-            <version>${version.lib.guice-persist}</version>
         </dependency>
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <version>${version.lib.postgresql}</version>
         </dependency>
         <dependency>
             <groupId>com.google.code.findbugs</groupId>
             <artifactId>jsr305</artifactId>
-            <version>${version.lib.jsr305}</version>
         </dependency>
 
         <dependency>
             <groupId>io.github.ma1uta</groupId>
-            <artifactId>jeon-core</artifactId>
+            <artifactId>jeonserver-core</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
-            <version>${version.lib.hibernate-core}</version>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-hikaricp</artifactId>
-            <version>${version.lib.hibernate-hikaricp}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-api</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-jcache</artifactId>
-            <version>${version.lib.hibernate-jcache}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.liquibase</groupId>
             <artifactId>liquibase-core</artifactId>
-            <version>${version.lib.liquibase}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-api</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>ch.qos.logback</groupId>
-                    <artifactId>logback-classic</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
     </dependencies>
 
@@ -158,16 +122,8 @@
                 <artifactId>jacoco-maven-plugin</artifactId>
             </plugin>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <annotationProcessorPaths>
-                        <path>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
-                            <version>${version.lib.lombok}</version>
-                        </path>
-                    </annotationProcessorPaths>
-                </configuration>
             </plugin>
         </plugins>
     </build>

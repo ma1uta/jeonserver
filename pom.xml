@@ -9,6 +9,7 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
+        <module>jeon-bom</module>
         <module>jeon-core</module>
         <module>jeon-shade</module>
         <module>jeon-capsule</module>
@@ -53,7 +54,9 @@
 
         <version.jeonserver>1.0-SNAPSHOT</version.jeonserver>
 
-        <!-- Plugin versions -->
+        <version.lib.lombok>1.18.6</version.lib.lombok>
+        <version.lib.hibernate-jpamodelgen>5.4.2.Final</version.lib.hibernate-jpamodelgen>
+
         <version.plugin.buildnumber-maven-plugin>1.4</version.plugin.buildnumber-maven-plugin>
         <version.plugin.maven-clean-plugin>3.1.0</version.plugin.maven-clean-plugin>
         <version.plugin.maven-install-plugin>2.5.2</version.plugin.maven-install-plugin>
@@ -71,16 +74,12 @@
         <version.plugin.directory-maven-plugin>0.1</version.plugin.directory-maven-plugin>
         <version.plugin.maven-checkstyle-plugin>3.0.0</version.plugin.maven-checkstyle-plugin>
         <version.plugin.jacoco-maven-plugin>0.8.2</version.plugin.jacoco-maven-plugin>
+        <version.plugin.maven-processor-plugin>2.0.5</version.plugin.maven-processor-plugin>
     </properties>
 
     <build>
         <pluginManagement>
             <plugins>
-                <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>buildnumber-maven-plugin</artifactId>
-                    <version>${version.plugin.buildnumber-maven-plugin}</version>
-                </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>build-helper-maven-plugin</artifactId>
@@ -100,11 +99,6 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>${version.plugin.maven-surefire-plugin}</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-resources-plugin</artifactId>
-                    <version>${version.plugin.maven-resources-plugin}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -134,7 +128,21 @@
                     <configuration>
                         <source>${source}</source>
                         <target>${target}</target>
+                        <annotationProcessorPaths>
+                            <path>
+                                <groupId>org.projectlombok</groupId>
+                                <artifactId>lombok</artifactId>
+                                <version>${version.lib.lombok}</version>
+                            </path>
+                        </annotationProcessorPaths>
                     </configuration>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.hibernate</groupId>
+                            <artifactId>hibernate-jpamodelgen</artifactId>
+                            <version>${version.lib.hibernate-jpamodelgen}</version>
+                        </dependency>
+                    </dependencies>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -175,11 +183,6 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-site-plugin</artifactId>
                     <version>${version.plugin.maven-site-plugin}</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.commonjava.maven.plugins</groupId>
-                    <artifactId>directory-maven-plugin</artifactId>
-                    <version>${version.plugin.directory-maven-plugin}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -236,6 +239,71 @@
                             <groupId>org.apache.maven.doxia</groupId>
                             <artifactId>doxia-site-renderer</artifactId>
                             <version>1.6</version>
+                        </dependency>
+                    </dependencies>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>buildnumber-maven-plugin</artifactId>
+                    <version>${version.plugin.buildnumber-maven-plugin}</version>
+                    <executions>
+                        <execution>
+                            <phase>generate-resources</phase>
+                            <goals>
+                                <goal>create-metadata</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <configuration>
+                        <attach>true</attach>
+                        <addOutputDirectoryToResources>true</addOutputDirectoryToResources>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.commonjava.maven.plugins</groupId>
+                    <artifactId>directory-maven-plugin</artifactId>
+                    <version>${version.plugin.directory-maven-plugin}</version>
+                    <executions>
+                        <execution>
+                            <id>generate-top-parent-basedir</id>
+                            <goals>
+                                <goal>highest-basedir</goal>
+                            </goals>
+                            <phase>validate</phase>
+                            <configuration>
+                                <property>top.parent.basedir</property>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <version>${version.plugin.maven-resources-plugin}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.bsc.maven</groupId>
+                    <artifactId>maven-processor-plugin</artifactId>
+                    <version>${version.plugin.maven-processor-plugin}</version>
+                    <executions>
+                        <execution>
+                            <id>process</id>
+                            <goals>
+                                <goal>process</goal>
+                            </goals>
+                            <phase>generate-sources</phase>
+                            <configuration>
+                                <processors>
+                                    <processor>org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor</processor>
+                                </processors>
+                            </configuration>
+                        </execution>
+                    </executions>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.hibernate</groupId>
+                            <artifactId>hibernate-jpamodelgen</artifactId>
+                            <version>${version.lib.hibernate-jpamodelgen}</version>
                         </dependency>
                     </dependencies>
                 </plugin>
