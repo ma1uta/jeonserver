@@ -21,12 +21,14 @@ import lombok.Data;
 import java.io.Serializable;
 
 /**
- * User token id.
+ * One time key signature.
  */
 @Data
-public class TokenId implements Serializable {
+public class OneTimeKeySignatureId implements Serializable {
+
+    private OneTimeKey oneTimeKey;
 
     private Device device;
 
-    private User user;
+    private String algorithm;
 }

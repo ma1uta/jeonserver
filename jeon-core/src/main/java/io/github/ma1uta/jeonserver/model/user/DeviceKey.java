@@ -16,68 +16,46 @@
 
 package io.github.ma1uta.jeonserver.model.user;
 
-import io.github.ma1uta.jeonserver.model.core.Domain;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Set;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
 /**
- * User.
+ * Device key.
  */
 @Entity
-@Table(name = "user")
+@Table(name = "device_key")
 @Getter
 @Setter
-@EqualsAndHashCode(of = {"username", "domain"})
-@IdClass(UserId.class)
-public class User implements Serializable {
-
-    @Id
-    private String username;
+@EqualsAndHashCode(of = {"device", "user", "algorithm"})
+@IdClass(DeviceKeyId.class)
+public class DeviceKey implements Serializable {
 
     @Id
     @ManyToOne
-    private Domain domain;
+    private Device device;
+
+    @Id
+    @ManyToOne
+    private User user;
+
+    @Id
+    private String algorithm;
 
     private LocalDateTime created;
 
-    private Boolean admin;
+    private String key;
 
-    private String presence;
-
-    @Column(name = "last_active_ago")
-    private LocalDateTime lastActiveAgo;
-
-    @Column(name = "state_msg")
-    private String status;
-
-    @Column(name = "currently_active")
-    private Boolean currentlyActive;
-
-    @OneToMany(mappedBy = "user")
-    private List<Tag> tags;
-
-    @OneToMany(mappedBy = "user")
-    private Set<Device> devices;
-
-    @OneToMany(mappedBy = "user")
-    private Set<Token> tokens;
-
-    @OneToMany(mappedBy = "user")
-    private Set<OneTimeKey> oneTimeKeys;
+    private String signature;
 
     @PrePersist
     private void create() {

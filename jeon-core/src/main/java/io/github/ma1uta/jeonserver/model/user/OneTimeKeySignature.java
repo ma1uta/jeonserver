@@ -21,51 +21,33 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
 /**
- * User token.
+ * One time key signature.
  */
 @Entity
-@Table(name = "token")
+@Table(name = "one_time_key_signature")
 @Getter
 @Setter
-@EqualsAndHashCode(of = {"device", "user"})
-@IdClass(TokenId.class)
-public class Token implements Serializable {
-
-    @Id
-    @OneToOne
-    private Device device;
+@EqualsAndHashCode(of = {"oneTimeKey", "device", "algorithm"})
+@IdClass(OneTimeKeySignatureId.class)
+public class OneTimeKeySignature implements Serializable {
 
     @Id
     @ManyToOne
-    @JoinColumn(name = "username")
-    private User user;
+    private OneTimeKey oneTimeKey;
 
-    private String token;
+    @Id
+    @ManyToOne
+    private Device device;
 
-    private LocalDateTime created;
+    @Id
+    private String algorithm;
 
-    private LocalDateTime expires;
-
-    @Column(name = "last_seen")
-    private LocalDateTime lastSeen;
-
-    @Column(name = "last_seen_ip")
-    private String lastSeenIp;
-
-    @PrePersist
-    private void create() {
-        created = LocalDateTime.now();
-    }
+    private String signature;
 }
