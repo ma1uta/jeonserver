@@ -27,7 +27,7 @@ import java.io.Serializable;
 @Data
 public class RoomId implements Serializable {
 
-    private String roomId;
+    private String id;
 
     private Domain domain;
 }

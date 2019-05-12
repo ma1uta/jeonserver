@@ -16,6 +16,7 @@
 
 package io.github.ma1uta.jeonserver.entity.federation;
 
+import io.github.ma1uta.jeonserver.entity.core.Domain;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,6 +27,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
@@ -38,12 +40,16 @@ import javax.persistence.Table;
 @Getter
 @Setter
 @EqualsAndHashCode(of = {"transaction", "target"})
-@IdClass(IncomingTransactionId.class)
+@IdClass(OutgoingTransactionId.class)
 public class OutgoingTransaction implements Serializable {
 
     @Id
     @OneToOne
     private FederatedTransaction transaction;
+
+    @Id
+    @ManyToOne
+    private Domain domain;
 
     @Id
     private String target;

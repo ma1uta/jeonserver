@@ -31,6 +31,7 @@ import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
@@ -57,6 +58,9 @@ public class User implements Serializable {
     private Boolean admin;
 
     private String presence;
+
+    @OneToOne
+    private AbstractAuth auth;
 
     @Column(name = "last_active_ago")
     private LocalDateTime lastActiveAgo;

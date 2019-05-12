@@ -57,6 +57,7 @@ public class FederatedTransaction implements Serializable {
 
     @Id
     @ManyToOne
+    @JoinColumn(name = "domain_id")
     private Domain domain;
 
     @Column(name = "origin_server_ts")
@@ -65,12 +66,30 @@ public class FederatedTransaction implements Serializable {
     private LocalDateTime received;
 
     @OneToMany
-    @JoinTable(name = "pdu", joinColumns = @JoinColumn(name = "pdu_id"), inverseJoinColumns = @JoinColumn(name = "id"))
-    @JoinColumn(name = "pdus_id")
+    @JoinTable(
+        name = "pdu",
+        joinColumns = {
+            @JoinColumn(name = "txn_id", referencedColumnName = "txn_id"),
+            @JoinColumn(name = "origin_server", referencedColumnName = "origin_server"),
+            @JoinColumn(name = "txn_domain", referencedColumnName = "domain_id")
+        },
+        inverseJoinColumns = {
+            @JoinColumn(name = "event_id", referencedColumnName = "id"),
+            @JoinColumn(name = "event_domain", referencedColumnName = "domain_id")
+        })
     private Set<PersistentEvent> pdus;
 
     @OneToMany
-    @JoinTable(name = "edu", joinColumns = @JoinColumn(name = "edu_id"), inverseJoinColumns = @JoinColumn(name = "id"))
-    @JoinColumn(name = "edus_id")
+    @JoinTable(
+        name = "edu",
+        joinColumns = {
+            @JoinColumn(name = "txn_id", referencedColumnName = "txn_id"),
+            @JoinColumn(name = "origin_server", referencedColumnName = "origin_server"),
+            @JoinColumn(name = "txn_domain", referencedColumnName = "domain_id")
+        },
+        inverseJoinColumns = {
+            @JoinColumn(name = "event_id", referencedColumnName = "id"),
+            @JoinColumn(name = "event_domain", referencedColumnName = "domain_id")
+        })
     private Set<Event> edus;
 }

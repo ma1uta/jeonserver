@@ -16,6 +16,7 @@
 
 package io.github.ma1uta.jeonserver.entity.federation;
 
+import io.github.ma1uta.jeonserver.entity.core.Domain;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -27,6 +28,8 @@ import java.io.Serializable;
 public class OutgoingTransactionId implements Serializable {
 
     private FederatedTransaction transaction;
+
+    private Domain domain;
 
     private String target;
 }

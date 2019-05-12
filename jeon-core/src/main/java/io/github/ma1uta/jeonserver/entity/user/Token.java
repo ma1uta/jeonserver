@@ -26,7 +26,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
@@ -49,7 +48,6 @@ public class Token implements Serializable {
 
     @Id
     @ManyToOne
-    @JoinColumn(name = "username")
     private User user;
 
     private String token;

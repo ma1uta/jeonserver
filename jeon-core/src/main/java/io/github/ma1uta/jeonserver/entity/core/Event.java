@@ -67,6 +67,7 @@ public class Event implements Serializable {
 
     @Id
     @ManyToOne
+    @JoinColumn(name = "domain_id")
     private Domain domain;
 
     private String type;
@@ -102,7 +103,6 @@ public class Event implements Serializable {
     private String hash;
 
     @OneToMany(mappedBy = "event")
-    @JoinColumn(name = "signatures")
     private Set<Signature> signatures;
 
     private Long depth;
