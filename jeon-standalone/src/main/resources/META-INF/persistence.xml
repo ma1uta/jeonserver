@@ -20,31 +20,31 @@
              version="2.0">
     <persistence-unit name="jeonserver" transaction-type="RESOURCE_LOCAL">
         <!-- Mappings -->
-        <class>io.github.ma1uta.jeonserver.model.core.AuthEvent</class>
-        <class>io.github.ma1uta.jeonserver.model.core.Event</class>
-        <class>io.github.ma1uta.jeonserver.model.core.EventContent</class>
-        <class>io.github.ma1uta.jeonserver.model.core.PersistentEvent</class>
-        <class>io.github.ma1uta.jeonserver.model.core.Redacts</class>
-        <class>io.github.ma1uta.jeonserver.model.core.SendToDevice</class>
-        <class>io.github.ma1uta.jeonserver.model.core.Signature</class>
-        <class>io.github.ma1uta.jeonserver.model.filter.EventFilter</class>
-        <class>io.github.ma1uta.jeonserver.model.filter.Filter</class>
-        <class>io.github.ma1uta.jeonserver.model.filter.RoomEventFilter</class>
-        <class>io.github.ma1uta.jeonserver.model.filter.RoomFilter</class>
-        <class>io.github.ma1uta.jeonserver.model.filter.StateFilter</class>
-        <class>io.github.ma1uta.jeonserver.model.media.Media</class>
-        <class>io.github.ma1uta.jeonserver.model.media.Thumbnail</class>
-        <class>io.github.ma1uta.jeonserver.model.room.Room</class>
-        <class>io.github.ma1uta.jeonserver.model.room.RoomReport</class>
-        <class>io.github.ma1uta.jeonserver.model.room.RoomServer</class>
-        <class>io.github.ma1uta.jeonserver.model.room.RoomState</class>
-        <class>io.github.ma1uta.jeonserver.model.room.RoomStateSnapshot</class>
-        <class>io.github.ma1uta.jeonserver.model.user.AbstractAuth</class>
-        <class>io.github.ma1uta.jeonserver.model.user.AccountData</class>
-        <class>io.github.ma1uta.jeonserver.model.user.Openid</class>
-        <class>io.github.ma1uta.jeonserver.model.user.PasswordAuth</class>
-        <class>io.github.ma1uta.jeonserver.model.user.Tag</class>
-        <class>io.github.ma1uta.jeonserver.model.user.Token</class>
-        <class>io.github.ma1uta.jeonserver.model.user.User</class>
+        <class>io.github.ma1uta.jeonserver.entity.core.AuthEvent</class>
+        <class>io.github.ma1uta.jeonserver.entity.core.Event</class>
+        <class>io.github.ma1uta.jeonserver.entity.core.EventContent</class>
+        <class>io.github.ma1uta.jeonserver.entity.core.PersistentEvent</class>
+        <class>io.github.ma1uta.jeonserver.entity.core.Redacts</class>
+        <class>io.github.ma1uta.jeonserver.entity.core.SendToDevice</class>
+        <class>io.github.ma1uta.jeonserver.entity.core.Signature</class>
+        <class>io.github.ma1uta.jeonserver.entity.filter.EventFilter</class>
+        <class>io.github.ma1uta.jeonserver.entity.filter.Filter</class>
+        <class>io.github.ma1uta.jeonserver.entity.filter.RoomEventFilter</class>
+        <class>io.github.ma1uta.jeonserver.entity.filter.RoomFilter</class>
+        <class>io.github.ma1uta.jeonserver.entity.filter.StateFilter</class>
+        <class>io.github.ma1uta.jeonserver.entity.media.Media</class>
+        <class>io.github.ma1uta.jeonserver.entity.media.Thumbnail</class>
+        <class>io.github.ma1uta.jeonserver.entity.room.Room</class>
+        <class>io.github.ma1uta.jeonserver.entity.room.RoomReport</class>
+        <class>io.github.ma1uta.jeonserver.entity.room.RoomServer</class>
+        <class>io.github.ma1uta.jeonserver.entity.room.RoomState</class>
+        <class>io.github.ma1uta.jeonserver.entity.room.RoomStateSnapshot</class>
+        <class>io.github.ma1uta.jeonserver.entity.user.AbstractAuth</class>
+        <class>io.github.ma1uta.jeonserver.entity.user.AccountData</class>
+        <class>io.github.ma1uta.jeonserver.entity.user.Openid</class>
+        <class>io.github.ma1uta.jeonserver.entity.user.PasswordAuth</class>
+        <class>io.github.ma1uta.jeonserver.entity.user.Tag</class>
+        <class>io.github.ma1uta.jeonserver.entity.user.Token</class>
+        <class>io.github.ma1uta.jeonserver.entity.user.User</class>
     </persistence-unit>
 </persistence>
