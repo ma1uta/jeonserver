@@ -24,30 +24,43 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 /**
  * User token.
  */
 @Entity
-@Table(name = "token")
+@Table(
+    name = "token",
+    uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"device_id", "user_id"})
+    }
+)
 @Getter
 @Setter
-@EqualsAndHashCode(of = {"device", "user"})
-@IdClass(TokenId.class)
+@EqualsAndHashCode(of = "id")
 public class Token implements Serializable {
 
     @Id
+    @SequenceGenerator(name = "pk_sequence", sequenceName = "token_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence")
+    private Long id;
+
     @OneToOne
+    @JoinColumn(name = "device_id")
     private Device device;
 
-    @Id
     @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
 
     private String token;

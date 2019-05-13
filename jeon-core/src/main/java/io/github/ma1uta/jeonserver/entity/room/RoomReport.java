@@ -16,7 +16,7 @@
 
 package io.github.ma1uta.jeonserver.entity.room;
 
-import io.github.ma1uta.jeonserver.entity.core.PersistentEvent;
+import io.github.ma1uta.jeonserver.entity.core.Event;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -46,7 +46,7 @@ public class RoomReport implements Serializable {
     private Long id;
 
     @ManyToOne
-    private PersistentEvent event;
+    private Event event;
 
     @ManyToOne
     private Room room;

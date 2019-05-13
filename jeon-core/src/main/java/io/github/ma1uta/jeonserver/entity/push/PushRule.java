@@ -50,7 +50,8 @@ public class PushRule implements Serializable {
     private Long id;
 
     @OneToMany
-    @JoinTable(name = "push_rule_actions",
+    @JoinTable(
+        name = "push_rule_actions",
         joinColumns = @JoinColumn(name = "push_rule_id", referencedColumnName = "id"),
         inverseJoinColumns = @JoinColumn(name = "action_id", referencedColumnName = "id")
     )

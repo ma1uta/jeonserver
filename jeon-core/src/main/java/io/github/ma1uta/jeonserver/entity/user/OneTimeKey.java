@@ -23,33 +23,46 @@ import lombok.Setter;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Set;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 /**
  * One time key.
  */
 @Entity
-@Table(name = "one_time_key")
+@Table(
+    name = "one_time_key",
+    uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"key_id", "user_id", "algorithm"})
+    }
+)
 @Getter
 @Setter
-@EqualsAndHashCode(of = {"id", "user", "algorithm"})
-@IdClass(OneTimeKeyId.class)
+@EqualsAndHashCode(of = "id")
 public class OneTimeKey implements Serializable {
 
     @Id
-    private String id;
+    @SequenceGenerator(name = "pk_sequence", sequenceName = "one_time_key_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence")
+    private Long id;
 
-    @Id
+    @Column(name = "key_id")
+    private String keyId;
+
     @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
 
-    @Id
     private String algorithm;
 
     private LocalDateTime created;

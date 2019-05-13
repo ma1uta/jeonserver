@@ -23,11 +23,13 @@ import lombok.Setter;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -58,4 +60,7 @@ public class Media implements Serializable {
     private Boolean allowRemote;
 
     private Long size;
+
+    @OneToMany(mappedBy = "media")
+    private Set<Thumbnail> thumbnails;
 }

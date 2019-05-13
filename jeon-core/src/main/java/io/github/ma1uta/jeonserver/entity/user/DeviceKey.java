@@ -23,32 +23,44 @@ import lombok.Setter;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 /**
  * Device key.
  */
 @Entity
-@Table(name = "device_key")
+@Table(
+    name = "device_key",
+    uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"device_id", "user_id", "algorithm"})
+    }
+)
 @Getter
 @Setter
-@EqualsAndHashCode(of = {"device", "user", "algorithm"})
-@IdClass(DeviceKeyId.class)
+@EqualsAndHashCode(of = "id")
 public class DeviceKey implements Serializable {
 
     @Id
+    @SequenceGenerator(name = "pk_sequence", sequenceName = "device_key_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence")
+    private Long id;
+
     @ManyToOne
+    @JoinColumn(name = "device_id")
     private Device device;
 
-    @Id
     @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
 
-    @Id
     private String algorithm;
 
     private LocalDateTime created;

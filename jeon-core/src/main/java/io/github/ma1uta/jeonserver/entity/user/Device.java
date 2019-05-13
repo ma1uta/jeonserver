@@ -24,29 +24,41 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Set;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 /**
  * User device.
  */
 @Entity
-@Table(name = "device")
+@Table(
+    name = "device",
+    uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"device", "user_id"})
+    }
+)
 @Getter
 @Setter
-@EqualsAndHashCode(of = {"device", "user"})
-@IdClass(DeviceId.class)
+@EqualsAndHashCode(of = "id")
 public class Device implements Serializable {
 
     @Id
+    @SequenceGenerator(name = "pk_sequence", sequenceName = "device_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence")
+    private Long id;
+
     private String device;
 
-    @Id
     @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
 
     private LocalDateTime created;

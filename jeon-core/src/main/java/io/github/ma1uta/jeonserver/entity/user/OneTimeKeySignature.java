@@ -22,31 +22,43 @@ import lombok.Setter;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 /**
  * One time key signature.
  */
 @Entity
-@Table(name = "one_time_key_signature")
+@Table(
+    name = "one_time_key_signature",
+    uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"one_time_key", "device_id", "algorithm"})
+    }
+)
 @Getter
 @Setter
-@EqualsAndHashCode(of = {"oneTimeKey", "device", "algorithm"})
-@IdClass(OneTimeKeySignatureId.class)
+@EqualsAndHashCode(of = "id")
 public class OneTimeKeySignature implements Serializable {
 
     @Id
+    @SequenceGenerator(name = "pk_sequence", sequenceName = "one_time_key_signature_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence")
+    private Long id;
+
     @ManyToOne
+    @JoinColumn(name = "one_time_key")
     private OneTimeKey oneTimeKey;
 
-    @Id
     @ManyToOne
+    @JoinColumn(name = "device_id")
     private Device device;
 
-    @Id
     private String algorithm;
 
     private String signature;

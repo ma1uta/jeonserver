@@ -47,7 +47,7 @@ public class AuthEvent implements Serializable {
     private Long id;
 
     @ManyToOne
-    private PersistentEvent event;
+    private Event event;
 
     @OneToOne
     private RoomState auth;

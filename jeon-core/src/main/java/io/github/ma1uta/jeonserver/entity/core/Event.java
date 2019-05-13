@@ -27,15 +27,11 @@ import java.util.List;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
-import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -52,11 +48,8 @@ import javax.persistence.Table;
 @Table(name = "event")
 @Getter
 @Setter
-@EqualsAndHashCode(of = {"id", "domain"})
-@Inheritance(strategy = InheritanceType.JOINED)
+@EqualsAndHashCode(of = "id")
 @DiscriminatorColumn
-@DiscriminatorValue("event")
-@IdClass(EventId.class)
 public class Event implements Serializable {
 
     @Id
@@ -65,8 +58,7 @@ public class Event implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @Id
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "domain_id")
     private Domain domain;
 
@@ -84,7 +76,7 @@ public class Event implements Serializable {
     @Column(name = "origin_server")
     private String originServer;
 
-    private String author;
+    private String sender;
 
     private LocalDateTime created;
 
@@ -106,4 +98,7 @@ public class Event implements Serializable {
     private Set<Signature> signatures;
 
     private Long depth;
+
+    @Column(name = "txn_id")
+    private String txnId;
 }

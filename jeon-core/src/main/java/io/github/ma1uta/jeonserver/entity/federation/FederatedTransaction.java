@@ -18,7 +18,6 @@ package io.github.ma1uta.jeonserver.entity.federation;
 
 import io.github.ma1uta.jeonserver.entity.core.Domain;
 import io.github.ma1uta.jeonserver.entity.core.Event;
-import io.github.ma1uta.jeonserver.entity.core.PersistentEvent;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -77,7 +76,7 @@ public class FederatedTransaction implements Serializable {
             @JoinColumn(name = "event_id", referencedColumnName = "id"),
             @JoinColumn(name = "event_domain", referencedColumnName = "domain_id")
         })
-    private Set<PersistentEvent> pdus;
+    private Set<Event> pdus;
 
     @OneToMany
     @JoinTable(
