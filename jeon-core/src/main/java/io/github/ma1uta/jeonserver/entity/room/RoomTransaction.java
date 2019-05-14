@@ -25,33 +25,44 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 /**
  * Room transaction.
  */
 @Entity
-@Table(name = "room_transaction")
+@Table(
+    name = "room_transaction",
+    uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"txn_id", "sender", "room_id"})
+    }
+)
 @Getter
 @Setter
-@EqualsAndHashCode(of = {"txnId", "sender", "room"})
-@IdClass(RoomTransactionId.class)
+@EqualsAndHashCode(of = "id")
 public class RoomTransaction implements Serializable {
 
     @Id
+    @SequenceGenerator(name = "pk_sequence", sequenceName = "room_transaction_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence")
+    private Long id;
+
     @Column(name = "txn_id")
     private String txnId;
 
-    @Id
     private String sender;
 
-    @Id
     @ManyToOne
+    @JoinColumn(name = "room_id")
     private Room room;
 
     @OneToOne

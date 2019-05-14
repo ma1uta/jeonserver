@@ -16,30 +16,42 @@
 
 package io.github.ma1uta.jeonserver.entity.core;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 /**
  * Send to device.
  */
 @Entity
-@Table(name = "send_to_device")
+@Table(
+    name = "send_to_device",
+    uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"user", "device"})
+    }
+)
 @Getter
 @Setter
-@IdClass(SentToDeviceId.class)
+@EqualsAndHashCode(of = "id")
 public class SendToDevice implements Serializable {
 
     @Id
+    @SequenceGenerator(name = "pk_sequence", sequenceName = "send_to_device_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence")
+    private Long id;
+
     private String user;
 
-    @Id
     private String device;
 
     @OneToOne

@@ -25,30 +25,43 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 /**
  * Outgoing transaction.
  */
 @Entity
-@Table(name = "outgoing_transaction")
+@Table(
+    name = "outgoing_transaction",
+    uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"transaction_id", "domain_id"})
+    }
+)
 @Getter
 @Setter
-@EqualsAndHashCode(of = {"transaction", "target"})
-@IdClass(OutgoingTransactionId.class)
+@EqualsAndHashCode(of = "id")
 public class OutgoingTransaction implements Serializable {
 
     @Id
+    @SequenceGenerator(name = "pk_sequence", sequenceName = "outgoing_transaction_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence")
+    private Long id;
+
     @OneToOne
+    @JoinColumn(name = "transaction_id")
     private FederatedTransaction transaction;
 
-    @Id
     @ManyToOne
+    @JoinColumn(name = "domain_id")
     private Domain domain;
 
     @Id

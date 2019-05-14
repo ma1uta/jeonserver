@@ -25,28 +25,40 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 /**
  * Outgoing queue.
  */
 @Entity
-@Table(name = "outgoing_queue")
+@Table(
+    name = "outgoing_queue",
+    uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"event_id", "target"})
+    }
+)
 @Getter
 @Setter
-@EqualsAndHashCode(of = {"event", "target"})
-@IdClass(OutgoingQueueId.class)
+@EqualsAndHashCode(of = "id")
 public class OutgoingQueue implements Serializable {
 
     @Id
+    @SequenceGenerator(name = "pk_sequence", sequenceName = "outgoing_queue_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence")
+    private Long id;
+
     @OneToOne
+    @JoinColumn(name = "event_id")
     private Event event;
 
-    @Id
     private String target;
 
     private LocalDateTime created;

@@ -22,26 +22,38 @@ import lombok.Setter;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 /**
  * Room servers.
  */
 @Entity
-@Table(name = "room_servers")
+@Table(
+    name = "room_servers",
+    uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"room_id", "server"})
+    }
+)
 @Getter
 @Setter
-@EqualsAndHashCode(of = "room")
-@IdClass(RoomServerId.class)
+@EqualsAndHashCode(of = "id")
 public class RoomServer implements Serializable {
 
-    @ManyToOne
     @Id
+    @SequenceGenerator(name = "pk_sequence", sequenceName = "room_server_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence")
+    private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "room_id")
     private Room room;
 
-    @Id
     private String server;
 }

@@ -27,34 +27,43 @@ import java.time.LocalDateTime;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 /**
  * PDU.
  */
 @Entity
-@Table(name = "federated_transaction")
+@Table(
+    name = "federated_transaction",
+    uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"txn_id", "origin_server", "domain_id"})
+    }
+)
 @Getter
 @Setter
-@EqualsAndHashCode(of = {"txnId", "originServer", "domain"})
-@IdClass(FederatedTransactionId.class)
+@EqualsAndHashCode(of = "id")
 public class FederatedTransaction implements Serializable {
 
     @Id
+    @SequenceGenerator(name = "pk_sequence", sequenceName = "fed_transaction_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence")
+    private Long id;
+
     @Column(name = "txn_id")
     private String txnId;
 
-    @Id
     @Column(name = "origin_server")
     private String originServer;
 
-    @Id
     @ManyToOne
     @JoinColumn(name = "domain_id")
     private Domain domain;

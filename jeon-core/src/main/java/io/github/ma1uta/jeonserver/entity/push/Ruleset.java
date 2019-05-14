@@ -27,7 +27,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
@@ -40,8 +40,7 @@ import javax.persistence.Table;
 @Table(name = "ruleset")
 @Getter
 @Setter
-@EqualsAndHashCode(of = {"id", "user"})
-@IdClass(RulesetId.class)
+@EqualsAndHashCode(of = "id")
 public class Ruleset implements Serializable {
 
     @Id
@@ -49,8 +48,8 @@ public class Ruleset implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence")
     private Long id;
 
-    @Id
     @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
 
     @OneToMany(mappedBy = "ruleset")

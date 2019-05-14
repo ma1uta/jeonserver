@@ -25,28 +25,40 @@ import java.io.Serializable;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 /**
  * Pusher.
  */
 @Entity
-@Table(name = "pusher")
+@Table(
+    name = "pusher",
+    uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"pushkey", "user_id"})
+    }
+)
 @Getter
 @Setter
-@EqualsAndHashCode(of = {"pushkey", "user"})
-@IdClass(PusherId.class)
+@EqualsAndHashCode(of = "id")
 public class Pusher implements Serializable {
 
     @Id
+    @SequenceGenerator(name = "pk_sequence", sequenceName = "pusher_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence")
+    private Long id;
+
     private String pushkey;
 
-    @Id
     @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
 
     private String kind;

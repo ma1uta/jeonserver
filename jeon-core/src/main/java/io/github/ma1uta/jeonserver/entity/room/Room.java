@@ -25,33 +25,46 @@ import lombok.Setter;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.OrderColumn;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 /**
  * Room.
  */
 @Entity
-@Table(name = "room")
+@Table(
+    name = "room",
+    uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"room_id", "domain_id"})
+    }
+)
 @Getter
 @Setter
-@EqualsAndHashCode(of = {"id", "domain"})
-@IdClass(RoomId.class)
+@EqualsAndHashCode(of = "id")
 public class Room implements Serializable {
 
     @Id
-    private String id;
+    @SequenceGenerator(name = "pk_sequence", sequenceName = "room_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence")
+    private Long id;
 
-    @Id
+    @Column(name = "room_id")
+    private String roomId;
+
     @ManyToOne
+    @JoinColumn(name = "domain_id")
     private Domain domain;
 
     private String version;
