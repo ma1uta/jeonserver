@@ -64,7 +64,6 @@ public class OutgoingTransaction implements Serializable {
     @JoinColumn(name = "domain_id")
     private Domain domain;
 
-    @Id
     private String target;
 
     private LocalDateTime created;
