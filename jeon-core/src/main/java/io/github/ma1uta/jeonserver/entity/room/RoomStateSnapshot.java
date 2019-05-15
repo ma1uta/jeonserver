@@ -51,26 +51,33 @@ public class RoomStateSnapshot implements Serializable {
     private Long id;
 
     @OneToOne
+    @JoinColumn(name = "prev_id")
     private RoomStateSnapshot prev;
 
     private LocalDateTime created;
 
     @ManyToOne
+    @JoinColumn(name = "room_id")
     private Room room;
 
     @OneToOne
+    @JoinColumn(name = "initial_id")
     private RoomState initial;
 
     @OneToOne
+    @JoinColumn(name = "name_id")
     private RoomState name;
 
     @OneToOne
+    @JoinColumn(name = "topic_id")
     private RoomState topic;
 
     @OneToOne
+    @JoinColumn(name = "avatar_id")
     private RoomState avatar;
 
     @OneToOne
+    @JoinColumn(name = "permissions_id")
     private RoomState permissions;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "roomState")
@@ -103,8 +110,10 @@ public class RoomStateSnapshot implements Serializable {
     private RoomState joinRules;
 
     @OneToOne
+    @JoinColumn(name = "encryption_id")
     private RoomState encryption;
 
     @OneToOne
+    @JoinColumn(name = "tombstone_id")
     private RoomState tombstone;
 }

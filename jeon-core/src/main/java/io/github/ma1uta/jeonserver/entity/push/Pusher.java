@@ -42,7 +42,7 @@ import javax.persistence.UniqueConstraint;
 @Table(
     name = "pusher",
     uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"pushkey", "user_id"})
+        @UniqueConstraint(name = "pusher_constr_pushkey_user", columnNames = {"pushkey", "user_id"})
     }
 )
 @Getter

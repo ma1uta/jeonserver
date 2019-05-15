@@ -55,5 +55,6 @@ public class RoomState implements Serializable {
     private String stateKey;
 
     @ManyToOne
+    @JoinColumn(name = "event_id")
     private Event event;
 }

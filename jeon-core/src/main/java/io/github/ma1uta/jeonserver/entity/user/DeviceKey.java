@@ -40,7 +40,7 @@ import javax.persistence.UniqueConstraint;
 @Table(
     name = "device_key",
     uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"device_id", "user_id", "algorithm"})
+        @UniqueConstraint(name = "device_key_constr_device_user_algorithm", columnNames = {"device_id", "user_id", "algorithm"})
     }
 )
 @Getter

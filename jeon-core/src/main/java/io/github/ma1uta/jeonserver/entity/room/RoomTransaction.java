@@ -43,7 +43,7 @@ import javax.persistence.UniqueConstraint;
 @Table(
     name = "room_transaction",
     uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"txn_id", "sender", "room_id"})
+        @UniqueConstraint(name = "room_trans_constr_txn_sender_room", columnNames = {"txn_id", "sender", "room_id"})
     }
 )
 @Getter
@@ -66,6 +66,7 @@ public class RoomTransaction implements Serializable {
     private Room room;
 
     @OneToOne
+    @JoinColumn(name = "content_id")
     private EventContent content;
 
     private String type;

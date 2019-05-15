@@ -45,7 +45,7 @@ import javax.persistence.UniqueConstraint;
 @Table(
     name = "federated_transaction",
     uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"txn_id", "origin_server", "domain_id"})
+        @UniqueConstraint(name = "fed_trans_constr_txn_origin_domain", columnNames = {"txn_id", "origin_server", "domain_id"})
     }
 )
 @Getter
@@ -77,13 +77,10 @@ public class FederatedTransaction implements Serializable {
     @JoinTable(
         name = "pdu",
         joinColumns = {
-            @JoinColumn(name = "txn_id", referencedColumnName = "txn_id"),
-            @JoinColumn(name = "origin_server", referencedColumnName = "origin_server"),
-            @JoinColumn(name = "txn_domain", referencedColumnName = "domain_id")
+            @JoinColumn(name = "transaction_id", referencedColumnName = "id")
         },
         inverseJoinColumns = {
-            @JoinColumn(name = "event_id", referencedColumnName = "id"),
-            @JoinColumn(name = "event_domain", referencedColumnName = "domain_id")
+            @JoinColumn(name = "event_id", referencedColumnName = "id")
         })
     private Set<Event> pdus;
 
@@ -91,13 +88,10 @@ public class FederatedTransaction implements Serializable {
     @JoinTable(
         name = "edu",
         joinColumns = {
-            @JoinColumn(name = "txn_id", referencedColumnName = "txn_id"),
-            @JoinColumn(name = "origin_server", referencedColumnName = "origin_server"),
-            @JoinColumn(name = "txn_domain", referencedColumnName = "domain_id")
+            @JoinColumn(name = "transaction_id", referencedColumnName = "id")
         },
         inverseJoinColumns = {
-            @JoinColumn(name = "event_id", referencedColumnName = "id"),
-            @JoinColumn(name = "event_domain", referencedColumnName = "domain_id")
+            @JoinColumn(name = "event_id", referencedColumnName = "id")
         })
     private Set<Event> edus;
 }

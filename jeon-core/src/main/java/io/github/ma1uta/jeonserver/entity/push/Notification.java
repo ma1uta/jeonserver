@@ -52,6 +52,7 @@ public class Notification implements Serializable {
     private Long id;
 
     @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
 
     @OneToMany
@@ -63,6 +64,7 @@ public class Notification implements Serializable {
     private Set<Action> actions;
 
     @ManyToOne
+    @JoinColumn(name = "event_id")
     private Event event;
 
     @Column(name = "profile_tag")

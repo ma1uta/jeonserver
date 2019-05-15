@@ -43,7 +43,7 @@ import javax.persistence.UniqueConstraint;
 @Table(
     name = "outgoing_transaction",
     uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"transaction_id", "domain_id"})
+        @UniqueConstraint(name = "outcome_trans_constr_trans_domain", columnNames = {"transaction_id", "domain_id"})
     }
 )
 @Getter

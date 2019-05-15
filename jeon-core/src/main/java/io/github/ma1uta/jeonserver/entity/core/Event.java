@@ -40,12 +40,18 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 /**
  * Server side event implementation.
  */
 @Entity
-@Table(name = "event")
+@Table(
+    name = "event",
+    uniqueConstraints = {
+        @UniqueConstraint(name = "event_constr_domain_event", columnNames = {"domain_id", "event_id"})
+    }
+)
 @Getter
 @Setter
 @EqualsAndHashCode(of = "id")
@@ -68,9 +74,11 @@ public class Event implements Serializable {
     private String eventId;
 
     @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "content_id")
     private EventContent content;
 
     @OneToOne
+    @JoinColumn(name = "redacts_id")
     private Redacts redacts;
 
     @Column(name = "origin_server")
@@ -83,10 +91,12 @@ public class Event implements Serializable {
     private LocalDateTime received;
 
     @ManyToOne
+    @JoinColumn(name = "room_id")
     private Room room;
 
     @ManyToMany
-    @JoinTable(name = "event_event")
+    @JoinTable(name = "event_graph")
+    @JoinColumn(name = "parents_id")
     private List<Event> parents;
 
     @ManyToMany(mappedBy = "parents")

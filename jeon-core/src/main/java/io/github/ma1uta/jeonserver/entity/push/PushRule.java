@@ -71,5 +71,6 @@ public class PushRule implements Serializable {
     private Set<PushCondition> conditions;
 
     @ManyToOne
+    @JoinColumn(name = "ruleset_id")
     private Ruleset ruleset;
 }

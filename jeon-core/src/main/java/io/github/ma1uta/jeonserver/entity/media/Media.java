@@ -24,30 +24,46 @@ import lombok.Setter;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Set;
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 /**
  * Media.
  */
 @Entity
-@Table(name = "media")
+@Table(
+    name = "media",
+    uniqueConstraints = {
+        @UniqueConstraint(name = "media_constr_media_domain", columnNames = {"media_id", "domain_id"})
+    }
+)
 @Getter
 @Setter
-@EqualsAndHashCode(of = {"id", "domain"})
-@IdClass(MediaId.class)
+@EqualsAndHashCode(of = "id")
 public class Media implements Serializable {
 
     @Id
-    private String id;
+    @SequenceGenerator(name = "pk_sequence", sequenceName = "media_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence")
+    private Long id;
 
-    @Id
+    @Column(name = "media_id")
+    private String mediaId;
+
     @ManyToOne
+    @JoinColumn(name = "domain_id")
     private Domain domain;
 
     private String filename;
@@ -63,4 +79,9 @@ public class Media implements Serializable {
 
     @OneToMany(mappedBy = "media")
     private Set<Thumbnail> thumbnails;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "media_remote_addresses", joinColumns = @JoinColumn(name = "id"))
+    @Column(name = "remote_address")
+    private Set<String> remoteAddresses;
 }

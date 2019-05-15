@@ -46,7 +46,7 @@ import javax.persistence.UniqueConstraint;
 @Table(
     name = "user",
     uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"username", "domain_id"})
+        @UniqueConstraint(name = "user_constr_username_domain", columnNames = {"username", "domain_id"})
     }
 )
 @Getter
@@ -72,6 +72,7 @@ public class User implements Serializable {
     private String presence;
 
     @OneToOne
+    @JoinColumn(name = "auth_id")
     private AbstractAuth auth;
 
     @Column(name = "last_active_ago")

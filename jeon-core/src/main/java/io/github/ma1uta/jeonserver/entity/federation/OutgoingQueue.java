@@ -42,7 +42,7 @@ import javax.persistence.UniqueConstraint;
 @Table(
     name = "outgoing_queue",
     uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"event_id", "target"})
+        @UniqueConstraint(name = "outcome_queue_constr_event_target", columnNames = {"event_id", "target"})
     }
 )
 @Getter
@@ -65,6 +65,10 @@ public class OutgoingQueue implements Serializable {
 
     @Column(name = "sent_to_transaction")
     private LocalDateTime sentToTransaction;
+
+    @OneToOne
+    @JoinColumn(name = "transaction_id")
+    private OutgoingTransaction transaction;
 
     @PrePersist
     private void create() {

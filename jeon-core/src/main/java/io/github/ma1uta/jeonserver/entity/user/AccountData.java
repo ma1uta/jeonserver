@@ -38,7 +38,7 @@ import javax.persistence.UniqueConstraint;
 @Table(
     name = "account_data",
     uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"room", "user_id", "type"})
+        @UniqueConstraint(name = "account_data_constr_room_user_type", columnNames = {"room", "user_id", "type"})
     }
 )
 @Getter

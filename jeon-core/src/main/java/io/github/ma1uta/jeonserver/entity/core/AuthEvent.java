@@ -26,6 +26,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
@@ -47,8 +48,10 @@ public class AuthEvent implements Serializable {
     private Long id;
 
     @ManyToOne
+    @JoinColumn(name = "event_id")
     private Event event;
 
     @OneToOne
+    @JoinColumn(name = "auth_id")
     private RoomState auth;
 }

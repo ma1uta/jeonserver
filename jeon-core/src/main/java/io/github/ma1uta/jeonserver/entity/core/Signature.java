@@ -38,7 +38,7 @@ import javax.persistence.UniqueConstraint;
 @Table(
     name = "signature",
     uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"event_id", "server"})
+        @UniqueConstraint(name = "signature_constr_event_server", columnNames = {"event_id", "server"})
     }
 )
 @Getter
