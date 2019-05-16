@@ -27,6 +27,7 @@ import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -51,22 +52,26 @@ public class EventFilter implements Serializable {
     private Long id;
 
     @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "event_filter_not_senders", joinColumns = @JoinColumn(name = "id"))
+    @CollectionTable(name = "event_filter_not_senders",
+        joinColumns = @JoinColumn(name = "id", foreignKey = @ForeignKey(name = "event_filter_fk_not_senders")))
     @Column(name = "not_senders")
     private Set<String> notSenders;
 
     @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "event_filter_not_types", joinColumns = @JoinColumn(name = "id"))
+    @CollectionTable(name = "event_filter_not_types",
+        joinColumns = @JoinColumn(name = "id", foreignKey = @ForeignKey(name = "event_filter_fk_not_types")))
     @Column(name = "not_types")
     private Set<String> notTypes;
 
     @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "event_filter_senders", joinColumns = @JoinColumn(name = "id"))
+    @CollectionTable(name = "event_filter_senders",
+        joinColumns = @JoinColumn(name = "id", foreignKey = @ForeignKey(name = "event_filter_fk_senders")))
     @Column(name = "senders")
     private Set<String> senders;
 
     @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "event_filter_types", joinColumns = @JoinColumn(name = "id"))
+    @CollectionTable(name = "event_filter_types",
+        joinColumns = @JoinColumn(name = "id", foreignKey = @ForeignKey(name = "event_filter_fk_types")))
     @Column(name = "types")
     private Set<String> types;
 }

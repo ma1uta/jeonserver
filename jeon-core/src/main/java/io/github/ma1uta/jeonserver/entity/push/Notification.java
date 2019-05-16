@@ -26,6 +26,7 @@ import java.io.Serializable;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -52,19 +53,23 @@ public class Notification implements Serializable {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "notif_fk_user"))
     private User user;
 
     @OneToMany
     @JoinTable(
         name = "notification_actions",
-        joinColumns = @JoinColumn(name = "notification_id", referencedColumnName = "id"),
-        inverseJoinColumns = @JoinColumn(name = "action_id", referencedColumnName = "id")
+        joinColumns = {
+            @JoinColumn(name = "notification_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "notif_fk_notif"))
+        },
+        inverseJoinColumns = {
+            @JoinColumn(name = "action_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "notif_fk_actions"))
+        }
     )
     private Set<Action> actions;
 
     @ManyToOne
-    @JoinColumn(name = "event_id")
+    @JoinColumn(name = "event_id", foreignKey = @ForeignKey(name = "notif_fk_event"))
     private Event event;
 
     @Column(name = "profile_tag")

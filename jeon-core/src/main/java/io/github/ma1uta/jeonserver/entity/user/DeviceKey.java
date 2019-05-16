@@ -23,6 +23,7 @@ import lombok.Setter;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -54,11 +55,11 @@ public class DeviceKey implements Serializable {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "device_id")
+    @JoinColumn(name = "device_id", foreignKey = @ForeignKey(name = "device_key_fk_device"))
     private Device device;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "device_key_fk_user"))
     private User user;
 
     private String algorithm;

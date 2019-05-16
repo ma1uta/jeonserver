@@ -24,6 +24,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -56,11 +57,11 @@ public class Token implements Serializable {
     private Long id;
 
     @OneToOne
-    @JoinColumn(name = "device_id")
+    @JoinColumn(name = "device_id", foreignKey = @ForeignKey(name = "token_fk_device"))
     private Device device;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "token_fk_user"))
     private User user;
 
     private String token;

@@ -22,6 +22,7 @@ import lombok.Setter;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -54,7 +55,7 @@ public class AccountData implements Serializable {
     private String room;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "account_data_fk_user"))
     private User user;
 
     private String type;

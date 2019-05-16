@@ -29,6 +29,7 @@ import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -63,7 +64,7 @@ public class Media implements Serializable {
     private String mediaId;
 
     @ManyToOne
-    @JoinColumn(name = "domain_id")
+    @JoinColumn(name = "domain_id", foreignKey = @ForeignKey(name = "media_fk_domain"))
     private Domain domain;
 
     private String filename;
@@ -81,7 +82,8 @@ public class Media implements Serializable {
     private Set<Thumbnail> thumbnails;
 
     @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "media_remote_addresses", joinColumns = @JoinColumn(name = "id"))
+    @CollectionTable(name = "media_remote_addresses",
+        joinColumns = @JoinColumn(name = "id", foreignKey = @ForeignKey(name = "media_fk_remote_addresses")))
     @Column(name = "remote_address")
     private Set<String> remoteAddresses;
 }

@@ -25,6 +25,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -62,11 +63,11 @@ public class RoomTransaction implements Serializable {
     private String sender;
 
     @ManyToOne
-    @JoinColumn(name = "room_id")
+    @JoinColumn(name = "room_id", foreignKey = @ForeignKey(name = "room_trans_fk_room"))
     private Room room;
 
     @OneToOne
-    @JoinColumn(name = "content_id")
+    @JoinColumn(name = "content_id", foreignKey = @ForeignKey(name = "room_trans_fk_content"))
     private EventContent content;
 
     private String type;

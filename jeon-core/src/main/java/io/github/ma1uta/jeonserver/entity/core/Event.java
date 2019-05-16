@@ -29,6 +29,7 @@ import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -65,7 +66,7 @@ public class Event implements Serializable {
     private Long id;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "domain_id")
+    @JoinColumn(name = "domain_id", foreignKey = @ForeignKey(name = "event_fk_domain"))
     private Domain domain;
 
     private String type;
@@ -74,11 +75,11 @@ public class Event implements Serializable {
     private String eventId;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "content_id")
+    @JoinColumn(name = "content_id", foreignKey = @ForeignKey(name = "event_fk_content"))
     private EventContent content;
 
     @OneToOne
-    @JoinColumn(name = "redacts_id")
+    @JoinColumn(name = "redacts_id", foreignKey = @ForeignKey(name = "event_fk_redacts"))
     private Redacts redacts;
 
     @Column(name = "origin_server")
@@ -91,12 +92,14 @@ public class Event implements Serializable {
     private LocalDateTime received;
 
     @ManyToOne
-    @JoinColumn(name = "room_id")
+    @JoinColumn(name = "room_id", foreignKey = @ForeignKey(name = "event_fk_room"))
     private Room room;
 
     @ManyToMany
-    @JoinTable(name = "event_graph")
-    @JoinColumn(name = "parents_id")
+    @JoinTable(name = "event_graph",
+        joinColumns = @JoinColumn(name = "parents_id", foreignKey = @ForeignKey(name = "event_fk_parents")),
+        inverseJoinColumns = @JoinColumn(name = "children_id", foreignKey = @ForeignKey(name = "event_fk_children"))
+    )
     private List<Event> parents;
 
     @ManyToMany(mappedBy = "parents")

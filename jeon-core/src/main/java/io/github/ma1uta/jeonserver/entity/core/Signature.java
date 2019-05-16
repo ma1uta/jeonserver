@@ -22,6 +22,7 @@ import lombok.Setter;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -52,7 +53,7 @@ public class Signature implements Serializable {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "event_id")
+    @JoinColumn(name = "event_id", foreignKey = @ForeignKey(name = "sign_fk_event"))
     private Event event;
 
     private String server;

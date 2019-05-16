@@ -27,6 +27,7 @@ import java.time.LocalDateTime;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -65,7 +66,7 @@ public class FederatedTransaction implements Serializable {
     private String originServer;
 
     @ManyToOne
-    @JoinColumn(name = "domain_id")
+    @JoinColumn(name = "domain_id", foreignKey = @ForeignKey(name = "fed_trans_fk_domain"))
     private Domain domain;
 
     @Column(name = "origin_server_ts")
@@ -77,10 +78,10 @@ public class FederatedTransaction implements Serializable {
     @JoinTable(
         name = "pdu",
         joinColumns = {
-            @JoinColumn(name = "transaction_id", referencedColumnName = "id")
+            @JoinColumn(name = "transaction_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fed_trans_fk_pdu_trans"))
         },
         inverseJoinColumns = {
-            @JoinColumn(name = "event_id", referencedColumnName = "id")
+            @JoinColumn(name = "event_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fed_trans_fk_pdu_event"))
         })
     private Set<Event> pdus;
 
@@ -88,10 +89,10 @@ public class FederatedTransaction implements Serializable {
     @JoinTable(
         name = "edu",
         joinColumns = {
-            @JoinColumn(name = "transaction_id", referencedColumnName = "id")
+            @JoinColumn(name = "transaction_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fed_trans_fk_edu_trans"))
         },
         inverseJoinColumns = {
-            @JoinColumn(name = "event_id", referencedColumnName = "id")
+            @JoinColumn(name = "event_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fed_trans_fk_edu_event"))
         })
     private Set<Event> edus;
 }

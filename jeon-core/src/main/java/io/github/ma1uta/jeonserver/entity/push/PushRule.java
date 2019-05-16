@@ -24,6 +24,7 @@ import java.io.Serializable;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -52,8 +53,11 @@ public class PushRule implements Serializable {
     @OneToMany
     @JoinTable(
         name = "push_rule_actions",
-        joinColumns = @JoinColumn(name = "push_rule_id", referencedColumnName = "id"),
-        inverseJoinColumns = @JoinColumn(name = "action_id", referencedColumnName = "id")
+        foreignKey = @ForeignKey(name = "push_rule_fk_push_rule_actions"),
+        joinColumns = @JoinColumn(
+            name = "push_rule_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "push_rule_fk_push_rule")),
+        inverseJoinColumns = @JoinColumn(
+            name = "action_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "push_fule_fk_action"))
     )
     private Set<Action> actions;
 
@@ -71,6 +75,6 @@ public class PushRule implements Serializable {
     private Set<PushCondition> conditions;
 
     @ManyToOne
-    @JoinColumn(name = "ruleset_id")
+    @JoinColumn(name = "ruleset_id", foreignKey = @ForeignKey(name = "push_rule_fk_ruleset"))
     private Ruleset ruleset;
 }

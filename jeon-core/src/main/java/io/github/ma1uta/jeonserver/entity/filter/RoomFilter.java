@@ -27,6 +27,7 @@ import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -53,31 +54,33 @@ public class RoomFilter implements Serializable {
     private Long limit;
 
     @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "room_filter_not_rooms", joinColumns = @JoinColumn(name = "id"))
+    @CollectionTable(name = "room_filter_not_rooms",
+        joinColumns = @JoinColumn(name = "id", foreignKey = @ForeignKey(name = "room_filter_fk_not_rooms")))
     @Column(name = "not_rooms")
     private Set<String> notRooms;
 
     @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "room_filter_rooms", joinColumns = @JoinColumn(name = "id"))
+    @CollectionTable(name = "room_filter_rooms",
+        joinColumns = @JoinColumn(name = "id", foreignKey = @ForeignKey(name = "room_filter_fk_rooms")))
     @Column(name = "rooms")
     private Set<String> rooms;
 
     @OneToOne
-    @JoinColumn(name = "ephemeral_id")
+    @JoinColumn(name = "ephemeral_id", foreignKey = @ForeignKey(name = "room_filter_fk_ephemeral"))
     private RoomEventFilter ephemeral;
 
     @Column(name = "include_leave")
     private Boolean includeLeave;
 
     @OneToOne
-    @JoinColumn(name = "state_id")
+    @JoinColumn(name = "state_id", foreignKey = @ForeignKey(name = "room_filter_fk_state"))
     private StateFilter state;
 
     @OneToOne
-    @JoinColumn(name = "timeline_id")
+    @JoinColumn(name = "timeline_id", foreignKey = @ForeignKey(name = "room_filter_fk_timeline"))
     private RoomEventFilter timeline;
 
     @OneToOne
-    @JoinColumn(name = "account_data_id")
+    @JoinColumn(name = "account_data_id", foreignKey = @ForeignKey(name = "room_filter_fk_account_data"))
     private RoomEventFilter accountData;
 }

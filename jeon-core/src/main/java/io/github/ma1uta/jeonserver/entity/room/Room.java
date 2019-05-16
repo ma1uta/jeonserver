@@ -28,6 +28,7 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -64,7 +65,7 @@ public class Room implements Serializable {
     private String roomId;
 
     @ManyToOne
-    @JoinColumn(name = "domain_id")
+    @JoinColumn(name = "domain_id", foreignKey = @ForeignKey(name = "room_fk_domain"))
     private Domain domain;
 
     private String version;
@@ -74,7 +75,7 @@ public class Room implements Serializable {
     private Boolean visible;
 
     @OneToOne
-    @JoinColumn(name = "latest_state_id")
+    @JoinColumn(name = "latest_state_id", foreignKey = @ForeignKey(name = "room_fk_last_state"))
     private RoomStateSnapshot latestState;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "room")

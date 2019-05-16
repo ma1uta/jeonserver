@@ -27,6 +27,7 @@ import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -52,32 +53,38 @@ public class StateFilter implements Serializable {
     private Long limit;
 
     @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "state_filter_not_senders", joinColumns = @JoinColumn(name = "id"))
+    @CollectionTable(name = "state_filter_not_senders",
+        joinColumns = @JoinColumn(name = "id", foreignKey = @ForeignKey(name = "state_filter_fk_not_senders")))
     @Column(name = "not_senders")
     private Set<String> notSenders;
 
     @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "state_filter_not_types", joinColumns = @JoinColumn(name = "id"))
+    @CollectionTable(name = "state_filter_not_types",
+        joinColumns = @JoinColumn(name = "id", foreignKey = @ForeignKey(name = "state_filter_fk_not_types")))
     @Column(name = "not_types")
     private Set<String> notTypes;
 
     @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "state_filter_senders", joinColumns = @JoinColumn(name = "id"))
+    @CollectionTable(name = "state_filter_senders",
+        joinColumns = @JoinColumn(name = "id", foreignKey = @ForeignKey(name = "state_filter_fk_senders")))
     @Column(name = "senders")
     private Set<String> senders;
 
     @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "state_filter_types", joinColumns = @JoinColumn(name = "id"))
+    @CollectionTable(name = "state_filter_types",
+        joinColumns = @JoinColumn(name = "id", foreignKey = @ForeignKey(name = "state_filter_fk_types")))
     @Column(name = "types")
     private Set<String> types;
 
     @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "state_filter_not_rooms", joinColumns = @JoinColumn(name = "id"))
+    @CollectionTable(name = "state_filter_not_rooms",
+        joinColumns = @JoinColumn(name = "id", foreignKey = @ForeignKey(name = "state_filter_fk_not_rooms")))
     @Column(name = "not_rooms")
     private Set<String> notRooms;
 
     @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "state_filter_rooms", joinColumns = @JoinColumn(name = "id"))
+    @CollectionTable(name = "state_filter_rooms",
+        joinColumns = @JoinColumn(name = "id", foreignKey = @ForeignKey(name = "state_filter_fk_rooms")))
     @Column(name = "rooms")
     private Set<String> rooms;
 

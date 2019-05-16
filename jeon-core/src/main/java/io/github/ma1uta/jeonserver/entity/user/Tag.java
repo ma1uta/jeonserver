@@ -22,6 +22,7 @@ import lombok.Setter;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -50,6 +51,6 @@ public class Tag implements Serializable {
     private Double order;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "tag_fk_user"))
     private User user;
 }

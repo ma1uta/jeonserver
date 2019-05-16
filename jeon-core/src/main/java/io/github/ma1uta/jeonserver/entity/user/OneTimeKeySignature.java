@@ -22,6 +22,7 @@ import lombok.Setter;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -52,11 +53,11 @@ public class OneTimeKeySignature implements Serializable {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "one_time_key")
+    @JoinColumn(name = "one_time_key", foreignKey = @ForeignKey(name = "one_time_key_sign_fk_one_time_key"))
     private OneTimeKey oneTimeKey;
 
     @ManyToOne
-    @JoinColumn(name = "device_id")
+    @JoinColumn(name = "device_id", foreignKey = @ForeignKey(name = "one_time_key_sign_device"))
     private Device device;
 
     private String algorithm;

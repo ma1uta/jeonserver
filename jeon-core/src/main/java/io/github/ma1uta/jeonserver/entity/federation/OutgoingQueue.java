@@ -25,6 +25,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -56,7 +57,7 @@ public class OutgoingQueue implements Serializable {
     private Long id;
 
     @OneToOne
-    @JoinColumn(name = "event_id")
+    @JoinColumn(name = "event_id", foreignKey = @ForeignKey(name = "outcome_queue_fk_event"))
     private Event event;
 
     private String target;
@@ -67,7 +68,7 @@ public class OutgoingQueue implements Serializable {
     private LocalDateTime sentToTransaction;
 
     @OneToOne
-    @JoinColumn(name = "transaction_id")
+    @JoinColumn(name = "transaction_id", foreignKey = @ForeignKey(name = "outcome_queue_fk_trans"))
     private OutgoingTransaction transaction;
 
     @PrePersist

@@ -25,6 +25,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -51,33 +52,33 @@ public class RoomStateSnapshot implements Serializable {
     private Long id;
 
     @OneToOne
-    @JoinColumn(name = "prev_id")
+    @JoinColumn(name = "prev_id", foreignKey = @ForeignKey(name = "room_state_snapshot_fk_prev"))
     private RoomStateSnapshot prev;
 
     private LocalDateTime created;
 
     @ManyToOne
-    @JoinColumn(name = "room_id")
+    @JoinColumn(name = "room_id", foreignKey = @ForeignKey(name = "room_state_snapshot_fk_room"))
     private Room room;
 
     @OneToOne
-    @JoinColumn(name = "initial_id")
+    @JoinColumn(name = "initial_id", foreignKey = @ForeignKey(name = "room_state_snapshot_fk_initial"))
     private RoomState initial;
 
     @OneToOne
-    @JoinColumn(name = "name_id")
+    @JoinColumn(name = "name_id", foreignKey = @ForeignKey(name = "room_state_snapshot_fk_name"))
     private RoomState name;
 
     @OneToOne
-    @JoinColumn(name = "topic_id")
+    @JoinColumn(name = "topic_id", foreignKey = @ForeignKey(name = "room_state_snapshot_fk_topic"))
     private RoomState topic;
 
     @OneToOne
-    @JoinColumn(name = "avatar_id")
+    @JoinColumn(name = "avatar_id", foreignKey = @ForeignKey(name = "room_state_snapshot_fk_avatar"))
     private RoomState avatar;
 
     @OneToOne
-    @JoinColumn(name = "permissions_id")
+    @JoinColumn(name = "permissions_id", foreignKey = @ForeignKey(name = "room_state_snapshot_fk_permissions"))
     private RoomState permissions;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "roomState")
@@ -87,33 +88,33 @@ public class RoomStateSnapshot implements Serializable {
     private List<RoomState> aliases;
 
     @OneToOne
-    @JoinColumn(name = "canonical_alias_id")
+    @JoinColumn(name = "canonical_alias_id", foreignKey = @ForeignKey(name = "room_state_snapshot_fk_canon_alias"))
     private RoomState canonicalAlias;
 
     @OneToMany(mappedBy = "roomState")
     private List<RoomState> pinned;
 
     @OneToOne
-    @JoinColumn(name = "server_acl_id")
+    @JoinColumn(name = "server_acl_id", foreignKey = @ForeignKey(name = "room_state_snapshot_fk_server_acl"))
     private RoomState serverAcl;
 
     @OneToOne
-    @JoinColumn(name = "guest_access_id")
+    @JoinColumn(name = "guest_access_id", foreignKey = @ForeignKey(name = "room_state_snapshot_fk_guest_access"))
     private RoomState guestAccess;
 
     @OneToOne
-    @JoinColumn(name = "history_visibility_id")
+    @JoinColumn(name = "history_visibility_id", foreignKey = @ForeignKey(name = "room_state_snapshot_fk_history"))
     private RoomState historyVisibility;
 
     @OneToOne
-    @JoinColumn(name = "join_rules_id")
+    @JoinColumn(name = "join_rules_id", foreignKey = @ForeignKey(name = "room_state_snapshot_fk_join_rules"))
     private RoomState joinRules;
 
     @OneToOne
-    @JoinColumn(name = "encryption_id")
+    @JoinColumn(name = "encryption_id", foreignKey = @ForeignKey(name = "room_state_snapshot_fk_encryption"))
     private RoomState encryption;
 
     @OneToOne
-    @JoinColumn(name = "tombstone_id")
+    @JoinColumn(name = "tombstone_id", foreignKey = @ForeignKey(name = "room_state_snapshot_fk_tombstone"))
     private RoomState tombstone;
 }

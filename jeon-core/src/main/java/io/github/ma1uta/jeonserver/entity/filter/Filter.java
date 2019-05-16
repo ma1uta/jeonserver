@@ -26,6 +26,7 @@ import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -50,24 +51,26 @@ public class Filter implements Serializable {
     private Long id;
 
     @ElementCollection
-    @CollectionTable(name = "filter_event_fields", joinColumns = @JoinColumn(name = "id"))
+    @CollectionTable(name = "filter_event_fields",
+        joinColumns = @JoinColumn(name = "id", foreignKey = @ForeignKey(name = "filter_fk_event_fields")))
     @Column(name = "event_fields")
     private Set<String> eventFields;
 
     @ElementCollection
-    @CollectionTable(name = "filter_event_format", joinColumns = @JoinColumn(name = "id"))
+    @CollectionTable(name = "filter_event_format",
+        joinColumns = @JoinColumn(name = "id", foreignKey = @ForeignKey(name = "filter_fk_event_format")))
     @Column(name = "event_format")
     private Set<String> eventFormat;
 
     @OneToOne
-    @JoinColumn(name = "presence_id")
+    @JoinColumn(name = "presence_id", foreignKey = @ForeignKey(name = "filter_fk_presence"))
     private EventFilter presence;
 
     @OneToOne
-    @JoinColumn(name = "account_data_id")
+    @JoinColumn(name = "account_data_id", foreignKey = @ForeignKey(name = "filter_fk_account_data"))
     private EventFilter accountData;
 
     @OneToOne
-    @JoinColumn(name = "room_id")
+    @JoinColumn(name = "room_id", foreignKey = @ForeignKey(name = "filter_fk_room"))
     private RoomFilter room;
 }

@@ -22,9 +22,11 @@ import lombok.Setter;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -55,5 +57,6 @@ public class SendToDevice implements Serializable {
     private String device;
 
     @OneToOne
+    @JoinColumn(name = "content_id", foreignKey = @ForeignKey(name = "send_to_device_fk_content"))
     private EventContent content;
 }

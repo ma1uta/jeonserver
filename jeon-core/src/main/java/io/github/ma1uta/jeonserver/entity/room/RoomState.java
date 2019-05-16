@@ -24,6 +24,7 @@ import lombok.Setter;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -48,13 +49,13 @@ public class RoomState implements Serializable {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "room_state_id")
+    @JoinColumn(name = "room_state_id", foreignKey = @ForeignKey(name = "room_state_fk_room_state"))
     private RoomStateSnapshot roomState;
 
     @Column(name = "state_key")
     private String stateKey;
 
     @ManyToOne
-    @JoinColumn(name = "event_id")
+    @JoinColumn(name = "event_id", foreignKey = @ForeignKey(name = "room_state_fk_event"))
     private Event event;
 }

@@ -23,6 +23,7 @@ import lombok.Setter;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -48,10 +49,10 @@ public class AuthEvent implements Serializable {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "event_id")
+    @JoinColumn(name = "event_id", foreignKey = @ForeignKey(name = "auh_event_fk_event"))
     private Event event;
 
     @OneToOne
-    @JoinColumn(name = "auth_id")
+    @JoinColumn(name = "auth_id", foreignKey = @ForeignKey(name = "auth_event_fk_auth"))
     private RoomState auth;
 }

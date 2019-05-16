@@ -24,6 +24,7 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -57,6 +58,6 @@ public class PushCondition implements Serializable {
     private String is;
 
     @ManyToOne
-    @JoinColumn(name = "rule_id")
+    @JoinColumn(name = "rule_id", foreignKey = @ForeignKey(name = "push_condition_fk_rule"))
     private PushRule rule;
 }

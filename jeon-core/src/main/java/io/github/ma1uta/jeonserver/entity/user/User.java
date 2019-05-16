@@ -27,6 +27,7 @@ import java.util.List;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -62,7 +63,7 @@ public class User implements Serializable {
     private String username;
 
     @ManyToOne
-    @JoinColumn(name = "domain_id")
+    @JoinColumn(name = "domain_id", foreignKey = @ForeignKey(name = "user_fk_domain"))
     private Domain domain;
 
     private LocalDateTime created;
@@ -72,7 +73,7 @@ public class User implements Serializable {
     private String presence;
 
     @OneToOne
-    @JoinColumn(name = "auth_id")
+    @JoinColumn(name = "auth_id", foreignKey = @ForeignKey(name = "user_fk_auth"))
     private AbstractAuth auth;
 
     @Column(name = "last_active_ago")

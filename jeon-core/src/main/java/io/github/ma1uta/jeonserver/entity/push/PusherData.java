@@ -22,6 +22,7 @@ import lombok.Setter;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -46,7 +47,7 @@ public class PusherData implements Serializable {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "pusher_id")
+    @JoinColumn(name = "pusher_id", foreignKey = @ForeignKey(name = "pusher_data_fk_pusher"))
     private Pusher pusher;
 
     private String url;

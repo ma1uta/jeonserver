@@ -24,6 +24,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -48,7 +49,7 @@ public class Thumbnail implements Serializable {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "media_id")
+    @JoinColumn(name = "media_id", foreignKey = @ForeignKey(name = "thumbnail_fk_media"))
     private Media media;
 
     private Long width;

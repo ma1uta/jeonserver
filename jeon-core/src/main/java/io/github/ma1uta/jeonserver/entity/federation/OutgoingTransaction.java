@@ -25,6 +25,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -57,11 +58,11 @@ public class OutgoingTransaction implements Serializable {
     private Long id;
 
     @OneToOne
-    @JoinColumn(name = "transaction_id")
+    @JoinColumn(name = "transaction_id", foreignKey = @ForeignKey(name = "outcome_trans_fk_trans"))
     private FederatedTransaction transaction;
 
     @ManyToOne
-    @JoinColumn(name = "domain_id")
+    @JoinColumn(name = "domain_id", foreignKey = @ForeignKey(name = "outcome_trans_fk_domain"))
     private Domain domain;
 
     private String target;

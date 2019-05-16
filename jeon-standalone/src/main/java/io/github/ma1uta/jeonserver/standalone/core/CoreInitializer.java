@@ -18,17 +18,9 @@ package io.github.ma1uta.jeonserver.standalone.core;
 
 import com.google.inject.persist.PersistService;
 import com.typesafe.config.Config;
-import liquibase.Liquibase;
-import liquibase.database.Database;
-import liquibase.database.DatabaseFactory;
-import liquibase.database.jvm.JdbcConnection;
-import liquibase.exception.LiquibaseException;
-import liquibase.resource.ClassLoaderResourceAccessor;
 import lombok.extern.slf4j.Slf4j;
+import org.flywaydb.core.Flyway;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 import javax.inject.Inject;
 
 /**
@@ -38,7 +30,7 @@ import javax.inject.Inject;
 public class CoreInitializer {
 
     @Inject
-    public CoreInitializer(Config config, PersistService persistService) throws LiquibaseException, SQLException {
+    public CoreInitializer(Config config, PersistService persistService) {
 
         updateSchema(config);
 
@@ -47,16 +39,11 @@ public class CoreInitializer {
         persistService.start();
     }
 
-    private void updateSchema(Config config) throws SQLException, LiquibaseException {
+    private void updateSchema(Config config) {
         if (config.hasPath("db.schemaUpdate") && config.getBoolean("db.schemaUpdate")) {
             log.info("Updating database schema...");
-            Connection connection = DriverManager
-                .getConnection(config.getString("db.url"), config.getString("db.user"), config.getString("db.password"));
-            Database database = DatabaseFactory.getInstance().findCorrectDatabaseImplementation(new JdbcConnection(connection));
-            Liquibase liquibase = new Liquibase("changelog.xml",
-                new ClassLoaderResourceAccessor(CoreInitializer.class.getClassLoader()), database);
-            String context = config.hasPath("db.context") ? config.getString("db.context") : null;
-            liquibase.update(context);
+            Flyway.configure().dataSource(config.getString("db.url"), config.getString("db.user"), config.getString("db.password")).load()
+                .migrate();
             log.info("Updating database schema... Done.");
         } else {
             log.info("Updating database schema... Skip.");
