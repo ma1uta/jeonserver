@@ -3,7 +3,7 @@
 --
 
 --
--- Name: abstract_auth; Type: TABLE; Schema: public; Owner: jeon
+-- Name: abstract_auth; Type: TABLE;
 --
 
 CREATE TABLE abstract_auth
@@ -13,7 +13,7 @@ CREATE TABLE abstract_auth
 );
 
 --
--- Name: abstract_auth_id_seq; Type: SEQUENCE; Schema: public; Owner: jeon
+-- Name: abstract_auth_id_seq; Type: SEQUENCE;
 --
 
 CREATE SEQUENCE abstract_auth_id_seq
@@ -24,7 +24,7 @@ CREATE SEQUENCE abstract_auth_id_seq
     CACHE 1;
 
 --
--- Name: account_data; Type: TABLE; Schema: public; Owner: jeon
+-- Name: account_data; Type: TABLE;
 --
 
 CREATE TABLE account_data
@@ -37,7 +37,7 @@ CREATE TABLE account_data
 );
 
 --
--- Name: account_data_id_seq; Type: SEQUENCE; Schema: public; Owner: jeon
+-- Name: account_data_id_seq; Type: SEQUENCE;
 --
 
 CREATE SEQUENCE account_data_id_seq
@@ -48,7 +48,7 @@ CREATE SEQUENCE account_data_id_seq
     CACHE 1;
 
 --
--- Name: action_id; Type: SEQUENCE; Schema: public; Owner: jeon
+-- Name: action_id; Type: SEQUENCE;
 --
 
 CREATE SEQUENCE action_id
@@ -59,7 +59,7 @@ CREATE SEQUENCE action_id
     CACHE 1;
 
 --
--- Name: auth_event; Type: TABLE; Schema: public; Owner: jeon
+-- Name: auth_event; Type: TABLE;
 --
 
 CREATE TABLE auth_event
@@ -70,7 +70,7 @@ CREATE TABLE auth_event
 );
 
 --
--- Name: auth_event_id_seq; Type: SEQUENCE; Schema: public; Owner: jeon
+-- Name: auth_event_id_seq; Type: SEQUENCE;
 --
 
 CREATE SEQUENCE auth_event_id_seq
@@ -81,7 +81,7 @@ CREATE SEQUENCE auth_event_id_seq
     CACHE 1;
 
 --
--- Name: device; Type: TABLE; Schema: public; Owner: jeon
+-- Name: device; Type: TABLE;
 --
 
 CREATE TABLE device
@@ -93,7 +93,7 @@ CREATE TABLE device
 );
 
 --
--- Name: device_id_seq; Type: SEQUENCE; Schema: public; Owner: jeon
+-- Name: device_id_seq; Type: SEQUENCE;
 --
 
 CREATE SEQUENCE device_id_seq
@@ -104,7 +104,7 @@ CREATE SEQUENCE device_id_seq
     CACHE 1;
 
 --
--- Name: device_key; Type: TABLE; Schema: public; Owner: jeon
+-- Name: device_key; Type: TABLE;
 --
 
 CREATE TABLE device_key
@@ -119,7 +119,7 @@ CREATE TABLE device_key
 );
 
 --
--- Name: device_key_id_seq; Type: SEQUENCE; Schema: public; Owner: jeon
+-- Name: device_key_id_seq; Type: SEQUENCE;
 --
 
 CREATE SEQUENCE device_key_id_seq
@@ -130,7 +130,7 @@ CREATE SEQUENCE device_key_id_seq
     CACHE 1;
 
 --
--- Name: domain; Type: TABLE; Schema: public; Owner: jeon
+-- Name: domain; Type: TABLE;
 --
 
 CREATE TABLE domain
@@ -139,7 +139,7 @@ CREATE TABLE domain
 );
 
 --
--- Name: edu; Type: TABLE; Schema: public; Owner: jeon
+-- Name: edu; Type: TABLE;
 --
 
 CREATE TABLE edu
@@ -149,7 +149,7 @@ CREATE TABLE edu
 );
 
 --
--- Name: event; Type: TABLE; Schema: public; Owner: jeon
+-- Name: event; Type: TABLE;
 --
 
 CREATE TABLE event
@@ -172,7 +172,7 @@ CREATE TABLE event
 );
 
 --
--- Name: event_content; Type: TABLE; Schema: public; Owner: jeon
+-- Name: event_content; Type: TABLE;
 --
 
 CREATE TABLE event_content
@@ -182,7 +182,7 @@ CREATE TABLE event_content
 );
 
 --
--- Name: event_content_id_seq; Type: SEQUENCE; Schema: public; Owner: jeon
+-- Name: event_content_id_seq; Type: SEQUENCE;
 --
 
 CREATE SEQUENCE event_content_id_seq
@@ -193,7 +193,7 @@ CREATE SEQUENCE event_content_id_seq
     CACHE 1;
 
 --
--- Name: event_filter; Type: TABLE; Schema: public; Owner: jeon
+-- Name: event_filter; Type: TABLE;
 --
 
 CREATE TABLE event_filter
@@ -202,7 +202,7 @@ CREATE TABLE event_filter
 );
 
 --
--- Name: event_filter_id_seq; Type: SEQUENCE; Schema: public; Owner: jeon
+-- Name: event_filter_id_seq; Type: SEQUENCE;
 --
 
 CREATE SEQUENCE event_filter_id_seq
@@ -213,7 +213,7 @@ CREATE SEQUENCE event_filter_id_seq
     CACHE 1;
 
 --
--- Name: event_filter_not_senders; Type: TABLE; Schema: public; Owner: jeon
+-- Name: event_filter_not_senders; Type: TABLE;
 --
 
 CREATE TABLE event_filter_not_senders
@@ -223,7 +223,7 @@ CREATE TABLE event_filter_not_senders
 );
 
 --
--- Name: event_filter_not_types; Type: TABLE; Schema: public; Owner: jeon
+-- Name: event_filter_not_types; Type: TABLE;
 --
 
 CREATE TABLE event_filter_not_types
@@ -233,7 +233,7 @@ CREATE TABLE event_filter_not_types
 );
 
 --
--- Name: event_filter_senders; Type: TABLE; Schema: public; Owner: jeon
+-- Name: event_filter_senders; Type: TABLE;
 --
 
 CREATE TABLE event_filter_senders
@@ -243,7 +243,7 @@ CREATE TABLE event_filter_senders
 );
 
 --
--- Name: event_filter_types; Type: TABLE; Schema: public; Owner: jeon
+-- Name: event_filter_types; Type: TABLE;
 --
 
 CREATE TABLE event_filter_types
@@ -253,7 +253,7 @@ CREATE TABLE event_filter_types
 );
 
 --
--- Name: event_graph; Type: TABLE; Schema: public; Owner: jeon
+-- Name: event_graph; Type: TABLE;
 --
 
 CREATE TABLE event_graph
@@ -263,7 +263,7 @@ CREATE TABLE event_graph
 );
 
 --
--- Name: event_id_seq; Type: SEQUENCE; Schema: public; Owner: jeon
+-- Name: event_id_seq; Type: SEQUENCE;
 --
 
 CREATE SEQUENCE event_id_seq
@@ -274,7 +274,7 @@ CREATE SEQUENCE event_id_seq
     CACHE 1;
 
 --
--- Name: fed_transaction_id_seq; Type: SEQUENCE; Schema: public; Owner: jeon
+-- Name: fed_transaction_id_seq; Type: SEQUENCE;
 --
 
 CREATE SEQUENCE fed_transaction_id_seq
@@ -285,7 +285,7 @@ CREATE SEQUENCE fed_transaction_id_seq
     CACHE 1;
 
 --
--- Name: federated_transaction; Type: TABLE; Schema: public; Owner: jeon
+-- Name: federated_transaction; Type: TABLE;
 --
 
 CREATE TABLE federated_transaction
@@ -299,7 +299,7 @@ CREATE TABLE federated_transaction
 );
 
 --
--- Name: filter; Type: TABLE; Schema: public; Owner: jeon
+-- Name: filter; Type: TABLE;
 --
 
 CREATE TABLE filter
@@ -311,7 +311,7 @@ CREATE TABLE filter
 );
 
 --
--- Name: filter_event_fields; Type: TABLE; Schema: public; Owner: jeon
+-- Name: filter_event_fields; Type: TABLE;
 --
 
 CREATE TABLE filter_event_fields
@@ -321,7 +321,7 @@ CREATE TABLE filter_event_fields
 );
 
 --
--- Name: filter_event_format; Type: TABLE; Schema: public; Owner: jeon
+-- Name: filter_event_format; Type: TABLE;
 --
 
 CREATE TABLE filter_event_format
@@ -331,7 +331,7 @@ CREATE TABLE filter_event_format
 );
 
 --
--- Name: filter_id_seq; Type: SEQUENCE; Schema: public; Owner: jeon
+-- Name: filter_id_seq; Type: SEQUENCE;
 --
 
 CREATE SEQUENCE filter_id_seq
@@ -342,7 +342,7 @@ CREATE SEQUENCE filter_id_seq
     CACHE 1;
 
 --
--- Name: incoming_transaction; Type: TABLE; Schema: public; Owner: jeon
+-- Name: incoming_transaction; Type: TABLE;
 --
 
 CREATE TABLE incoming_transaction
@@ -355,7 +355,7 @@ CREATE TABLE incoming_transaction
 );
 
 --
--- Name: incoming_transaction_id_seq; Type: SEQUENCE; Schema: public; Owner: jeon
+-- Name: incoming_transaction_id_seq; Type: SEQUENCE;
 --
 
 CREATE SEQUENCE incoming_transaction_id_seq
@@ -366,7 +366,7 @@ CREATE SEQUENCE incoming_transaction_id_seq
     CACHE 1;
 
 --
--- Name: media; Type: TABLE; Schema: public; Owner: jeon
+-- Name: media; Type: TABLE;
 --
 
 CREATE TABLE media
@@ -382,7 +382,7 @@ CREATE TABLE media
 );
 
 --
--- Name: media_id_seq; Type: SEQUENCE; Schema: public; Owner: jeon
+-- Name: media_id_seq; Type: SEQUENCE;
 --
 
 CREATE SEQUENCE media_id_seq
@@ -393,7 +393,7 @@ CREATE SEQUENCE media_id_seq
     CACHE 1;
 
 --
--- Name: media_remote_addresses; Type: TABLE; Schema: public; Owner: jeon
+-- Name: media_remote_addresses; Type: TABLE;
 --
 
 CREATE TABLE media_remote_addresses
@@ -403,7 +403,7 @@ CREATE TABLE media_remote_addresses
 );
 
 --
--- Name: notification; Type: TABLE; Schema: public; Owner: jeon
+-- Name: notification; Type: TABLE;
 --
 
 CREATE TABLE notification
@@ -418,7 +418,7 @@ CREATE TABLE notification
 );
 
 --
--- Name: notification_actions; Type: TABLE; Schema: public; Owner: jeon
+-- Name: notification_actions; Type: TABLE;
 --
 
 CREATE TABLE notification_actions
@@ -428,7 +428,7 @@ CREATE TABLE notification_actions
 );
 
 --
--- Name: notification_id; Type: SEQUENCE; Schema: public; Owner: jeon
+-- Name: notification_id; Type: SEQUENCE;
 --
 
 CREATE SEQUENCE notification_id
@@ -439,7 +439,7 @@ CREATE SEQUENCE notification_id
     CACHE 1;
 
 --
--- Name: one_time_key; Type: TABLE; Schema: public; Owner: jeon
+-- Name: one_time_key; Type: TABLE;
 --
 
 CREATE TABLE one_time_key
@@ -453,7 +453,7 @@ CREATE TABLE one_time_key
 );
 
 --
--- Name: one_time_key_id_seq; Type: SEQUENCE; Schema: public; Owner: jeon
+-- Name: one_time_key_id_seq; Type: SEQUENCE;
 --
 
 CREATE SEQUENCE one_time_key_id_seq
@@ -464,7 +464,7 @@ CREATE SEQUENCE one_time_key_id_seq
     CACHE 1;
 
 --
--- Name: one_time_key_signature; Type: TABLE; Schema: public; Owner: jeon
+-- Name: one_time_key_signature; Type: TABLE;
 --
 
 CREATE TABLE one_time_key_signature
@@ -477,7 +477,7 @@ CREATE TABLE one_time_key_signature
 );
 
 --
--- Name: one_time_key_signature_id_seq; Type: SEQUENCE; Schema: public; Owner: jeon
+-- Name: one_time_key_signature_id_seq; Type: SEQUENCE;
 --
 
 CREATE SEQUENCE one_time_key_signature_id_seq
@@ -488,7 +488,7 @@ CREATE SEQUENCE one_time_key_signature_id_seq
     CACHE 1;
 
 --
--- Name: openid; Type: TABLE; Schema: public; Owner: jeon
+-- Name: openid; Type: TABLE;
 --
 
 CREATE TABLE openid
@@ -503,7 +503,7 @@ CREATE TABLE openid
 );
 
 --
--- Name: openid_id_seq; Type: SEQUENCE; Schema: public; Owner: jeon
+-- Name: openid_id_seq; Type: SEQUENCE;
 --
 
 CREATE SEQUENCE openid_id_seq
@@ -514,7 +514,7 @@ CREATE SEQUENCE openid_id_seq
     CACHE 1;
 
 --
--- Name: outgoing_queue; Type: TABLE; Schema: public; Owner: jeon
+-- Name: outgoing_queue; Type: TABLE;
 --
 
 CREATE TABLE outgoing_queue
@@ -528,7 +528,7 @@ CREATE TABLE outgoing_queue
 );
 
 --
--- Name: outgoing_queue_id_seq; Type: SEQUENCE; Schema: public; Owner: jeon
+-- Name: outgoing_queue_id_seq; Type: SEQUENCE;
 --
 
 CREATE SEQUENCE outgoing_queue_id_seq
@@ -539,7 +539,7 @@ CREATE SEQUENCE outgoing_queue_id_seq
     CACHE 1;
 
 --
--- Name: outgoing_transaction; Type: TABLE; Schema: public; Owner: jeon
+-- Name: outgoing_transaction; Type: TABLE;
 --
 
 CREATE TABLE outgoing_transaction
@@ -555,7 +555,7 @@ CREATE TABLE outgoing_transaction
 );
 
 --
--- Name: outgoing_transaction_id_seq; Type: SEQUENCE; Schema: public; Owner: jeon
+-- Name: outgoing_transaction_id_seq; Type: SEQUENCE;
 --
 
 CREATE SEQUENCE outgoing_transaction_id_seq
@@ -566,7 +566,7 @@ CREATE SEQUENCE outgoing_transaction_id_seq
     CACHE 1;
 
 --
--- Name: password_auth; Type: TABLE; Schema: public; Owner: jeon
+-- Name: password_auth; Type: TABLE;
 --
 
 CREATE TABLE password_auth
@@ -576,7 +576,7 @@ CREATE TABLE password_auth
 );
 
 --
--- Name: pdu; Type: TABLE; Schema: public; Owner: jeon
+-- Name: pdu; Type: TABLE;
 --
 
 CREATE TABLE pdu
@@ -586,7 +586,7 @@ CREATE TABLE pdu
 );
 
 --
--- Name: push_action; Type: TABLE; Schema: public; Owner: jeon
+-- Name: push_action; Type: TABLE;
 --
 
 CREATE TABLE push_action
@@ -596,7 +596,7 @@ CREATE TABLE push_action
 );
 
 --
--- Name: push_condition; Type: TABLE; Schema: public; Owner: jeon
+-- Name: push_condition; Type: TABLE;
 --
 
 CREATE TABLE push_condition
@@ -610,7 +610,7 @@ CREATE TABLE push_condition
 );
 
 --
--- Name: push_condition_id; Type: SEQUENCE; Schema: public; Owner: jeon
+-- Name: push_condition_id; Type: SEQUENCE;
 --
 
 CREATE SEQUENCE push_condition_id
@@ -621,7 +621,7 @@ CREATE SEQUENCE push_condition_id
     CACHE 1;
 
 --
--- Name: push_rule; Type: TABLE; Schema: public; Owner: jeon
+-- Name: push_rule; Type: TABLE;
 --
 
 CREATE TABLE push_rule
@@ -635,7 +635,7 @@ CREATE TABLE push_rule
 );
 
 --
--- Name: push_rule_actions; Type: TABLE; Schema: public; Owner: jeon
+-- Name: push_rule_actions; Type: TABLE;
 --
 
 CREATE TABLE push_rule_actions
@@ -645,7 +645,7 @@ CREATE TABLE push_rule_actions
 );
 
 --
--- Name: push_rule_id; Type: SEQUENCE; Schema: public; Owner: jeon
+-- Name: push_rule_id; Type: SEQUENCE;
 --
 
 CREATE SEQUENCE push_rule_id
@@ -656,7 +656,7 @@ CREATE SEQUENCE push_rule_id
     CACHE 1;
 
 --
--- Name: pusher; Type: TABLE; Schema: public; Owner: jeon
+-- Name: pusher; Type: TABLE;
 --
 
 CREATE TABLE pusher
@@ -673,7 +673,7 @@ CREATE TABLE pusher
 );
 
 --
--- Name: pusher_data; Type: TABLE; Schema: public; Owner: jeon
+-- Name: pusher_data; Type: TABLE;
 --
 
 CREATE TABLE pusher_data
@@ -685,7 +685,7 @@ CREATE TABLE pusher_data
 );
 
 --
--- Name: pusher_data_id_seq; Type: SEQUENCE; Schema: public; Owner: jeon
+-- Name: pusher_data_id_seq; Type: SEQUENCE;
 --
 
 CREATE SEQUENCE pusher_data_id_seq
@@ -696,7 +696,7 @@ CREATE SEQUENCE pusher_data_id_seq
     CACHE 1;
 
 --
--- Name: pusher_id_seq; Type: SEQUENCE; Schema: public; Owner: jeon
+-- Name: pusher_id_seq; Type: SEQUENCE;
 --
 
 CREATE SEQUENCE pusher_id_seq
@@ -707,7 +707,7 @@ CREATE SEQUENCE pusher_id_seq
     CACHE 1;
 
 --
--- Name: redacts; Type: TABLE; Schema: public; Owner: jeon
+-- Name: redacts; Type: TABLE;
 --
 
 CREATE TABLE redacts
@@ -722,7 +722,7 @@ ALTER TABLE redacts
     OWNER TO jeon;
 
 --
--- Name: redacts_id_seq; Type: SEQUENCE; Schema: public; Owner: jeon
+-- Name: redacts_id_seq; Type: SEQUENCE;
 --
 
 CREATE SEQUENCE redacts_id_seq
@@ -733,7 +733,7 @@ CREATE SEQUENCE redacts_id_seq
     CACHE 1;
 
 --
--- Name: room; Type: TABLE; Schema: public; Owner: jeon
+-- Name: room; Type: TABLE;
 --
 
 CREATE TABLE room
@@ -748,7 +748,7 @@ CREATE TABLE room
 );
 
 --
--- Name: room_event_filter; Type: TABLE; Schema: public; Owner: jeon
+-- Name: room_event_filter; Type: TABLE;
 --
 
 CREATE TABLE room_event_filter
@@ -759,7 +759,7 @@ CREATE TABLE room_event_filter
 );
 
 --
--- Name: room_event_filter_id_seq; Type: SEQUENCE; Schema: public; Owner: jeon
+-- Name: room_event_filter_id_seq; Type: SEQUENCE;
 --
 
 CREATE SEQUENCE room_event_filter_id_seq
@@ -770,7 +770,7 @@ CREATE SEQUENCE room_event_filter_id_seq
     CACHE 1;
 
 --
--- Name: room_event_filter_not_rooms; Type: TABLE; Schema: public; Owner: jeon
+-- Name: room_event_filter_not_rooms; Type: TABLE;
 --
 
 CREATE TABLE room_event_filter_not_rooms
@@ -779,12 +779,8 @@ CREATE TABLE room_event_filter_not_rooms
     not_rooms text
 );
 
-
-ALTER TABLE room_event_filter_not_rooms
-    OWNER TO jeon;
-
 --
--- Name: room_event_filter_not_senders; Type: TABLE; Schema: public; Owner: jeon
+-- Name: room_event_filter_not_senders; Type: TABLE;
 --
 
 CREATE TABLE room_event_filter_not_senders
@@ -793,12 +789,8 @@ CREATE TABLE room_event_filter_not_senders
     not_senders text
 );
 
-
-ALTER TABLE room_event_filter_not_senders
-    OWNER TO jeon;
-
 --
--- Name: room_event_filter_not_types; Type: TABLE; Schema: public; Owner: jeon
+-- Name: room_event_filter_not_types; Type: TABLE;
 --
 
 CREATE TABLE room_event_filter_not_types
@@ -807,12 +799,8 @@ CREATE TABLE room_event_filter_not_types
     not_types text
 );
 
-
-ALTER TABLE room_event_filter_not_types
-    OWNER TO jeon;
-
 --
--- Name: room_event_filter_rooms; Type: TABLE; Schema: public; Owner: jeon
+-- Name: room_event_filter_rooms; Type: TABLE;
 --
 
 CREATE TABLE room_event_filter_rooms
@@ -821,12 +809,8 @@ CREATE TABLE room_event_filter_rooms
     rooms text
 );
 
-
-ALTER TABLE room_event_filter_rooms
-    OWNER TO jeon;
-
 --
--- Name: room_event_filter_senders; Type: TABLE; Schema: public; Owner: jeon
+-- Name: room_event_filter_senders; Type: TABLE;
 --
 
 CREATE TABLE room_event_filter_senders
@@ -835,12 +819,8 @@ CREATE TABLE room_event_filter_senders
     senders text
 );
 
-
-ALTER TABLE room_event_filter_senders
-    OWNER TO jeon;
-
 --
--- Name: room_event_filter_types; Type: TABLE; Schema: public; Owner: jeon
+-- Name: room_event_filter_types; Type: TABLE;
 --
 
 CREATE TABLE room_event_filter_types
@@ -849,12 +829,8 @@ CREATE TABLE room_event_filter_types
     types text
 );
 
-
-ALTER TABLE room_event_filter_types
-    OWNER TO jeon;
-
 --
--- Name: room_filter; Type: TABLE; Schema: public; Owner: jeon
+-- Name: room_filter; Type: TABLE;
 --
 
 CREATE TABLE room_filter
@@ -868,12 +844,8 @@ CREATE TABLE room_filter
     timeline_id     bigint
 );
 
-
-ALTER TABLE room_filter
-    OWNER TO jeon;
-
 --
--- Name: room_filter_id_seq; Type: SEQUENCE; Schema: public; Owner: jeon
+-- Name: room_filter_id_seq; Type: SEQUENCE;
 --
 
 CREATE SEQUENCE room_filter_id_seq
@@ -883,12 +855,8 @@ CREATE SEQUENCE room_filter_id_seq
     NO MAXVALUE
     CACHE 1;
 
-
-ALTER TABLE room_filter_id_seq
-    OWNER TO jeon;
-
 --
--- Name: room_filter_not_rooms; Type: TABLE; Schema: public; Owner: jeon
+-- Name: room_filter_not_rooms; Type: TABLE;
 --
 
 CREATE TABLE room_filter_not_rooms
@@ -897,12 +865,8 @@ CREATE TABLE room_filter_not_rooms
     not_rooms text
 );
 
-
-ALTER TABLE room_filter_not_rooms
-    OWNER TO jeon;
-
 --
--- Name: room_filter_rooms; Type: TABLE; Schema: public; Owner: jeon
+-- Name: room_filter_rooms; Type: TABLE;
 --
 
 CREATE TABLE room_filter_rooms
@@ -911,12 +875,8 @@ CREATE TABLE room_filter_rooms
     rooms text
 );
 
-
-ALTER TABLE room_filter_rooms
-    OWNER TO jeon;
-
 --
--- Name: room_id_seq; Type: SEQUENCE; Schema: public; Owner: jeon
+-- Name: room_id_seq; Type: SEQUENCE;
 --
 
 CREATE SEQUENCE room_id_seq
@@ -926,12 +886,8 @@ CREATE SEQUENCE room_id_seq
     NO MAXVALUE
     CACHE 1;
 
-
-ALTER TABLE room_id_seq
-    OWNER TO jeon;
-
 --
--- Name: room_report; Type: TABLE; Schema: public; Owner: jeon
+-- Name: room_report; Type: TABLE;
 --
 
 CREATE TABLE room_report
@@ -943,12 +899,8 @@ CREATE TABLE room_report
     room_id  bigint
 );
 
-
-ALTER TABLE room_report
-    OWNER TO jeon;
-
 --
--- Name: room_report_id_seq; Type: SEQUENCE; Schema: public; Owner: jeon
+-- Name: room_report_id_seq; Type: SEQUENCE;
 --
 
 CREATE SEQUENCE room_report_id_seq
@@ -958,12 +910,8 @@ CREATE SEQUENCE room_report_id_seq
     NO MAXVALUE
     CACHE 1;
 
-
-ALTER TABLE room_report_id_seq
-    OWNER TO jeon;
-
 --
--- Name: room_server_id_seq; Type: SEQUENCE; Schema: public; Owner: jeon
+-- Name: room_server_id_seq; Type: SEQUENCE;
 --
 
 CREATE SEQUENCE room_server_id_seq
@@ -973,12 +921,8 @@ CREATE SEQUENCE room_server_id_seq
     NO MAXVALUE
     CACHE 1;
 
-
-ALTER TABLE room_server_id_seq
-    OWNER TO jeon;
-
 --
--- Name: room_servers; Type: TABLE; Schema: public; Owner: jeon
+-- Name: room_servers; Type: TABLE;
 --
 
 CREATE TABLE room_servers
@@ -988,12 +932,8 @@ CREATE TABLE room_servers
     room_id bigint
 );
 
-
-ALTER TABLE room_servers
-    OWNER TO jeon;
-
 --
--- Name: room_state; Type: TABLE; Schema: public; Owner: jeon
+-- Name: room_state; Type: TABLE;
 --
 
 CREATE TABLE room_state
@@ -1004,12 +944,8 @@ CREATE TABLE room_state
     room_state_id bigint
 );
 
-
-ALTER TABLE room_state
-    OWNER TO jeon;
-
 --
--- Name: room_state_id_seq; Type: SEQUENCE; Schema: public; Owner: jeon
+-- Name: room_state_id_seq; Type: SEQUENCE;
 --
 
 CREATE SEQUENCE room_state_id_seq
@@ -1019,12 +955,8 @@ CREATE SEQUENCE room_state_id_seq
     NO MAXVALUE
     CACHE 1;
 
-
-ALTER TABLE room_state_id_seq
-    OWNER TO jeon;
-
 --
--- Name: room_state_snapshot; Type: TABLE; Schema: public; Owner: jeon
+-- Name: room_state_snapshot; Type: TABLE;
 --
 
 CREATE TABLE room_state_snapshot
@@ -1047,12 +979,8 @@ CREATE TABLE room_state_snapshot
     topic_id              bigint
 );
 
-
-ALTER TABLE room_state_snapshot
-    OWNER TO jeon;
-
 --
--- Name: room_state_snapshot_id_seq; Type: SEQUENCE; Schema: public; Owner: jeon
+-- Name: room_state_snapshot_id_seq; Type: SEQUENCE;
 --
 
 CREATE SEQUENCE room_state_snapshot_id_seq
@@ -1062,12 +990,8 @@ CREATE SEQUENCE room_state_snapshot_id_seq
     NO MAXVALUE
     CACHE 1;
 
-
-ALTER TABLE room_state_snapshot_id_seq
-    OWNER TO jeon;
-
 --
--- Name: room_transaction; Type: TABLE; Schema: public; Owner: jeon
+-- Name: room_transaction; Type: TABLE;
 --
 
 CREATE TABLE room_transaction
@@ -1081,12 +1005,8 @@ CREATE TABLE room_transaction
     room_id    bigint
 );
 
-
-ALTER TABLE room_transaction
-    OWNER TO jeon;
-
 --
--- Name: room_transaction_id_seq; Type: SEQUENCE; Schema: public; Owner: jeon
+-- Name: room_transaction_id_seq; Type: SEQUENCE;
 --
 
 CREATE SEQUENCE room_transaction_id_seq
@@ -1096,12 +1016,8 @@ CREATE SEQUENCE room_transaction_id_seq
     NO MAXVALUE
     CACHE 1;
 
-
-ALTER TABLE room_transaction_id_seq
-    OWNER TO jeon;
-
 --
--- Name: ruleset; Type: TABLE; Schema: public; Owner: jeon
+-- Name: ruleset; Type: TABLE;
 --
 
 CREATE TABLE ruleset
@@ -1110,12 +1026,8 @@ CREATE TABLE ruleset
     user_id bigint
 );
 
-
-ALTER TABLE ruleset
-    OWNER TO jeon;
-
 --
--- Name: ruleset_id; Type: SEQUENCE; Schema: public; Owner: jeon
+-- Name: ruleset_id; Type: SEQUENCE;
 --
 
 CREATE SEQUENCE ruleset_id
@@ -1125,12 +1037,8 @@ CREATE SEQUENCE ruleset_id
     NO MAXVALUE
     CACHE 1;
 
-
-ALTER TABLE ruleset_id
-    OWNER TO jeon;
-
 --
--- Name: send_to_device; Type: TABLE; Schema: public; Owner: jeon
+-- Name: send_to_device; Type: TABLE;
 --
 
 CREATE TABLE send_to_device
@@ -1141,12 +1049,8 @@ CREATE TABLE send_to_device
     content_id bigint
 );
 
-
-ALTER TABLE send_to_device
-    OWNER TO jeon;
-
 --
--- Name: send_to_device_id_seq; Type: SEQUENCE; Schema: public; Owner: jeon
+-- Name: send_to_device_id_seq; Type: SEQUENCE;
 --
 
 CREATE SEQUENCE send_to_device_id_seq
@@ -1156,12 +1060,8 @@ CREATE SEQUENCE send_to_device_id_seq
     NO MAXVALUE
     CACHE 1;
 
-
-ALTER TABLE send_to_device_id_seq
-    OWNER TO jeon;
-
 --
--- Name: signature; Type: TABLE; Schema: public; Owner: jeon
+-- Name: signature; Type: TABLE;
 --
 
 CREATE TABLE signature
@@ -1173,12 +1073,8 @@ CREATE TABLE signature
     event_id  bigint
 );
 
-
-ALTER TABLE signature
-    OWNER TO jeon;
-
 --
--- Name: signature_id_seq; Type: SEQUENCE; Schema: public; Owner: jeon
+-- Name: signature_id_seq; Type: SEQUENCE;
 --
 
 CREATE SEQUENCE signature_id_seq
@@ -1188,12 +1084,8 @@ CREATE SEQUENCE signature_id_seq
     NO MAXVALUE
     CACHE 1;
 
-
-ALTER TABLE signature_id_seq
-    OWNER TO jeon;
-
 --
--- Name: state_filter; Type: TABLE; Schema: public; Owner: jeon
+-- Name: state_filter; Type: TABLE;
 --
 
 CREATE TABLE state_filter
@@ -1205,12 +1097,8 @@ CREATE TABLE state_filter
     "limit"                   bigint
 );
 
-
-ALTER TABLE state_filter
-    OWNER TO jeon;
-
 --
--- Name: state_filter_id_seq; Type: SEQUENCE; Schema: public; Owner: jeon
+-- Name: state_filter_id_seq; Type: SEQUENCE;
 --
 
 CREATE SEQUENCE state_filter_id_seq
@@ -1220,12 +1108,8 @@ CREATE SEQUENCE state_filter_id_seq
     NO MAXVALUE
     CACHE 1;
 
-
-ALTER TABLE state_filter_id_seq
-    OWNER TO jeon;
-
 --
--- Name: state_filter_not_rooms; Type: TABLE; Schema: public; Owner: jeon
+-- Name: state_filter_not_rooms; Type: TABLE;
 --
 
 CREATE TABLE state_filter_not_rooms
@@ -1234,12 +1118,8 @@ CREATE TABLE state_filter_not_rooms
     not_rooms text
 );
 
-
-ALTER TABLE state_filter_not_rooms
-    OWNER TO jeon;
-
 --
--- Name: state_filter_not_senders; Type: TABLE; Schema: public; Owner: jeon
+-- Name: state_filter_not_senders; Type: TABLE;
 --
 
 CREATE TABLE state_filter_not_senders
@@ -1248,12 +1128,8 @@ CREATE TABLE state_filter_not_senders
     not_senders text
 );
 
-
-ALTER TABLE state_filter_not_senders
-    OWNER TO jeon;
-
 --
--- Name: state_filter_not_types; Type: TABLE; Schema: public; Owner: jeon
+-- Name: state_filter_not_types; Type: TABLE;
 --
 
 CREATE TABLE state_filter_not_types
@@ -1262,12 +1138,8 @@ CREATE TABLE state_filter_not_types
     not_types text
 );
 
-
-ALTER TABLE state_filter_not_types
-    OWNER TO jeon;
-
 --
--- Name: state_filter_rooms; Type: TABLE; Schema: public; Owner: jeon
+-- Name: state_filter_rooms; Type: TABLE;
 --
 
 CREATE TABLE state_filter_rooms
@@ -1276,12 +1148,8 @@ CREATE TABLE state_filter_rooms
     rooms text
 );
 
-
-ALTER TABLE state_filter_rooms
-    OWNER TO jeon;
-
 --
--- Name: state_filter_senders; Type: TABLE; Schema: public; Owner: jeon
+-- Name: state_filter_senders; Type: TABLE;
 --
 
 CREATE TABLE state_filter_senders
@@ -1290,12 +1158,8 @@ CREATE TABLE state_filter_senders
     senders text
 );
 
-
-ALTER TABLE state_filter_senders
-    OWNER TO jeon;
-
 --
--- Name: state_filter_types; Type: TABLE; Schema: public; Owner: jeon
+-- Name: state_filter_types; Type: TABLE;
 --
 
 CREATE TABLE state_filter_types
@@ -1304,12 +1168,8 @@ CREATE TABLE state_filter_types
     types text
 );
 
-
-ALTER TABLE state_filter_types
-    OWNER TO jeon;
-
 --
--- Name: tag; Type: TABLE; Schema: public; Owner: jeon
+-- Name: tag; Type: TABLE;
 --
 
 CREATE TABLE tag
@@ -1320,12 +1180,8 @@ CREATE TABLE tag
     user_id bigint
 );
 
-
-ALTER TABLE tag
-    OWNER TO jeon;
-
 --
--- Name: tag_id_seq; Type: SEQUENCE; Schema: public; Owner: jeon
+-- Name: tag_id_seq; Type: SEQUENCE;
 --
 
 CREATE SEQUENCE tag_id_seq
@@ -1335,12 +1191,8 @@ CREATE SEQUENCE tag_id_seq
     NO MAXVALUE
     CACHE 1;
 
-
-ALTER TABLE tag_id_seq
-    OWNER TO jeon;
-
 --
--- Name: thumbnail; Type: TABLE; Schema: public; Owner: jeon
+-- Name: thumbnail; Type: TABLE;
 --
 
 CREATE TABLE thumbnail
@@ -1356,12 +1208,8 @@ CREATE TABLE thumbnail
     media_id     bigint
 );
 
-
-ALTER TABLE thumbnail
-    OWNER TO jeon;
-
 --
--- Name: thumbnail_id_seq; Type: SEQUENCE; Schema: public; Owner: jeon
+-- Name: thumbnail_id_seq; Type: SEQUENCE;
 --
 
 CREATE SEQUENCE thumbnail_id_seq
@@ -1371,12 +1219,8 @@ CREATE SEQUENCE thumbnail_id_seq
     NO MAXVALUE
     CACHE 1;
 
-
-ALTER TABLE thumbnail_id_seq
-    OWNER TO jeon;
-
 --
--- Name: token; Type: TABLE; Schema: public; Owner: jeon
+-- Name: token; Type: TABLE;
 --
 
 CREATE TABLE token
@@ -1391,12 +1235,8 @@ CREATE TABLE token
     user_id      bigint
 );
 
-
-ALTER TABLE token
-    OWNER TO jeon;
-
 --
--- Name: token_id_seq; Type: SEQUENCE; Schema: public; Owner: jeon
+-- Name: token_id_seq; Type: SEQUENCE;
 --
 
 CREATE SEQUENCE token_id_seq
@@ -1406,12 +1246,8 @@ CREATE SEQUENCE token_id_seq
     NO MAXVALUE
     CACHE 1;
 
-
-ALTER TABLE token_id_seq
-    OWNER TO jeon;
-
 --
--- Name: user; Type: TABLE; Schema: public; Owner: jeon
+-- Name: user; Type: TABLE;
 --
 
 CREATE TABLE "user"
@@ -1428,12 +1264,8 @@ CREATE TABLE "user"
     domain_id        text
 );
 
-
-ALTER TABLE "user"
-    OWNER TO jeon;
-
 --
--- Name: user_id_seq; Type: SEQUENCE; Schema: public; Owner: jeon
+-- Name: user_id_seq; Type: SEQUENCE;
 --
 
 CREATE SEQUENCE user_id_seq
@@ -1443,12 +1275,8 @@ CREATE SEQUENCE user_id_seq
     NO MAXVALUE
     CACHE 1;
 
-
-ALTER TABLE user_id_seq
-    OWNER TO jeon;
-
 --
--- Name: abstract_auth abstract_auth_pkey; Type: CONSTRAINT; Schema: public; Owner: jeon
+-- Name: abstract_auth abstract_auth_pkey; Type: CONSTRAINT;
 --
 
 ALTER TABLE ONLY abstract_auth
@@ -1456,7 +1284,7 @@ ALTER TABLE ONLY abstract_auth
 
 
 --
--- Name: account_data account_data_constr_room_user_type; Type: CONSTRAINT; Schema: public; Owner: jeon
+-- Name: account_data account_data_constr_room_user_type; Type: CONSTRAINT;
 --
 
 ALTER TABLE ONLY account_data
@@ -1464,7 +1292,7 @@ ALTER TABLE ONLY account_data
 
 
 --
--- Name: account_data account_data_pkey; Type: CONSTRAINT; Schema: public; Owner: jeon
+-- Name: account_data account_data_pkey; Type: CONSTRAINT;
 --
 
 ALTER TABLE ONLY account_data
@@ -1472,7 +1300,7 @@ ALTER TABLE ONLY account_data
 
 
 --
--- Name: auth_event auth_event_pkey; Type: CONSTRAINT; Schema: public; Owner: jeon
+-- Name: auth_event auth_event_pkey; Type: CONSTRAINT;
 --
 
 ALTER TABLE ONLY auth_event
@@ -1480,7 +1308,7 @@ ALTER TABLE ONLY auth_event
 
 
 --
--- Name: device device_constr_device_user; Type: CONSTRAINT; Schema: public; Owner: jeon
+-- Name: device device_constr_device_user; Type: CONSTRAINT;
 --
 
 ALTER TABLE ONLY device
@@ -1488,7 +1316,7 @@ ALTER TABLE ONLY device
 
 
 --
--- Name: device_key device_key_constr_device_user_algorithm; Type: CONSTRAINT; Schema: public; Owner: jeon
+-- Name: device_key device_key_constr_device_user_algorithm; Type: CONSTRAINT;
 --
 
 ALTER TABLE ONLY device_key
@@ -1496,7 +1324,7 @@ ALTER TABLE ONLY device_key
 
 
 --
--- Name: device_key device_key_pkey; Type: CONSTRAINT; Schema: public; Owner: jeon
+-- Name: device_key device_key_pkey; Type: CONSTRAINT;
 --
 
 ALTER TABLE ONLY device_key
@@ -1504,7 +1332,7 @@ ALTER TABLE ONLY device_key
 
 
 --
--- Name: device device_pkey; Type: CONSTRAINT; Schema: public; Owner: jeon
+-- Name: device device_pkey; Type: CONSTRAINT;
 --
 
 ALTER TABLE ONLY device
@@ -1512,7 +1340,7 @@ ALTER TABLE ONLY device
 
 
 --
--- Name: domain domain_pkey; Type: CONSTRAINT; Schema: public; Owner: jeon
+-- Name: domain domain_pkey; Type: CONSTRAINT;
 --
 
 ALTER TABLE ONLY domain
@@ -1520,7 +1348,7 @@ ALTER TABLE ONLY domain
 
 
 --
--- Name: edu edu_pkey; Type: CONSTRAINT; Schema: public; Owner: jeon
+-- Name: edu edu_pkey; Type: CONSTRAINT;
 --
 
 ALTER TABLE ONLY edu
@@ -1528,7 +1356,7 @@ ALTER TABLE ONLY edu
 
 
 --
--- Name: event event_constr_domain_event; Type: CONSTRAINT; Schema: public; Owner: jeon
+-- Name: event event_constr_domain_event; Type: CONSTRAINT;
 --
 
 ALTER TABLE ONLY event
@@ -1536,7 +1364,7 @@ ALTER TABLE ONLY event
 
 
 --
--- Name: event_content event_content_pkey; Type: CONSTRAINT; Schema: public; Owner: jeon
+-- Name: event_content event_content_pkey; Type: CONSTRAINT;
 --
 
 ALTER TABLE ONLY event_content
@@ -1544,7 +1372,7 @@ ALTER TABLE ONLY event_content
 
 
 --
--- Name: event_filter event_filter_pkey; Type: CONSTRAINT; Schema: public; Owner: jeon
+-- Name: event_filter event_filter_pkey; Type: CONSTRAINT;
 --
 
 ALTER TABLE ONLY event_filter
@@ -1552,7 +1380,7 @@ ALTER TABLE ONLY event_filter
 
 
 --
--- Name: event event_pkey; Type: CONSTRAINT; Schema: public; Owner: jeon
+-- Name: event event_pkey; Type: CONSTRAINT;
 --
 
 ALTER TABLE ONLY event
@@ -1560,7 +1388,7 @@ ALTER TABLE ONLY event
 
 
 --
--- Name: federated_transaction fed_trans_constr_txn_origin_domain; Type: CONSTRAINT; Schema: public; Owner: jeon
+-- Name: federated_transaction fed_trans_constr_txn_origin_domain; Type: CONSTRAINT;
 --
 
 ALTER TABLE ONLY federated_transaction
@@ -1568,7 +1396,7 @@ ALTER TABLE ONLY federated_transaction
 
 
 --
--- Name: federated_transaction federated_transaction_pkey; Type: CONSTRAINT; Schema: public; Owner: jeon
+-- Name: federated_transaction federated_transaction_pkey; Type: CONSTRAINT;
 --
 
 ALTER TABLE ONLY federated_transaction
@@ -1576,7 +1404,7 @@ ALTER TABLE ONLY federated_transaction
 
 
 --
--- Name: filter filter_pkey; Type: CONSTRAINT; Schema: public; Owner: jeon
+-- Name: filter filter_pkey; Type: CONSTRAINT;
 --
 
 ALTER TABLE ONLY filter
@@ -1584,7 +1412,7 @@ ALTER TABLE ONLY filter
 
 
 --
--- Name: incoming_transaction income_trans_constr_trans_domain; Type: CONSTRAINT; Schema: public; Owner: jeon
+-- Name: incoming_transaction income_trans_constr_trans_domain; Type: CONSTRAINT;
 --
 
 ALTER TABLE ONLY incoming_transaction
@@ -1592,7 +1420,7 @@ ALTER TABLE ONLY incoming_transaction
 
 
 --
--- Name: incoming_transaction incoming_transaction_pkey; Type: CONSTRAINT; Schema: public; Owner: jeon
+-- Name: incoming_transaction incoming_transaction_pkey; Type: CONSTRAINT;
 --
 
 ALTER TABLE ONLY incoming_transaction
@@ -1600,7 +1428,7 @@ ALTER TABLE ONLY incoming_transaction
 
 
 --
--- Name: media media_constr_media_domain; Type: CONSTRAINT; Schema: public; Owner: jeon
+-- Name: media media_constr_media_domain; Type: CONSTRAINT;
 --
 
 ALTER TABLE ONLY media
@@ -1608,7 +1436,7 @@ ALTER TABLE ONLY media
 
 
 --
--- Name: media media_pkey; Type: CONSTRAINT; Schema: public; Owner: jeon
+-- Name: media media_pkey; Type: CONSTRAINT;
 --
 
 ALTER TABLE ONLY media
@@ -1616,7 +1444,7 @@ ALTER TABLE ONLY media
 
 
 --
--- Name: notification_actions notification_actions_pkey; Type: CONSTRAINT; Schema: public; Owner: jeon
+-- Name: notification_actions notification_actions_pkey; Type: CONSTRAINT;
 --
 
 ALTER TABLE ONLY notification_actions
@@ -1624,7 +1452,7 @@ ALTER TABLE ONLY notification_actions
 
 
 --
--- Name: notification notification_pkey; Type: CONSTRAINT; Schema: public; Owner: jeon
+-- Name: notification notification_pkey; Type: CONSTRAINT;
 --
 
 ALTER TABLE ONLY notification
@@ -1632,7 +1460,7 @@ ALTER TABLE ONLY notification
 
 
 --
--- Name: one_time_key one_time_key_constr_key_user_algorithm; Type: CONSTRAINT; Schema: public; Owner: jeon
+-- Name: one_time_key one_time_key_constr_key_user_algorithm; Type: CONSTRAINT;
 --
 
 ALTER TABLE ONLY one_time_key
@@ -1640,7 +1468,7 @@ ALTER TABLE ONLY one_time_key
 
 
 --
--- Name: one_time_key one_time_key_pkey; Type: CONSTRAINT; Schema: public; Owner: jeon
+-- Name: one_time_key one_time_key_pkey; Type: CONSTRAINT;
 --
 
 ALTER TABLE ONLY one_time_key
@@ -1648,7 +1476,7 @@ ALTER TABLE ONLY one_time_key
 
 
 --
--- Name: one_time_key_signature one_time_key_sign_constr_key_device_algorithm; Type: CONSTRAINT; Schema: public; Owner: jeon
+-- Name: one_time_key_signature one_time_key_sign_constr_key_device_algorithm; Type: CONSTRAINT;
 --
 
 ALTER TABLE ONLY one_time_key_signature
@@ -1656,7 +1484,7 @@ ALTER TABLE ONLY one_time_key_signature
 
 
 --
--- Name: one_time_key_signature one_time_key_signature_pkey; Type: CONSTRAINT; Schema: public; Owner: jeon
+-- Name: one_time_key_signature one_time_key_signature_pkey; Type: CONSTRAINT;
 --
 
 ALTER TABLE ONLY one_time_key_signature
@@ -1664,7 +1492,7 @@ ALTER TABLE ONLY one_time_key_signature
 
 
 --
--- Name: openid openid_pkey; Type: CONSTRAINT; Schema: public; Owner: jeon
+-- Name: openid openid_pkey; Type: CONSTRAINT;
 --
 
 ALTER TABLE ONLY openid
@@ -1672,7 +1500,7 @@ ALTER TABLE ONLY openid
 
 
 --
--- Name: outgoing_queue outcome_queue_constr_event_target; Type: CONSTRAINT; Schema: public; Owner: jeon
+-- Name: outgoing_queue outcome_queue_constr_event_target; Type: CONSTRAINT;
 --
 
 ALTER TABLE ONLY outgoing_queue
@@ -1680,7 +1508,7 @@ ALTER TABLE ONLY outgoing_queue
 
 
 --
--- Name: outgoing_transaction outcome_trans_constr_trans_domain; Type: CONSTRAINT; Schema: public; Owner: jeon
+-- Name: outgoing_transaction outcome_trans_constr_trans_domain; Type: CONSTRAINT;
 --
 
 ALTER TABLE ONLY outgoing_transaction
@@ -1688,7 +1516,7 @@ ALTER TABLE ONLY outgoing_transaction
 
 
 --
--- Name: outgoing_queue outgoing_queue_pkey; Type: CONSTRAINT; Schema: public; Owner: jeon
+-- Name: outgoing_queue outgoing_queue_pkey; Type: CONSTRAINT;
 --
 
 ALTER TABLE ONLY outgoing_queue
@@ -1696,7 +1524,7 @@ ALTER TABLE ONLY outgoing_queue
 
 
 --
--- Name: outgoing_transaction outgoing_transaction_pkey; Type: CONSTRAINT; Schema: public; Owner: jeon
+-- Name: outgoing_transaction outgoing_transaction_pkey; Type: CONSTRAINT;
 --
 
 ALTER TABLE ONLY outgoing_transaction
@@ -1704,7 +1532,7 @@ ALTER TABLE ONLY outgoing_transaction
 
 
 --
--- Name: password_auth password_auth_pkey; Type: CONSTRAINT; Schema: public; Owner: jeon
+-- Name: password_auth password_auth_pkey; Type: CONSTRAINT;
 --
 
 ALTER TABLE ONLY password_auth
@@ -1712,7 +1540,7 @@ ALTER TABLE ONLY password_auth
 
 
 --
--- Name: pdu pdu_pkey; Type: CONSTRAINT; Schema: public; Owner: jeon
+-- Name: pdu pdu_pkey; Type: CONSTRAINT;
 --
 
 ALTER TABLE ONLY pdu
@@ -1720,7 +1548,7 @@ ALTER TABLE ONLY pdu
 
 
 --
--- Name: push_action push_action_pkey; Type: CONSTRAINT; Schema: public; Owner: jeon
+-- Name: push_action push_action_pkey; Type: CONSTRAINT;
 --
 
 ALTER TABLE ONLY push_action
@@ -1728,7 +1556,7 @@ ALTER TABLE ONLY push_action
 
 
 --
--- Name: push_condition push_condition_pkey; Type: CONSTRAINT; Schema: public; Owner: jeon
+-- Name: push_condition push_condition_pkey; Type: CONSTRAINT;
 --
 
 ALTER TABLE ONLY push_condition
@@ -1736,7 +1564,7 @@ ALTER TABLE ONLY push_condition
 
 
 --
--- Name: push_rule_actions push_rule_actions_pkey; Type: CONSTRAINT; Schema: public; Owner: jeon
+-- Name: push_rule_actions push_rule_actions_pkey; Type: CONSTRAINT;
 --
 
 ALTER TABLE ONLY push_rule_actions
@@ -1744,7 +1572,7 @@ ALTER TABLE ONLY push_rule_actions
 
 
 --
--- Name: push_rule push_rule_pkey; Type: CONSTRAINT; Schema: public; Owner: jeon
+-- Name: push_rule push_rule_pkey; Type: CONSTRAINT;
 --
 
 ALTER TABLE ONLY push_rule
@@ -1752,7 +1580,7 @@ ALTER TABLE ONLY push_rule
 
 
 --
--- Name: pusher pusher_constr_pushkey_user; Type: CONSTRAINT; Schema: public; Owner: jeon
+-- Name: pusher pusher_constr_pushkey_user; Type: CONSTRAINT;
 --
 
 ALTER TABLE ONLY pusher
@@ -1760,7 +1588,7 @@ ALTER TABLE ONLY pusher
 
 
 --
--- Name: pusher_data pusher_data_pkey; Type: CONSTRAINT; Schema: public; Owner: jeon
+-- Name: pusher_data pusher_data_pkey; Type: CONSTRAINT;
 --
 
 ALTER TABLE ONLY pusher_data
@@ -1768,7 +1596,7 @@ ALTER TABLE ONLY pusher_data
 
 
 --
--- Name: pusher pusher_pkey; Type: CONSTRAINT; Schema: public; Owner: jeon
+-- Name: pusher pusher_pkey; Type: CONSTRAINT;
 --
 
 ALTER TABLE ONLY pusher
@@ -1776,7 +1604,7 @@ ALTER TABLE ONLY pusher
 
 
 --
--- Name: redacts redacts_pkey; Type: CONSTRAINT; Schema: public; Owner: jeon
+-- Name: redacts redacts_pkey; Type: CONSTRAINT;
 --
 
 ALTER TABLE ONLY redacts
@@ -1784,7 +1612,7 @@ ALTER TABLE ONLY redacts
 
 
 --
--- Name: room room_constr_room_domain; Type: CONSTRAINT; Schema: public; Owner: jeon
+-- Name: room room_constr_room_domain; Type: CONSTRAINT;
 --
 
 ALTER TABLE ONLY room
@@ -1792,7 +1620,7 @@ ALTER TABLE ONLY room
 
 
 --
--- Name: room_event_filter room_event_filter_pkey; Type: CONSTRAINT; Schema: public; Owner: jeon
+-- Name: room_event_filter room_event_filter_pkey; Type: CONSTRAINT;
 --
 
 ALTER TABLE ONLY room_event_filter
@@ -1800,7 +1628,7 @@ ALTER TABLE ONLY room_event_filter
 
 
 --
--- Name: room_filter room_filter_pkey; Type: CONSTRAINT; Schema: public; Owner: jeon
+-- Name: room_filter room_filter_pkey; Type: CONSTRAINT;
 --
 
 ALTER TABLE ONLY room_filter
@@ -1808,7 +1636,7 @@ ALTER TABLE ONLY room_filter
 
 
 --
--- Name: room room_pkey; Type: CONSTRAINT; Schema: public; Owner: jeon
+-- Name: room room_pkey; Type: CONSTRAINT;
 --
 
 ALTER TABLE ONLY room
@@ -1816,7 +1644,7 @@ ALTER TABLE ONLY room
 
 
 --
--- Name: room_report room_report_pkey; Type: CONSTRAINT; Schema: public; Owner: jeon
+-- Name: room_report room_report_pkey; Type: CONSTRAINT;
 --
 
 ALTER TABLE ONLY room_report
@@ -1824,7 +1652,7 @@ ALTER TABLE ONLY room_report
 
 
 --
--- Name: room_servers room_server_constr_room_server; Type: CONSTRAINT; Schema: public; Owner: jeon
+-- Name: room_servers room_server_constr_room_server; Type: CONSTRAINT;
 --
 
 ALTER TABLE ONLY room_servers
@@ -1832,7 +1660,7 @@ ALTER TABLE ONLY room_servers
 
 
 --
--- Name: room_servers room_servers_pkey; Type: CONSTRAINT; Schema: public; Owner: jeon
+-- Name: room_servers room_servers_pkey; Type: CONSTRAINT;
 --
 
 ALTER TABLE ONLY room_servers
@@ -1840,7 +1668,7 @@ ALTER TABLE ONLY room_servers
 
 
 --
--- Name: room_state room_state_pkey; Type: CONSTRAINT; Schema: public; Owner: jeon
+-- Name: room_state room_state_pkey; Type: CONSTRAINT;
 --
 
 ALTER TABLE ONLY room_state
@@ -1848,7 +1676,7 @@ ALTER TABLE ONLY room_state
 
 
 --
--- Name: room_state_snapshot room_state_snapshot_pkey; Type: CONSTRAINT; Schema: public; Owner: jeon
+-- Name: room_state_snapshot room_state_snapshot_pkey; Type: CONSTRAINT;
 --
 
 ALTER TABLE ONLY room_state_snapshot
@@ -1856,7 +1684,7 @@ ALTER TABLE ONLY room_state_snapshot
 
 
 --
--- Name: room_transaction room_trans_constr_txn_sender_room; Type: CONSTRAINT; Schema: public; Owner: jeon
+-- Name: room_transaction room_trans_constr_txn_sender_room; Type: CONSTRAINT;
 --
 
 ALTER TABLE ONLY room_transaction
@@ -1864,7 +1692,7 @@ ALTER TABLE ONLY room_transaction
 
 
 --
--- Name: room_transaction room_transaction_pkey; Type: CONSTRAINT; Schema: public; Owner: jeon
+-- Name: room_transaction room_transaction_pkey; Type: CONSTRAINT;
 --
 
 ALTER TABLE ONLY room_transaction
@@ -1872,7 +1700,7 @@ ALTER TABLE ONLY room_transaction
 
 
 --
--- Name: ruleset ruleset_pkey; Type: CONSTRAINT; Schema: public; Owner: jeon
+-- Name: ruleset ruleset_pkey; Type: CONSTRAINT;
 --
 
 ALTER TABLE ONLY ruleset
@@ -1880,7 +1708,7 @@ ALTER TABLE ONLY ruleset
 
 
 --
--- Name: send_to_device send_to_device_constr_user_device; Type: CONSTRAINT; Schema: public; Owner: jeon
+-- Name: send_to_device send_to_device_constr_user_device; Type: CONSTRAINT;
 --
 
 ALTER TABLE ONLY send_to_device
@@ -1888,7 +1716,7 @@ ALTER TABLE ONLY send_to_device
 
 
 --
--- Name: send_to_device send_to_device_pkey; Type: CONSTRAINT; Schema: public; Owner: jeon
+-- Name: send_to_device send_to_device_pkey; Type: CONSTRAINT;
 --
 
 ALTER TABLE ONLY send_to_device
@@ -1896,7 +1724,7 @@ ALTER TABLE ONLY send_to_device
 
 
 --
--- Name: signature signature_constr_event_server; Type: CONSTRAINT; Schema: public; Owner: jeon
+-- Name: signature signature_constr_event_server; Type: CONSTRAINT;
 --
 
 ALTER TABLE ONLY signature
@@ -1904,7 +1732,7 @@ ALTER TABLE ONLY signature
 
 
 --
--- Name: signature signature_pkey; Type: CONSTRAINT; Schema: public; Owner: jeon
+-- Name: signature signature_pkey; Type: CONSTRAINT;
 --
 
 ALTER TABLE ONLY signature
@@ -1912,7 +1740,7 @@ ALTER TABLE ONLY signature
 
 
 --
--- Name: state_filter state_filter_pkey; Type: CONSTRAINT; Schema: public; Owner: jeon
+-- Name: state_filter state_filter_pkey; Type: CONSTRAINT;
 --
 
 ALTER TABLE ONLY state_filter
@@ -1920,7 +1748,7 @@ ALTER TABLE ONLY state_filter
 
 
 --
--- Name: tag tag_pkey; Type: CONSTRAINT; Schema: public; Owner: jeon
+-- Name: tag tag_pkey; Type: CONSTRAINT;
 --
 
 ALTER TABLE ONLY tag
@@ -1928,7 +1756,7 @@ ALTER TABLE ONLY tag
 
 
 --
--- Name: thumbnail thumbnail_pkey; Type: CONSTRAINT; Schema: public; Owner: jeon
+-- Name: thumbnail thumbnail_pkey; Type: CONSTRAINT;
 --
 
 ALTER TABLE ONLY thumbnail
@@ -1936,7 +1764,7 @@ ALTER TABLE ONLY thumbnail
 
 
 --
--- Name: token token_constr_device_user; Type: CONSTRAINT; Schema: public; Owner: jeon
+-- Name: token token_constr_device_user; Type: CONSTRAINT;
 --
 
 ALTER TABLE ONLY token
@@ -1944,7 +1772,7 @@ ALTER TABLE ONLY token
 
 
 --
--- Name: token token_pkey; Type: CONSTRAINT; Schema: public; Owner: jeon
+-- Name: token token_pkey; Type: CONSTRAINT;
 --
 
 ALTER TABLE ONLY token
@@ -1952,7 +1780,7 @@ ALTER TABLE ONLY token
 
 
 --
--- Name: pdu uk_7cni9gjcr544pbxfledxijh6q; Type: CONSTRAINT; Schema: public; Owner: jeon
+-- Name: pdu uk_7cni9gjcr544pbxfledxijh6q; Type: CONSTRAINT;
 --
 
 ALTER TABLE ONLY pdu
@@ -1960,7 +1788,7 @@ ALTER TABLE ONLY pdu
 
 
 --
--- Name: push_rule_actions uk_csfqy99gnjq2pvq3h5s1aowgm; Type: CONSTRAINT; Schema: public; Owner: jeon
+-- Name: push_rule_actions uk_csfqy99gnjq2pvq3h5s1aowgm; Type: CONSTRAINT;
 --
 
 ALTER TABLE ONLY push_rule_actions
@@ -1968,7 +1796,7 @@ ALTER TABLE ONLY push_rule_actions
 
 
 --
--- Name: edu uk_n4waslk9fpgow8hopxiwkci70; Type: CONSTRAINT; Schema: public; Owner: jeon
+-- Name: edu uk_n4waslk9fpgow8hopxiwkci70; Type: CONSTRAINT;
 --
 
 ALTER TABLE ONLY edu
@@ -1976,7 +1804,7 @@ ALTER TABLE ONLY edu
 
 
 --
--- Name: notification_actions uk_qahnmi95a3alxbddcrvf88blj; Type: CONSTRAINT; Schema: public; Owner: jeon
+-- Name: notification_actions uk_qahnmi95a3alxbddcrvf88blj; Type: CONSTRAINT;
 --
 
 ALTER TABLE ONLY notification_actions
@@ -1984,7 +1812,7 @@ ALTER TABLE ONLY notification_actions
 
 
 --
--- Name: user user_constr_username_domain; Type: CONSTRAINT; Schema: public; Owner: jeon
+-- Name: user user_constr_username_domain; Type: CONSTRAINT;
 --
 
 ALTER TABLE ONLY "user"
@@ -1992,7 +1820,7 @@ ALTER TABLE ONLY "user"
 
 
 --
--- Name: user user_pkey; Type: CONSTRAINT; Schema: public; Owner: jeon
+-- Name: user user_pkey; Type: CONSTRAINT;
 --
 
 ALTER TABLE ONLY "user"
@@ -2000,7 +1828,7 @@ ALTER TABLE ONLY "user"
 
 
 --
--- Name: password_auth FKppfos629e04vpuox0cpxmvf98; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: password_auth FKppfos629e04vpuox0cpxmvf98; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY password_auth
@@ -2008,7 +1836,7 @@ ALTER TABLE ONLY password_auth
 
 
 --
--- Name: account_data account_data_fk_user; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: account_data account_data_fk_user; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY account_data
@@ -2016,7 +1844,7 @@ ALTER TABLE ONLY account_data
 
 
 --
--- Name: auth_event auh_event_fk_event; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: auth_event auh_event_fk_event; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY auth_event
@@ -2024,7 +1852,7 @@ ALTER TABLE ONLY auth_event
 
 
 --
--- Name: auth_event auth_event_fk_auth; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: auth_event auth_event_fk_auth; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY auth_event
@@ -2032,7 +1860,7 @@ ALTER TABLE ONLY auth_event
 
 
 --
--- Name: device device_fk_user; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: device device_fk_user; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY device
@@ -2040,7 +1868,7 @@ ALTER TABLE ONLY device
 
 
 --
--- Name: device_key device_key_fk_device; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: device_key device_key_fk_device; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY device_key
@@ -2048,7 +1876,7 @@ ALTER TABLE ONLY device_key
 
 
 --
--- Name: device_key device_key_fk_user; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: device_key device_key_fk_user; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY device_key
@@ -2056,7 +1884,7 @@ ALTER TABLE ONLY device_key
 
 
 --
--- Name: event_filter_not_senders event_filter_fk_not_senders; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: event_filter_not_senders event_filter_fk_not_senders; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY event_filter_not_senders
@@ -2064,7 +1892,7 @@ ALTER TABLE ONLY event_filter_not_senders
 
 
 --
--- Name: event_filter_not_types event_filter_fk_not_types; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: event_filter_not_types event_filter_fk_not_types; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY event_filter_not_types
@@ -2072,7 +1900,7 @@ ALTER TABLE ONLY event_filter_not_types
 
 
 --
--- Name: event_filter_senders event_filter_fk_senders; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: event_filter_senders event_filter_fk_senders; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY event_filter_senders
@@ -2080,7 +1908,7 @@ ALTER TABLE ONLY event_filter_senders
 
 
 --
--- Name: event_filter_types event_filter_fk_types; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: event_filter_types event_filter_fk_types; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY event_filter_types
@@ -2088,7 +1916,7 @@ ALTER TABLE ONLY event_filter_types
 
 
 --
--- Name: event_graph event_fk_children; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: event_graph event_fk_children; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY event_graph
@@ -2096,7 +1924,7 @@ ALTER TABLE ONLY event_graph
 
 
 --
--- Name: event event_fk_content; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: event event_fk_content; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY event
@@ -2104,7 +1932,7 @@ ALTER TABLE ONLY event
 
 
 --
--- Name: event event_fk_domain; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: event event_fk_domain; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY event
@@ -2112,7 +1940,7 @@ ALTER TABLE ONLY event
 
 
 --
--- Name: event_graph event_fk_parents; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: event_graph event_fk_parents; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY event_graph
@@ -2120,7 +1948,7 @@ ALTER TABLE ONLY event_graph
 
 
 --
--- Name: event event_fk_redacts; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: event event_fk_redacts; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY event
@@ -2128,7 +1956,7 @@ ALTER TABLE ONLY event
 
 
 --
--- Name: event event_fk_room; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: event event_fk_room; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY event
@@ -2136,7 +1964,7 @@ ALTER TABLE ONLY event
 
 
 --
--- Name: federated_transaction fed_trans_fk_domain; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: federated_transaction fed_trans_fk_domain; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY federated_transaction
@@ -2144,7 +1972,7 @@ ALTER TABLE ONLY federated_transaction
 
 
 --
--- Name: edu fed_trans_fk_edu_event; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: edu fed_trans_fk_edu_event; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY edu
@@ -2152,7 +1980,7 @@ ALTER TABLE ONLY edu
 
 
 --
--- Name: edu fed_trans_fk_edu_trans; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: edu fed_trans_fk_edu_trans; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY edu
@@ -2160,7 +1988,7 @@ ALTER TABLE ONLY edu
 
 
 --
--- Name: pdu fed_trans_fk_pdu_event; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: pdu fed_trans_fk_pdu_event; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY pdu
@@ -2168,7 +1996,7 @@ ALTER TABLE ONLY pdu
 
 
 --
--- Name: pdu fed_trans_fk_pdu_trans; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: pdu fed_trans_fk_pdu_trans; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY pdu
@@ -2176,7 +2004,7 @@ ALTER TABLE ONLY pdu
 
 
 --
--- Name: filter filter_fk_account_data; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: filter filter_fk_account_data; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY filter
@@ -2184,7 +2012,7 @@ ALTER TABLE ONLY filter
 
 
 --
--- Name: filter_event_fields filter_fk_event_fields; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: filter_event_fields filter_fk_event_fields; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY filter_event_fields
@@ -2192,7 +2020,7 @@ ALTER TABLE ONLY filter_event_fields
 
 
 --
--- Name: filter_event_format filter_fk_event_format; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: filter_event_format filter_fk_event_format; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY filter_event_format
@@ -2200,7 +2028,7 @@ ALTER TABLE ONLY filter_event_format
 
 
 --
--- Name: filter filter_fk_presence; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: filter filter_fk_presence; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY filter
@@ -2208,7 +2036,7 @@ ALTER TABLE ONLY filter
 
 
 --
--- Name: filter filter_fk_room; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: filter filter_fk_room; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY filter
@@ -2216,7 +2044,7 @@ ALTER TABLE ONLY filter
 
 
 --
--- Name: incoming_transaction income_trans_fk_domain; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: incoming_transaction income_trans_fk_domain; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY incoming_transaction
@@ -2224,7 +2052,7 @@ ALTER TABLE ONLY incoming_transaction
 
 
 --
--- Name: incoming_transaction income_trans_fk_trans; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: incoming_transaction income_trans_fk_trans; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY incoming_transaction
@@ -2232,7 +2060,7 @@ ALTER TABLE ONLY incoming_transaction
 
 
 --
--- Name: media media_fk_domain; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: media media_fk_domain; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY media
@@ -2240,7 +2068,7 @@ ALTER TABLE ONLY media
 
 
 --
--- Name: media_remote_addresses media_fk_remote_addresses; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: media_remote_addresses media_fk_remote_addresses; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY media_remote_addresses
@@ -2248,7 +2076,7 @@ ALTER TABLE ONLY media_remote_addresses
 
 
 --
--- Name: notification_actions notif_fk_actions; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: notification_actions notif_fk_actions; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY notification_actions
@@ -2256,7 +2084,7 @@ ALTER TABLE ONLY notification_actions
 
 
 --
--- Name: notification notif_fk_event; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: notification notif_fk_event; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY notification
@@ -2264,7 +2092,7 @@ ALTER TABLE ONLY notification
 
 
 --
--- Name: notification_actions notif_fk_notif; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: notification_actions notif_fk_notif; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY notification_actions
@@ -2272,7 +2100,7 @@ ALTER TABLE ONLY notification_actions
 
 
 --
--- Name: notification notif_fk_user; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: notification notif_fk_user; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY notification
@@ -2280,7 +2108,7 @@ ALTER TABLE ONLY notification
 
 
 --
--- Name: one_time_key one_time_key_fk_user; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: one_time_key one_time_key_fk_user; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY one_time_key
@@ -2288,7 +2116,7 @@ ALTER TABLE ONLY one_time_key
 
 
 --
--- Name: one_time_key_signature one_time_key_sign_device; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: one_time_key_signature one_time_key_sign_device; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY one_time_key_signature
@@ -2296,7 +2124,7 @@ ALTER TABLE ONLY one_time_key_signature
 
 
 --
--- Name: one_time_key_signature one_time_key_sign_fk_one_time_key; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: one_time_key_signature one_time_key_sign_fk_one_time_key; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY one_time_key_signature
@@ -2304,7 +2132,7 @@ ALTER TABLE ONLY one_time_key_signature
 
 
 --
--- Name: openid openid_fk_user; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: openid openid_fk_user; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY openid
@@ -2312,7 +2140,7 @@ ALTER TABLE ONLY openid
 
 
 --
--- Name: outgoing_queue outcome_queue_fk_event; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: outgoing_queue outcome_queue_fk_event; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY outgoing_queue
@@ -2320,7 +2148,7 @@ ALTER TABLE ONLY outgoing_queue
 
 
 --
--- Name: outgoing_queue outcome_queue_fk_trans; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: outgoing_queue outcome_queue_fk_trans; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY outgoing_queue
@@ -2328,7 +2156,7 @@ ALTER TABLE ONLY outgoing_queue
 
 
 --
--- Name: outgoing_transaction outcome_trans_fk_domain; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: outgoing_transaction outcome_trans_fk_domain; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY outgoing_transaction
@@ -2336,7 +2164,7 @@ ALTER TABLE ONLY outgoing_transaction
 
 
 --
--- Name: outgoing_transaction outcome_trans_fk_trans; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: outgoing_transaction outcome_trans_fk_trans; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY outgoing_transaction
@@ -2344,7 +2172,7 @@ ALTER TABLE ONLY outgoing_transaction
 
 
 --
--- Name: push_condition push_condition_fk_rule; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: push_condition push_condition_fk_rule; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY push_condition
@@ -2352,7 +2180,7 @@ ALTER TABLE ONLY push_condition
 
 
 --
--- Name: push_rule_actions push_fule_fk_action; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: push_rule_actions push_fule_fk_action; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY push_rule_actions
@@ -2360,7 +2188,7 @@ ALTER TABLE ONLY push_rule_actions
 
 
 --
--- Name: push_rule_actions push_rule_fk_push_rule_actions; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: push_rule_actions push_rule_fk_push_rule_actions; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY push_rule_actions
@@ -2368,7 +2196,7 @@ ALTER TABLE ONLY push_rule_actions
 
 
 --
--- Name: push_rule push_rule_fk_ruleset; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: push_rule push_rule_fk_ruleset; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY push_rule
@@ -2376,7 +2204,7 @@ ALTER TABLE ONLY push_rule
 
 
 --
--- Name: pusher_data pusher_data_fk_pusher; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: pusher_data pusher_data_fk_pusher; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY pusher_data
@@ -2384,7 +2212,7 @@ ALTER TABLE ONLY pusher_data
 
 
 --
--- Name: pusher pusher_fk_user; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: pusher pusher_fk_user; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY pusher
@@ -2392,7 +2220,7 @@ ALTER TABLE ONLY pusher
 
 
 --
--- Name: room_event_filter_not_rooms room_event_filter_fk_not_rooms; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: room_event_filter_not_rooms room_event_filter_fk_not_rooms; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY room_event_filter_not_rooms
@@ -2400,7 +2228,7 @@ ALTER TABLE ONLY room_event_filter_not_rooms
 
 
 --
--- Name: room_event_filter_not_senders room_event_filter_fk_not_senders; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: room_event_filter_not_senders room_event_filter_fk_not_senders; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY room_event_filter_not_senders
@@ -2408,7 +2236,7 @@ ALTER TABLE ONLY room_event_filter_not_senders
 
 
 --
--- Name: room_event_filter_not_types room_event_filter_fk_not_types; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: room_event_filter_not_types room_event_filter_fk_not_types; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY room_event_filter_not_types
@@ -2416,7 +2244,7 @@ ALTER TABLE ONLY room_event_filter_not_types
 
 
 --
--- Name: room_event_filter_rooms room_event_filter_fk_rooms; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: room_event_filter_rooms room_event_filter_fk_rooms; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY room_event_filter_rooms
@@ -2424,7 +2252,7 @@ ALTER TABLE ONLY room_event_filter_rooms
 
 
 --
--- Name: room_event_filter_senders room_event_filter_fk_sender; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: room_event_filter_senders room_event_filter_fk_sender; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY room_event_filter_senders
@@ -2432,7 +2260,7 @@ ALTER TABLE ONLY room_event_filter_senders
 
 
 --
--- Name: room_event_filter_types room_event_filter_fk_types; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: room_event_filter_types room_event_filter_fk_types; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY room_event_filter_types
@@ -2440,7 +2268,7 @@ ALTER TABLE ONLY room_event_filter_types
 
 
 --
--- Name: room_filter room_filter_fk_account_data; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: room_filter room_filter_fk_account_data; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY room_filter
@@ -2448,7 +2276,7 @@ ALTER TABLE ONLY room_filter
 
 
 --
--- Name: room_filter room_filter_fk_ephemeral; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: room_filter room_filter_fk_ephemeral; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY room_filter
@@ -2456,7 +2284,7 @@ ALTER TABLE ONLY room_filter
 
 
 --
--- Name: room_filter_not_rooms room_filter_fk_not_rooms; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: room_filter_not_rooms room_filter_fk_not_rooms; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY room_filter_not_rooms
@@ -2464,7 +2292,7 @@ ALTER TABLE ONLY room_filter_not_rooms
 
 
 --
--- Name: room_filter_rooms room_filter_fk_rooms; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: room_filter_rooms room_filter_fk_rooms; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY room_filter_rooms
@@ -2472,7 +2300,7 @@ ALTER TABLE ONLY room_filter_rooms
 
 
 --
--- Name: room_filter room_filter_fk_state; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: room_filter room_filter_fk_state; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY room_filter
@@ -2480,7 +2308,7 @@ ALTER TABLE ONLY room_filter
 
 
 --
--- Name: room_filter room_filter_fk_timeline; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: room_filter room_filter_fk_timeline; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY room_filter
@@ -2488,7 +2316,7 @@ ALTER TABLE ONLY room_filter
 
 
 --
--- Name: room room_fk_domain; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: room room_fk_domain; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY room
@@ -2496,7 +2324,7 @@ ALTER TABLE ONLY room
 
 
 --
--- Name: room room_fk_last_state; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: room room_fk_last_state; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY room
@@ -2504,7 +2332,7 @@ ALTER TABLE ONLY room
 
 
 --
--- Name: room_report room_report_fk_event; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: room_report room_report_fk_event; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY room_report
@@ -2512,7 +2340,7 @@ ALTER TABLE ONLY room_report
 
 
 --
--- Name: room_report room_report_fk_room; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: room_report room_report_fk_room; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY room_report
@@ -2520,7 +2348,7 @@ ALTER TABLE ONLY room_report
 
 
 --
--- Name: room_servers room_servers_fk_room; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: room_servers room_servers_fk_room; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY room_servers
@@ -2528,7 +2356,7 @@ ALTER TABLE ONLY room_servers
 
 
 --
--- Name: room_state room_state_fk_event; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: room_state room_state_fk_event; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY room_state
@@ -2536,7 +2364,7 @@ ALTER TABLE ONLY room_state
 
 
 --
--- Name: room_state room_state_fk_room_state; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: room_state room_state_fk_room_state; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY room_state
@@ -2544,7 +2372,7 @@ ALTER TABLE ONLY room_state
 
 
 --
--- Name: room_state_snapshot room_state_snapshot_fk_avatar; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: room_state_snapshot room_state_snapshot_fk_avatar; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY room_state_snapshot
@@ -2552,7 +2380,7 @@ ALTER TABLE ONLY room_state_snapshot
 
 
 --
--- Name: room_state_snapshot room_state_snapshot_fk_canon_alias; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: room_state_snapshot room_state_snapshot_fk_canon_alias; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY room_state_snapshot
@@ -2560,7 +2388,7 @@ ALTER TABLE ONLY room_state_snapshot
 
 
 --
--- Name: room_state_snapshot room_state_snapshot_fk_encryption; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: room_state_snapshot room_state_snapshot_fk_encryption; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY room_state_snapshot
@@ -2568,7 +2396,7 @@ ALTER TABLE ONLY room_state_snapshot
 
 
 --
--- Name: room_state_snapshot room_state_snapshot_fk_guest_access; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: room_state_snapshot room_state_snapshot_fk_guest_access; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY room_state_snapshot
@@ -2576,7 +2404,7 @@ ALTER TABLE ONLY room_state_snapshot
 
 
 --
--- Name: room_state_snapshot room_state_snapshot_fk_history; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: room_state_snapshot room_state_snapshot_fk_history; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY room_state_snapshot
@@ -2584,7 +2412,7 @@ ALTER TABLE ONLY room_state_snapshot
 
 
 --
--- Name: room_state_snapshot room_state_snapshot_fk_initial; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: room_state_snapshot room_state_snapshot_fk_initial; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY room_state_snapshot
@@ -2592,7 +2420,7 @@ ALTER TABLE ONLY room_state_snapshot
 
 
 --
--- Name: room_state_snapshot room_state_snapshot_fk_join_rules; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: room_state_snapshot room_state_snapshot_fk_join_rules; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY room_state_snapshot
@@ -2600,7 +2428,7 @@ ALTER TABLE ONLY room_state_snapshot
 
 
 --
--- Name: room_state_snapshot room_state_snapshot_fk_name; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: room_state_snapshot room_state_snapshot_fk_name; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY room_state_snapshot
@@ -2608,7 +2436,7 @@ ALTER TABLE ONLY room_state_snapshot
 
 
 --
--- Name: room_state_snapshot room_state_snapshot_fk_permissions; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: room_state_snapshot room_state_snapshot_fk_permissions; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY room_state_snapshot
@@ -2616,7 +2444,7 @@ ALTER TABLE ONLY room_state_snapshot
 
 
 --
--- Name: room_state_snapshot room_state_snapshot_fk_prev; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: room_state_snapshot room_state_snapshot_fk_prev; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY room_state_snapshot
@@ -2624,7 +2452,7 @@ ALTER TABLE ONLY room_state_snapshot
 
 
 --
--- Name: room_state_snapshot room_state_snapshot_fk_room; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: room_state_snapshot room_state_snapshot_fk_room; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY room_state_snapshot
@@ -2632,7 +2460,7 @@ ALTER TABLE ONLY room_state_snapshot
 
 
 --
--- Name: room_state_snapshot room_state_snapshot_fk_server_acl; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: room_state_snapshot room_state_snapshot_fk_server_acl; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY room_state_snapshot
@@ -2640,7 +2468,7 @@ ALTER TABLE ONLY room_state_snapshot
 
 
 --
--- Name: room_state_snapshot room_state_snapshot_fk_tombstone; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: room_state_snapshot room_state_snapshot_fk_tombstone; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY room_state_snapshot
@@ -2648,7 +2476,7 @@ ALTER TABLE ONLY room_state_snapshot
 
 
 --
--- Name: room_state_snapshot room_state_snapshot_fk_topic; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: room_state_snapshot room_state_snapshot_fk_topic; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY room_state_snapshot
@@ -2656,7 +2484,7 @@ ALTER TABLE ONLY room_state_snapshot
 
 
 --
--- Name: room_transaction room_trans_fk_content; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: room_transaction room_trans_fk_content; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY room_transaction
@@ -2664,7 +2492,7 @@ ALTER TABLE ONLY room_transaction
 
 
 --
--- Name: room_transaction room_trans_fk_room; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: room_transaction room_trans_fk_room; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY room_transaction
@@ -2672,7 +2500,7 @@ ALTER TABLE ONLY room_transaction
 
 
 --
--- Name: ruleset ruleset_fk_user; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: ruleset ruleset_fk_user; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY ruleset
@@ -2680,7 +2508,7 @@ ALTER TABLE ONLY ruleset
 
 
 --
--- Name: send_to_device send_to_device_fk_content; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: send_to_device send_to_device_fk_content; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY send_to_device
@@ -2688,7 +2516,7 @@ ALTER TABLE ONLY send_to_device
 
 
 --
--- Name: signature sign_fk_event; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: signature sign_fk_event; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY signature
@@ -2696,7 +2524,7 @@ ALTER TABLE ONLY signature
 
 
 --
--- Name: state_filter_not_rooms state_filter_fk_not_rooms; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: state_filter_not_rooms state_filter_fk_not_rooms; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY state_filter_not_rooms
@@ -2704,7 +2532,7 @@ ALTER TABLE ONLY state_filter_not_rooms
 
 
 --
--- Name: state_filter_not_senders state_filter_fk_not_senders; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: state_filter_not_senders state_filter_fk_not_senders; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY state_filter_not_senders
@@ -2712,7 +2540,7 @@ ALTER TABLE ONLY state_filter_not_senders
 
 
 --
--- Name: state_filter_not_types state_filter_fk_not_types; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: state_filter_not_types state_filter_fk_not_types; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY state_filter_not_types
@@ -2720,7 +2548,7 @@ ALTER TABLE ONLY state_filter_not_types
 
 
 --
--- Name: state_filter_rooms state_filter_fk_rooms; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: state_filter_rooms state_filter_fk_rooms; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY state_filter_rooms
@@ -2728,7 +2556,7 @@ ALTER TABLE ONLY state_filter_rooms
 
 
 --
--- Name: state_filter_senders state_filter_fk_senders; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: state_filter_senders state_filter_fk_senders; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY state_filter_senders
@@ -2736,7 +2564,7 @@ ALTER TABLE ONLY state_filter_senders
 
 
 --
--- Name: state_filter_types state_filter_fk_types; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: state_filter_types state_filter_fk_types; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY state_filter_types
@@ -2744,7 +2572,7 @@ ALTER TABLE ONLY state_filter_types
 
 
 --
--- Name: tag tag_fk_user; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: tag tag_fk_user; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY tag
@@ -2752,7 +2580,7 @@ ALTER TABLE ONLY tag
 
 
 --
--- Name: thumbnail thumbnail_fk_media; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: thumbnail thumbnail_fk_media; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY thumbnail
@@ -2760,7 +2588,7 @@ ALTER TABLE ONLY thumbnail
 
 
 --
--- Name: token token_fk_device; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: token token_fk_device; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY token
@@ -2768,7 +2596,7 @@ ALTER TABLE ONLY token
 
 
 --
--- Name: token token_fk_user; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: token token_fk_user; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY token
@@ -2776,7 +2604,7 @@ ALTER TABLE ONLY token
 
 
 --
--- Name: user user_fk_auth; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: user user_fk_auth; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY "user"
@@ -2784,14 +2612,8 @@ ALTER TABLE ONLY "user"
 
 
 --
--- Name: user user_fk_domain; Type: FK CONSTRAINT; Schema: public; Owner: jeon
+-- Name: user user_fk_domain; Type: FK CONSTRAINT;
 --
 
 ALTER TABLE ONLY "user"
     ADD CONSTRAINT user_fk_domain FOREIGN KEY (domain_id) REFERENCES domain (domain);
-
-
---
--- PostgreSQL database dump complete
---
-
