@@ -50,8 +50,8 @@ import javax.persistence.UniqueConstraint;
 public class DeviceKey implements Serializable {
 
     @Id
-    @SequenceGenerator(name = "pk_sequence", sequenceName = "device_key_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence")
+    @SequenceGenerator(name = "pk_sequence_device_key", sequenceName = "device_key_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence_device_key")
     private Long id;
 
     @ManyToOne

@@ -60,8 +60,8 @@ import javax.persistence.UniqueConstraint;
 public class Event implements Serializable {
 
     @Id
-    @SequenceGenerator(name = "pk_sequence", sequenceName = "event_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence")
+    @SequenceGenerator(name = "pk_sequence_event", sequenceName = "event_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence_event")
     @Column(name = "id")
     private Long id;
 

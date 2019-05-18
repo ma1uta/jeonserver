@@ -44,8 +44,8 @@ import javax.persistence.Table;
 public class Openid implements Serializable {
 
     @Id
-    @SequenceGenerator(name = "pk_sequence", sequenceName = "openid_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence")
+    @SequenceGenerator(name = "pk_sequence_openid", sequenceName = "openid_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence_openid")
     private Long id;
 
     @ManyToOne

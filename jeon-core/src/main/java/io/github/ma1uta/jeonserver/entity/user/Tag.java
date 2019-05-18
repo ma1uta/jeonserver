@@ -42,8 +42,8 @@ import javax.persistence.Table;
 public class Tag implements Serializable {
 
     @Id
-    @SequenceGenerator(name = "pk_sequence", sequenceName = "tag_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence")
+    @SequenceGenerator(name = "pk_sequence_tag", sequenceName = "tag_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence_tag")
     private Long id;
 
     private String name;

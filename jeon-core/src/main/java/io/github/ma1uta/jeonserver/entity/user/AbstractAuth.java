@@ -46,8 +46,8 @@ import javax.persistence.Table;
 public class AbstractAuth implements Serializable {
 
     @Id
-    @SequenceGenerator(name = "pk_sequence", sequenceName = "abstract_auth_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence")
+    @SequenceGenerator(name = "pk_sequence_abstract_auth", sequenceName = "abstract_auth_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence_abstract_auth")
     private Long id;
 
     private String type;

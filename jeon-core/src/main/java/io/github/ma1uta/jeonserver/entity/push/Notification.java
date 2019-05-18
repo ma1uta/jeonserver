@@ -48,28 +48,29 @@ import javax.persistence.Table;
 public class Notification implements Serializable {
 
     @Id
-    @SequenceGenerator(name = "pk_sequence", sequenceName = "notification_id", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence")
+    @SequenceGenerator(name = "pk_sequence_notification", sequenceName = "notification_id", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence_notification")
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "notif_fk_user"))
+    @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "notification_fk_user"))
     private User user;
 
     @OneToMany
     @JoinTable(
         name = "notification_actions",
         joinColumns = {
-            @JoinColumn(name = "notification_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "notif_fk_notif"))
+            @JoinColumn(
+                name = "notification_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "notification_fk_notification"))
         },
         inverseJoinColumns = {
-            @JoinColumn(name = "action_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "notif_fk_actions"))
+            @JoinColumn(name = "action_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "notification_fk_actions"))
         }
     )
     private Set<Action> actions;
 
     @ManyToOne
-    @JoinColumn(name = "event_id", foreignKey = @ForeignKey(name = "notif_fk_event"))
+    @JoinColumn(name = "event_id", foreignKey = @ForeignKey(name = "notification_fk_event"))
     private Event event;
 
     @Column(name = "profile_tag")

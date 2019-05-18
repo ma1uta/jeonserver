@@ -44,8 +44,8 @@ import javax.persistence.Table;
 public class PushCondition implements Serializable {
 
     @Id
-    @SequenceGenerator(name = "pk_sequence", sequenceName = "push_condition_id", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence")
+    @SequenceGenerator(name = "pk_sequence_push_condition", sequenceName = "push_condition_id", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence_push_condition")
     private Long id;
 
     @Enumerated(EnumType.STRING)

@@ -42,8 +42,8 @@ import javax.persistence.Table;
 public class PusherData implements Serializable {
 
     @Id
-    @SequenceGenerator(name = "pk_sequence", sequenceName = "pusher_data_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence")
+    @SequenceGenerator(name = "pk_sequence_pusher_data", sequenceName = "pusher_data_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence_pusher_data")
     private Long id;
 
     @ManyToOne

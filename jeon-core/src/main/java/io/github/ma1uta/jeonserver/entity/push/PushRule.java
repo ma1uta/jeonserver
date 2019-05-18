@@ -46,8 +46,8 @@ import javax.persistence.Table;
 public class PushRule implements Serializable {
 
     @Id
-    @SequenceGenerator(name = "pk_sequence", sequenceName = "push_rule_id", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence")
+    @SequenceGenerator(name = "pk_sequence_push_rule", sequenceName = "push_rule_id", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence_push_rule")
     private Long id;
 
     @OneToMany

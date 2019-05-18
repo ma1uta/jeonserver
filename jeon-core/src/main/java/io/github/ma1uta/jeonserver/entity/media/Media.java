@@ -56,8 +56,8 @@ import javax.persistence.UniqueConstraint;
 public class Media implements Serializable {
 
     @Id
-    @SequenceGenerator(name = "pk_sequence", sequenceName = "media_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence")
+    @SequenceGenerator(name = "pk_sequence_media", sequenceName = "media_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence_media")
     private Long id;
 
     @Column(name = "media_id")

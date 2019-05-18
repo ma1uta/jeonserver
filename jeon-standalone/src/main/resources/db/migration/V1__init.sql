@@ -812,18 +812,18 @@ CREATE SEQUENCE room_server_id_seq
     CACHE 1;
 
 
-CREATE TABLE room_servers
+CREATE TABLE room_server
 (
     id      bigint NOT NULL,
     server  text,
     room_id bigint
 );
 
-ALTER TABLE ONLY room_servers
+ALTER TABLE ONLY room_server
     ADD CONSTRAINT room_server_constr_room_server UNIQUE (room_id, server);
 
-ALTER TABLE ONLY room_servers
-    ADD CONSTRAINT room_servers_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY room_server
+    ADD CONSTRAINT room_server_pkey PRIMARY KEY (id);
 
 
 CREATE SEQUENCE room_state_id_seq
@@ -1252,19 +1252,19 @@ ALTER TABLE ONLY media_remote_addresses
 
 
 ALTER TABLE ONLY notification_actions
-    ADD CONSTRAINT notif_fk_actions FOREIGN KEY (action_id) REFERENCES push_action (id);
+    ADD CONSTRAINT notification_fk_actions FOREIGN KEY (action_id) REFERENCES push_action (id);
 
 
 ALTER TABLE ONLY notification
-    ADD CONSTRAINT notif_fk_event FOREIGN KEY (event_id) REFERENCES event (id);
+    ADD CONSTRAINT notification_fk_event FOREIGN KEY (event_id) REFERENCES event (id);
 
 
 ALTER TABLE ONLY notification_actions
-    ADD CONSTRAINT notif_fk_notif FOREIGN KEY (notification_id) REFERENCES notification (id);
+    ADD CONSTRAINT notification_fk_notification FOREIGN KEY (notification_id) REFERENCES notification (id);
 
 
 ALTER TABLE ONLY notification
-    ADD CONSTRAINT notif_fk_user FOREIGN KEY (user_id) REFERENCES "user" (id);
+    ADD CONSTRAINT notification_fk_user FOREIGN KEY (user_id) REFERENCES "user" (id);
 
 
 ALTER TABLE ONLY one_time_key
@@ -1387,8 +1387,8 @@ ALTER TABLE ONLY room_report
     ADD CONSTRAINT room_report_fk_room FOREIGN KEY (room_id) REFERENCES room (id);
 
 
-ALTER TABLE ONLY room_servers
-    ADD CONSTRAINT room_servers_fk_room FOREIGN KEY (room_id) REFERENCES room (id);
+ALTER TABLE ONLY room_server
+    ADD CONSTRAINT room_server_fk_room FOREIGN KEY (room_id) REFERENCES room (id);
 
 
 ALTER TABLE ONLY room_state

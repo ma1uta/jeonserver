@@ -54,8 +54,8 @@ import javax.persistence.UniqueConstraint;
 public class Filter implements Serializable {
 
     @Id
-    @SequenceGenerator(name = "pk_sequence", sequenceName = "filter_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence")
+    @SequenceGenerator(name = "pk_sequence_filter", sequenceName = "filter_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence_filter")
     private Long id;
 
     @ManyToOne

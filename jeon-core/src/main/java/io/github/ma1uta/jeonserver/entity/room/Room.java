@@ -57,8 +57,8 @@ import javax.persistence.UniqueConstraint;
 public class Room implements Serializable {
 
     @Id
-    @SequenceGenerator(name = "pk_sequence", sequenceName = "room_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence")
+    @SequenceGenerator(name = "pk_sequence_room", sequenceName = "room_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence_room")
     private Long id;
 
     @Column(name = "room_id")

@@ -40,8 +40,8 @@ import javax.persistence.Table;
 public class Redacts implements Serializable {
 
     @Id
-    @SequenceGenerator(name = "pk_sequence", sequenceName = "redacts_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence")
+    @SequenceGenerator(name = "pk_sequence_redacts", sequenceName = "redacts_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence_redacts")
     private Long id;
 
     @Column(name = "txn_id")

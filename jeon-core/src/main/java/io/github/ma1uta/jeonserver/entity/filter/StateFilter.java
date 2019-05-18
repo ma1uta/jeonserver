@@ -46,8 +46,8 @@ import javax.persistence.Table;
 public class StateFilter implements Serializable {
 
     @Id
-    @SequenceGenerator(name = "pk_sequence", sequenceName = "state_filter_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence")
+    @SequenceGenerator(name = "pk_sequence_stat_filter", sequenceName = "state_filter_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence_state_filter")
     private Long id;
 
     private Long limit;

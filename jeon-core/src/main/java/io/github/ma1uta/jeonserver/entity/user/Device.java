@@ -52,8 +52,8 @@ import javax.persistence.UniqueConstraint;
 public class Device implements Serializable {
 
     @Id
-    @SequenceGenerator(name = "pk_sequence", sequenceName = "device_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence")
+    @SequenceGenerator(name = "pk_sequence_device", sequenceName = "device_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence_device")
     private Long id;
 
     private String device;

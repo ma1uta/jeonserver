@@ -55,8 +55,8 @@ import javax.persistence.UniqueConstraint;
 public class FederatedTransaction implements Serializable {
 
     @Id
-    @SequenceGenerator(name = "pk_sequence", sequenceName = "fed_transaction_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence")
+    @SequenceGenerator(name = "pk_sequence_federated_transaction", sequenceName = "fed_transaction_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence_federated_transaction")
     private Long id;
 
     @Column(name = "txn_id")

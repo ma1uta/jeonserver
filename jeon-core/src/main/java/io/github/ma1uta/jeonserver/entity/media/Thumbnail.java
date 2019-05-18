@@ -44,8 +44,8 @@ import javax.persistence.Table;
 public class Thumbnail implements Serializable {
 
     @Id
-    @SequenceGenerator(name = "pk_sequence", sequenceName = "thumbnail_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence")
+    @SequenceGenerator(name = "pk_sequence_thumbnail", sequenceName = "thumbnail_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence_thumbnail")
     private Long id;
 
     @ManyToOne

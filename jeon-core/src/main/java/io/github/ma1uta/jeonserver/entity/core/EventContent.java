@@ -39,8 +39,8 @@ import javax.persistence.Table;
 public class EventContent implements Serializable {
 
     @Id
-    @SequenceGenerator(name = "pk_sequence", sequenceName = "event_content_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence")
+    @SequenceGenerator(name = "pk_sequence_event_content", sequenceName = "event_content_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence_event_content")
     private Long id;
 
     private String content;

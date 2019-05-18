@@ -44,8 +44,8 @@ import javax.persistence.Table;
 public class AuthEvent implements Serializable {
 
     @Id
-    @SequenceGenerator(name = "pk_sequence", sequenceName = "auth_event_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence")
+    @SequenceGenerator(name = "pk_sequence_auth_event", sequenceName = "auth_event_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence_auth_event")
     private Long id;
 
     @ManyToOne

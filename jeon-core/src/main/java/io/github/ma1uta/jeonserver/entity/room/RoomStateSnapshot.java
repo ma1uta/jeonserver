@@ -47,8 +47,8 @@ import javax.persistence.Table;
 public class RoomStateSnapshot implements Serializable {
 
     @Id
-    @SequenceGenerator(name = "pk_sequence", sequenceName = "room_state_snapshot_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence")
+    @SequenceGenerator(name = "pk_sequence_room_state_snapshot", sequenceName = "room_state_snapshot_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence_room_state_snapshot")
     private Long id;
 
     @OneToOne

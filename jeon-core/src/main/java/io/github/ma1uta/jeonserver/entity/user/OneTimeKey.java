@@ -53,8 +53,8 @@ import javax.persistence.UniqueConstraint;
 public class OneTimeKey implements Serializable {
 
     @Id
-    @SequenceGenerator(name = "pk_sequence", sequenceName = "one_time_key_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence")
+    @SequenceGenerator(name = "pk_sequence_one_time_key", sequenceName = "one_time_key_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence_one_time_key")
     private Long id;
 
     @Column(name = "key_id")

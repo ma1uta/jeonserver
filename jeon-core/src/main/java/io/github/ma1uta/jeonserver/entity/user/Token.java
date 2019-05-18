@@ -52,8 +52,8 @@ import javax.persistence.UniqueConstraint;
 public class Token implements Serializable {
 
     @Id
-    @SequenceGenerator(name = "pk_sequence", sequenceName = "token_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence")
+    @SequenceGenerator(name = "pk_sequence_token", sequenceName = "token_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence_token")
     private Long id;
 
     @OneToOne

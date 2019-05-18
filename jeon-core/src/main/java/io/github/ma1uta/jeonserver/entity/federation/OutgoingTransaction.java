@@ -53,8 +53,8 @@ import javax.persistence.UniqueConstraint;
 public class OutgoingTransaction implements Serializable {
 
     @Id
-    @SequenceGenerator(name = "pk_sequence", sequenceName = "outgoing_transaction_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence")
+    @SequenceGenerator(name = "pk_sequence_outgoing_transaction", sequenceName = "outgoing_transaction_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence_outgoing_transaction")
     private Long id;
 
     @OneToOne

@@ -48,8 +48,8 @@ import javax.persistence.UniqueConstraint;
 public class Signature implements Serializable {
 
     @Id
-    @SequenceGenerator(name = "pk_sequence", sequenceName = "signature_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence")
+    @SequenceGenerator(name = "pk_sequence_signature", sequenceName = "signature_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence_signature")
     private Long id;
 
     @ManyToOne

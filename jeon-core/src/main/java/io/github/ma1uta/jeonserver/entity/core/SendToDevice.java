@@ -48,8 +48,8 @@ import javax.persistence.UniqueConstraint;
 public class SendToDevice implements Serializable {
 
     @Id
-    @SequenceGenerator(name = "pk_sequence", sequenceName = "send_to_device_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence")
+    @SequenceGenerator(name = "pk_sequence_send_to_device", sequenceName = "send_to_device_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence_send_to_device")
     private Long id;
 
     private String user;

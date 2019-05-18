@@ -43,8 +43,8 @@ import javax.persistence.Table;
 public class RoomReport implements Serializable {
 
     @Id
-    @SequenceGenerator(name = "pk_sequence", sequenceName = "room_report_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence")
+    @SequenceGenerator(name = "pk_sequence_room_report", sequenceName = "room_report_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence_room_report")
     private Long id;
 
     @ManyToOne

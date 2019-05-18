@@ -48,8 +48,8 @@ import javax.persistence.UniqueConstraint;
 public class AccountData implements Serializable {
 
     @Id
-    @SequenceGenerator(name = "pk_sequence", sequenceName = "account_data_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence")
+    @SequenceGenerator(name = "pk_sequence_account_data", sequenceName = "account_data_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence_account_data")
     private Long id;
 
     private String room;

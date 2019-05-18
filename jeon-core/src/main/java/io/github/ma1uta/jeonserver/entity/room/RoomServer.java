@@ -37,7 +37,7 @@ import javax.persistence.UniqueConstraint;
  */
 @Entity
 @Table(
-    name = "room_servers",
+    name = "room_server",
     uniqueConstraints = {
         @UniqueConstraint(name = "room_server_constr_room_server", columnNames = {"room_id", "server"})
     }
@@ -48,12 +48,12 @@ import javax.persistence.UniqueConstraint;
 public class RoomServer implements Serializable {
 
     @Id
-    @SequenceGenerator(name = "pk_sequence", sequenceName = "room_server_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence")
+    @SequenceGenerator(name = "pk_sequence_room_server", sequenceName = "room_server_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence_room_server")
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "room_id", foreignKey = @ForeignKey(name = "room_servers_fk_room"))
+    @JoinColumn(name = "room_id", foreignKey = @ForeignKey(name = "room_server_fk_room"))
     private Room room;
 
     private String server;

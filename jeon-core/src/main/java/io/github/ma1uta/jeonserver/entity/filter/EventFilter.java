@@ -46,8 +46,8 @@ import javax.persistence.Table;
 public class EventFilter implements Serializable {
 
     @Id
-    @SequenceGenerator(name = "pk_sequence", sequenceName = "event_filter_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence")
+    @SequenceGenerator(name = "pk_sequence_event_filter", sequenceName = "event_filter_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence_event_filter")
     @Column(name = "id")
     private Long id;
 
