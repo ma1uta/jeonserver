@@ -16,6 +16,7 @@
 
 package io.github.ma1uta.jeonserver.entity.filter;
 
+import io.github.ma1uta.jeonserver.entity.user.User;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -31,15 +32,22 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 /**
  * Filter.
  */
 @Entity
-@Table(name = "filter")
+@Table(
+    name = "filter",
+    uniqueConstraints = {
+        @UniqueConstraint(name = "filter_constr_user_id", columnNames = {"user_id", "user_ordinal_id"})
+    }
+)
 @Getter
 @Setter
 @EqualsAndHashCode(of = "id")
@@ -49,6 +57,13 @@ public class Filter implements Serializable {
     @SequenceGenerator(name = "pk_sequence", sequenceName = "filter_id_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence")
     private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "filter_fk_user"))
+    private User user;
+
+    @Column(name = "user_ordinal_id")
+    private Long userOrdinalId;
 
     @ElementCollection
     @CollectionTable(name = "filter_event_fields",

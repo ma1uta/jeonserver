@@ -57,7 +57,7 @@ public class PushRule implements Serializable {
         joinColumns = @JoinColumn(
             name = "push_rule_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "push_rule_fk_push_rule")),
         inverseJoinColumns = @JoinColumn(
-            name = "action_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "push_fule_fk_action"))
+            name = "action_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "push_rule_fk_action"))
     )
     private Set<Action> actions;
 
