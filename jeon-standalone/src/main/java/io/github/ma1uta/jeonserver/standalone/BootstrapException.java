@@ -19,7 +19,7 @@ package io.github.ma1uta.jeonserver.standalone;
 /**
  * Exception when unable to start JeonServer.
  */
-public class BootstrapException extends Exception {
+public class BootstrapException extends RuntimeException {
 
     public BootstrapException() {
     }

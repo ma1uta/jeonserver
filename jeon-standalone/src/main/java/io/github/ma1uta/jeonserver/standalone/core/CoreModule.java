@@ -24,6 +24,7 @@ import com.typesafe.config.ConfigValue;
 import io.github.ma1uta.jeonserver.Server;
 import io.github.ma1uta.jeonserver.standalone.Initializer;
 import io.github.ma1uta.jeonserver.standalone.StandaloneServer;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -31,6 +32,7 @@ import java.util.Map;
 /**
  * Core Guice's module.
  */
+@Slf4j
 public class CoreModule extends AbstractModule {
 
     private final Config config;
@@ -43,10 +45,10 @@ public class CoreModule extends AbstractModule {
     protected void configure() {
         Map<String, String> persistProperties = new HashMap<>();
         persistProperties.put("hibernate.hikari.dataSourceClassName", config.getString("db.dataSource"));
-        persistProperties.put("hibernate.hikari.dataSource.user",     config.getString("db.user"));
+        persistProperties.put("hibernate.hikari.dataSource.user", config.getString("db.user"));
         persistProperties.put("hibernate.hikari.dataSource.password", config.getString("db.password"));
-        persistProperties.put("hibernate.hikari.dataSource.url",      config.getString("db.url"));
-        persistProperties.put("hibernate.dialect",                    config.getString("db.dialect"));
+        persistProperties.put("hibernate.hikari.dataSource.url", config.getString("db.url"));
+        persistProperties.put("hibernate.dialect", config.getString("db.dialect"));
 
         if (config.hasPath("service.persist")) {
             for (Map.Entry<String, ConfigValue> entry : config.getConfig("service.persist").entrySet()) {
@@ -60,6 +62,7 @@ public class CoreModule extends AbstractModule {
         install(persistModule);
 
         bind(Server.class).to(StandaloneServer.class).asEagerSingleton();
+        bind(DomainService.class).asEagerSingleton();
 
         Multibinder.newSetBinder(binder(), Initializer.class).addBinding().to(CoreInitializer.class);
     }

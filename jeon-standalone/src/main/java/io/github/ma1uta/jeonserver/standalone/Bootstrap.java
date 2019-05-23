@@ -17,10 +17,12 @@
 package io.github.ma1uta.jeonserver.standalone;
 
 import com.google.inject.AbstractModule;
+import com.google.inject.Binding;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Module;
 import com.google.inject.Provides;
+import com.google.inject.Scopes;
 import com.typesafe.config.Config;
 import io.github.ma1uta.jeonserver.Server;
 import lombok.extern.slf4j.Slf4j;
@@ -33,6 +35,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import picocli.CommandLine;
 
+import java.lang.reflect.Method;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -41,6 +44,10 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.ServiceLoader;
 import java.util.stream.Collectors;
+import javax.annotation.PostConstruct;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+import javax.transaction.Transactional;
 
 /**
  * Server bootstrap.
@@ -119,8 +126,61 @@ public class Bootstrap {
         Injector childInjector = rootInjector.createChildInjector(modules);
         childInjector.getInstance(InitializerRunner.class).init();
 
+        postConstruct(childInjector);
+
         log.info("Run JeonServer.");
         childInjector.getInstance(Server.class).run();
+    }
+
+    /**
+     * Provides the {@link PostConstruct} logic.
+     *
+     * @param childInjector service injector.
+     * @throws BootstrapException when unable construct service.
+     */
+    private void postConstruct(Injector childInjector) throws BootstrapException {
+        EntityManager entityManager = childInjector.getInstance(EntityManager.class);
+        for (Binding<?> binding : childInjector.getAllBindings().values()) {
+            if (Scopes.isSingleton(binding)) {
+                Object instance = binding.getProvider().get();
+                Class<?> clazz = instance.getClass();
+                for (Method method : clazz.getDeclaredMethods()) {
+                    if (method.isAnnotationPresent(PostConstruct.class)) {
+                        boolean accessible = method.isAccessible();
+                        log.debug("{}#{} annotated with @PostConstruct", clazz.getCanonicalName(), method.getName());
+                        EntityTransaction tx = method.isAnnotationPresent(Transactional.class) ? entityManager.getTransaction() : null;
+                        if (tx != null) {
+                            log.debug("Begin transaction.");
+                            tx.begin();
+                        } else {
+                            log.debug("Without transaction.");
+                        }
+                        try {
+                            method.setAccessible(true);
+                            log.debug("Invoke.");
+                            method.invoke(instance);
+                        } catch (Throwable e) {
+                            log.error("Unable to run @PostConstruct method.", e);
+                            if (tx != null) {
+                                tx.setRollbackOnly();
+                            }
+                            throw new BootstrapException(String.format("Unable to construct singleton: %s", clazz.getCanonicalName()), e);
+                        } finally {
+                            method.setAccessible(accessible);
+                            if (tx != null) {
+                                if (tx.getRollbackOnly()) {
+                                    log.debug("Rollback transaction.");
+                                    tx.rollback();
+                                } else {
+                                    log.debug("Commit transaction.");
+                                    tx.commit();
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
     private List<ConfigurationModule> loadConfigurationModules(Map<String, Bundle> bundles) {
