@@ -18,6 +18,7 @@ package io.github.ma1uta.jeonserver.standalone.core;
 
 import com.google.inject.persist.PersistService;
 import com.typesafe.config.Config;
+import io.github.ma1uta.jeonserver.standalone.Initializer;
 import lombok.extern.slf4j.Slf4j;
 import org.flywaydb.core.Flyway;
 
@@ -27,16 +28,15 @@ import javax.inject.Inject;
  * Core Initializer.
  */
 @Slf4j
-public class CoreInitializer {
+public class CoreInitializer implements Initializer {
+
+    private final Config config;
+    private final PersistService persistService;
 
     @Inject
     public CoreInitializer(Config config, PersistService persistService) {
-
-        updateSchema(config);
-
-        Runtime.getRuntime().addShutdownHook(new Thread(persistService::stop));
-
-        persistService.start();
+        this.config = config;
+        this.persistService = persistService;
     }
 
     private void updateSchema(Config config) {
@@ -48,5 +48,15 @@ public class CoreInitializer {
         } else {
             log.info("Updating database schema... Skip.");
         }
+    }
+
+    @Override
+    public void init() {
+        updateSchema(config);
+
+        Runtime.getRuntime().addShutdownHook(new Thread(persistService::stop));
+
+        log.info("Start persist service.");
+        persistService.start();
     }
 }

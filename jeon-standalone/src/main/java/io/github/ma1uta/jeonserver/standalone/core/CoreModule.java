@@ -17,10 +17,12 @@
 package io.github.ma1uta.jeonserver.standalone.core;
 
 import com.google.inject.AbstractModule;
+import com.google.inject.multibindings.Multibinder;
 import com.google.inject.persist.jpa.JpaPersistModule;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigValue;
 import io.github.ma1uta.jeonserver.Server;
+import io.github.ma1uta.jeonserver.standalone.Initializer;
 import io.github.ma1uta.jeonserver.standalone.StandaloneServer;
 
 import java.util.HashMap;
@@ -57,7 +59,8 @@ public class CoreModule extends AbstractModule {
 
         install(persistModule);
 
-        bind(CoreInitializer.class);
         bind(Server.class).to(StandaloneServer.class).asEagerSingleton();
+
+        Multibinder.newSetBinder(binder(), Initializer.class).addBinding().to(CoreInitializer.class);
     }
 }

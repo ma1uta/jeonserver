@@ -23,7 +23,6 @@ import com.google.inject.Module;
 import com.google.inject.Provides;
 import com.typesafe.config.Config;
 import io.github.ma1uta.jeonserver.Server;
-import io.github.ma1uta.jeonserver.standalone.core.CoreInitializer;
 import lombok.extern.slf4j.Slf4j;
 import org.pf4j.DefaultExtensionFinder;
 import org.pf4j.DefaultPluginManager;
@@ -81,15 +80,21 @@ public class Bootstrap {
         CommandLine commandLine = new CommandLine(bootstrap);
 
         commandLine.parse(args);
-        bootstrap.boot(args);
+        try {
+            bootstrap.boot(args);
+        } catch (Exception e) {
+            log.error("Shutdown JeonServer.", e);
+            System.exit(1);
+        }
     }
 
     /**
      * Start main program.
      *
      * @param args program arguments.
+     * @throws BootstrapException when unable to start JeonServer.
      */
-    public void boot(String[] args) {
+    public void boot(String[] args) throws BootstrapException {
         if (verbose) {
             Logger logger = LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME);
             if (logger instanceof ch.qos.logback.classic.Logger) {
@@ -112,7 +117,7 @@ public class Bootstrap {
 
         log.info("Configure JeonServer.");
         Injector childInjector = rootInjector.createChildInjector(modules);
-        childInjector.getInstance(CoreInitializer.class);
+        childInjector.getInstance(InitializerRunner.class).init();
 
         log.info("Run JeonServer.");
         childInjector.getInstance(Server.class).run();
@@ -132,7 +137,8 @@ public class Bootstrap {
         return configModules;
     }
 
-    private List<Module> loadModules(DefaultPluginManager pluginManager, Map<String, Bundle> bundles, Injector rootInjector) {
+    private List<Module> loadModules(DefaultPluginManager pluginManager, Map<String, Bundle> bundles, Injector rootInjector)
+        throws BootstrapException {
         List<Module> modules = new ArrayList<>(bundles.size() + 1);
         modules.add(new AbstractModule() {
 
@@ -146,8 +152,7 @@ public class Bootstrap {
             try {
                 modules.addAll(bundle.init(config, pluginManager));
             } catch (Exception e) {
-                log.error(String.format("Unable to initialize bundle: %s", bundle.getClass().getName()), e);
-                System.exit(1);
+                throw new BootstrapException(String.format("Unable to initialize bundle: %s", bundle.getClass().getName()), e);
             }
         }
         if (log.isTraceEnabled()) {
@@ -158,12 +163,10 @@ public class Bootstrap {
         return modules;
     }
 
-    private Config loadConfig(Injector rootInjector) {
+    private Config loadConfig(Injector rootInjector) throws BootstrapException {
         Config config = rootInjector.getInstance(Config.class);
-
         if (config == null) {
-            log.error("Unable to build configuration.");
-            System.exit(1);
+            throw new BootstrapException("Unable to build configuration. Config not found.");
         }
         return config;
     }
