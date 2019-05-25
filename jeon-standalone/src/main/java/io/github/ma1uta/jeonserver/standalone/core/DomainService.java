@@ -19,10 +19,12 @@ package io.github.ma1uta.jeonserver.standalone.core;
 import com.typesafe.config.Config;
 import io.github.ma1uta.jeonserver.entity.core.Domain;
 import io.github.ma1uta.jeonserver.standalone.BootstrapException;
+import io.github.ma1uta.jeonserver.standalone.configuration.DomainConfiguration;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
@@ -36,7 +38,15 @@ import javax.transaction.Transactional;
 @Slf4j
 public class DomainService {
 
-    private Map<String, Domain> domains = new HashMap<>();
+    private static final int DEFAULT_RATE_LIMIT = 500;
+
+    private static final int DEFAULT_FEDERATION_DELAY = 500;
+
+    private static final int DEFAULT_FEDERATION_WORKERS = 5;
+
+    private static final int DEFAULT_PREVIEW_SIZE = 1024 * 1024 * 10;
+
+    private Map<String, DomainConfiguration> domains = new HashMap<>();
 
     @Inject
     private Provider<EntityManager> emProvider;
@@ -70,11 +80,72 @@ public class DomainService {
                 log.debug("Save domain.");
                 em.persist(domain);
             }
-            domains.put(name, domain);
+            domains.put(name, loadDomain(name, domainConfig));
         }
+
+        domains = Collections.unmodifiableMap(domains);
     }
 
-    public Map<String, Domain> getDomains() {
-        return Collections.unmodifiableMap(domains);
+    private DomainConfiguration loadDomain(String domain, Config config) {
+        DomainConfiguration domainConfiguration = new DomainConfiguration();
+        domainConfiguration.setName(domain);
+
+        DomainConfiguration.Ratelimit ratelimit = new DomainConfiguration.Ratelimit();
+        ratelimit.setMessagesPerSecond(getInt(config, "ratelimit.messages_per_second", DEFAULT_RATE_LIMIT));
+        domainConfiguration.setRatelimit(ratelimit);
+
+        DomainConfiguration.Federation federation = new DomainConfiguration.Federation();
+        federation.setDelay(getInt(config, "federation.delay", DEFAULT_FEDERATION_DELAY));
+        federation.setWorkerPool(getInt(config, "federation.workers", DEFAULT_FEDERATION_WORKERS));
+        domainConfiguration.setFederation(federation);
+
+        DomainConfiguration.Preview preview = new DomainConfiguration.Preview();
+        preview.setMaxSize(getInt(config, "preview.max_size", DEFAULT_PREVIEW_SIZE));
+        preview.setBlacklist(getStringList(config, "preview.blacklist"));
+        domainConfiguration.setPreview(preview);
+
+        DomainConfiguration.Blacklist blacklist = new DomainConfiguration.Blacklist();
+        blacklist.setUsernames(getStringList(config, "blacklist.usernames"));
+        blacklist.setServers(getStringList(config, "blacklist.servers"));
+        domainConfiguration.setBlacklist(blacklist);
+
+        DomainConfiguration.Turn turn = new DomainConfiguration.Turn();
+        turn.setUsername(getString(config, "turn.username", "turn"));
+        turn.setPassword(getString(config, "turn.password", "turn"));
+        turn.setUris(getStringList(config, "turn.uris"));
+        turn.setAllowGuest(getBoolean(config, "turn.allow_guests", false));
+        domainConfiguration.setTurn(turn);
+
+        return domainConfiguration;
+    }
+
+    private int getInt(Config config, String path, int defaultValue) {
+        return config.hasPath(path) ? config.getInt(path) : defaultValue;
+    }
+
+    private List<String> getStringList(Config config, String path) {
+        return config.hasPath(path) ? config.getStringList(path) : Collections.emptyList();
+    }
+
+    private String getString(Config config, String path, String defaultValue) {
+        return config.hasPath(path) ? config.getString(path) : defaultValue;
+    }
+
+    private boolean getBoolean(Config config, String path, boolean defaultValue) {
+        return config.hasPath(path) ? config.getBoolean(path) : defaultValue;
+    }
+
+    public Map<String, DomainConfiguration> getDomains() {
+        return domains;
+    }
+
+    /**
+     * Get domain configuration.
+     *
+     * @param domain domain name.
+     * @return domain configuration.
+     */
+    public DomainConfiguration getDomain(String domain) {
+        return domains.get(domain);
     }
 }

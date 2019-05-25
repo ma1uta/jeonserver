@@ -71,7 +71,7 @@ public class DomainConfiguration {
     @Setter
     public static class Preview {
 
-        private String maxSize;
+        private Integer maxSize;
 
         private List<String> blacklist;
     }
