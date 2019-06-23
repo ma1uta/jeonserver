@@ -7,13 +7,10 @@
     <groupId>io.github.ma1uta</groupId>
     <artifactId>jeonserver-parent</artifactId>
     <packaging>pom</packaging>
-    <version>1.0-SNAPSHOT</version>
+    <version>0.1.0-SNAPSHOT</version>
     <modules>
-        <module>jeon-bom</module>
-        <module>jeon-core</module>
-        <module>jeon-shade</module>
-        <module>jeon-capsule</module>
-        <module>jeon-standalone</module>
+        <module>jeonserver-bom</module>
+        <module>jeonserver-core</module>
     </modules>
 
     <name>JeonServer Parent</name>
@@ -51,8 +48,6 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <source>1.8</source>
         <target>1.8</target>
-
-        <version.jeonserver>1.0-SNAPSHOT</version.jeonserver>
 
         <version.lib.lombok>1.18.6</version.lib.lombok>
         <version.lib.hibernate-jpamodelgen>5.4.2.Final</version.lib.hibernate-jpamodelgen>

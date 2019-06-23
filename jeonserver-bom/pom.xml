@@ -21,7 +21,7 @@
     <parent>
         <artifactId>jeonserver-parent</artifactId>
         <groupId>io.github.ma1uta</groupId>
-        <version>1.0-SNAPSHOT</version>
+        <version>0.1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>jeonserver-bom</artifactId>
@@ -31,29 +31,21 @@
     <description>Java-based Matrix server. All dependencies.</description>
 
     <properties>
+        <version.lib.microprofile>2.2</version.lib.microprofile>
         <version.lib.javax.inject>1</version.lib.javax.inject>
-        <version.lib.config>1.3.3</version.lib.config>
-        <version.lib.client-api>r0.5.0-1-SNAPSHOT</version.lib.client-api>
-        <version.lib.server-api>r0.1.1-1-SNAPSHOT</version.lib.server-api>
-        <version.lib.application-api>r0.1.0-5-SNAPSHOT</version.lib.application-api>
-        <version.lib.common-impl>0.6.0-SNAPSHOT</version.lib.common-impl>
-        <version.lib.jackson-support>0.2.0-SNAPSHOT</version.lib.jackson-support>
+        <version.lib.client-api>0.9.0</version.lib.client-api>
+        <version.lib.server-api>0.9.0</version.lib.server-api>
+        <version.lib.application-api>0.9.0</version.lib.application-api>
+        <version.lib.common-impl>0.9.0</version.lib.common-impl>
         <version.lib.lombok>1.18.6</version.lib.lombok>
         <version.lib.javax.persistence-api>2.2</version.lib.javax.persistence-api>
         <version.lib.jboss-transaction-api_1.2_spec>1.1.1.Final</version.lib.jboss-transaction-api_1.2_spec>
         <version.lib.hibernate-jpamodelgen>5.4.2.Final</version.lib.hibernate-jpamodelgen>
         <version.lib.jaxb-api>2.3.1</version.lib.jaxb-api>
+        <version.lib.logback-classic>1.2.3</version.lib.logback-classic>
 
-        <version.lib.picocli>3.9.6</version.lib.picocli>
-        <version.lib.guice>4.2.2</version.lib.guice>
-        <version.lib.guice-persist>4.2.2</version.lib.guice-persist>
-        <version.lib.hibernate-core>5.4.2.Final</version.lib.hibernate-core>
-        <version.lib.hibernate-hikaricp>5.4.2.Final</version.lib.hibernate-hikaricp>
-        <version.lib.hibernate-jcache>5.4.2.Final</version.lib.hibernate-jcache>
-        <version.lib.hibernate-ejb>5.4.2.Final</version.lib.hibernate-ejb>
         <version.lib.postgresql>42.2.5</version.lib.postgresql>
         <version.lib.jsr305>3.0.2</version.lib.jsr305>
-        <version.lib.pf4j>2.6.0</version.lib.pf4j>
         <version.lib.lombok>1.18.6</version.lib.lombok>
         <version.lib.flywaydb-core>5.2.4</version.lib.flywaydb-core>
 
@@ -62,14 +54,16 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
+                <groupId>org.eclipse.microprofile</groupId>
+                <artifactId>microprofile</artifactId>
+                <version>${version.lib.microprofile}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
                 <groupId>javax.inject</groupId>
                 <artifactId>javax.inject</artifactId>
                 <version>${version.lib.javax.inject}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.typesafe</groupId>
-                <artifactId>config</artifactId>
-                <version>${version.lib.config}</version>
             </dependency>
             <dependency>
                 <groupId>io.github.ma1uta.matrix</groupId>
@@ -90,11 +84,6 @@
                 <groupId>io.github.ma1uta.matrix</groupId>
                 <artifactId>common-impl</artifactId>
                 <version>${version.lib.common-impl}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.github.ma1uta.matrix</groupId>
-                <artifactId>jackson-support</artifactId>
-                <version>${version.lib.jackson-support}</version>
             </dependency>
             <dependency>
                 <groupId>org.projectlombok</groupId>
@@ -120,41 +109,9 @@
                 <version>${version.lib.jaxb-api}</version>
             </dependency>
             <dependency>
-                <groupId>org.pf4j</groupId>
-                <artifactId>pf4j</artifactId>
-                <version>${version.lib.pf4j}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.slf4j</groupId>
-                        <artifactId>slf4j-api</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
                 <groupId>ch.qos.logback</groupId>
                 <artifactId>logback-classic</artifactId>
-                <version>1.3.0-alpha4</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.slf4j</groupId>
-                        <artifactId>slf4j-api</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>info.picocli</groupId>
-                <artifactId>picocli</artifactId>
-                <version>${version.lib.picocli}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.google.inject</groupId>
-                <artifactId>guice</artifactId>
-                <version>${version.lib.guice}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.google.inject.extensions</groupId>
-                <artifactId>guice-persist</artifactId>
-                <version>${version.lib.guice-persist}</version>
+                <version>${version.lib.logback-classic}</version>
             </dependency>
             <dependency>
                 <groupId>org.postgresql</groupId>
@@ -167,33 +124,6 @@
                 <version>${version.lib.jsr305}</version>
             </dependency>
 
-            <dependency>
-                <groupId>io.github.ma1uta</groupId>
-                <artifactId>jeon-core</artifactId>
-                <version>1.0-SNAPSHOT</version>
-            </dependency>
-            <dependency>
-                <groupId>org.hibernate</groupId>
-                <artifactId>hibernate-core</artifactId>
-                <version>${version.lib.hibernate-core}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.hibernate</groupId>
-                <artifactId>hibernate-hikaricp</artifactId>
-                <version>${version.lib.hibernate-hikaricp}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.slf4j</groupId>
-                        <artifactId>slf4j-api</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>org.hibernate</groupId>
-                <artifactId>hibernate-jcache</artifactId>
-                <version>${version.lib.hibernate-jcache}</version>
-                <scope>provided</scope>
-            </dependency>
             <dependency>
                 <groupId>org.flywaydb</groupId>
                 <artifactId>flyway-core</artifactId>
