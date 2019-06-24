@@ -11,6 +11,7 @@
     <modules>
         <module>jeonserver-bom</module>
         <module>jeonserver-core</module>
+        <module>jeonserver-quarkus</module>
     </modules>
 
     <name>JeonServer Parent</name>
