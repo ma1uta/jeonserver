@@ -45,7 +45,11 @@ public class VersionResource implements VersionApi {
     @GET
     @Path("/")
     @Override
-    public void versions(@Context UriInfo uriInfo, @Context HttpHeaders httpHeaders, @Suspended AsyncResponse asyncResponse) {
+    public void versions(
+        @Context UriInfo uriInfo,
+        @Context HttpHeaders httpHeaders,
+        @Suspended AsyncResponse asyncResponse
+    ) {
         asyncResponse.resume(RESPONSE);
     }
 }

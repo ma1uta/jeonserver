@@ -33,6 +33,11 @@
     </dependencyManagement>
     <dependencies>
         <dependency>
+            <groupId>io.github.ma1uta</groupId>
+            <artifactId>jeonserver-core</artifactId>
+            <version>0.1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
             <groupId>io.github.ma1uta.matrix</groupId>
             <artifactId>client-api</artifactId>
         </dependency>
@@ -50,8 +55,29 @@
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-flyway</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-hibernate-orm</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-jdbc-postgresql</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
             <artifactId>quarkus-junit5</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.microprofile-ext.config-ext</groupId>
+            <artifactId>configsource-typesafeconfig</artifactId>
+            <version>1.0.9</version>
         </dependency>
         <dependency>
             <groupId>io.rest-assured</groupId>
