@@ -14,20 +14,22 @@
  * limitations under the License.
  */
 
-package io.github.ma1uta.jeonserver.entity.push;
+package io.github.ma1uta.jeonserver.entity.core.converter;
+
+import javax.persistence.AttributeConverter;
 
 /**
- * Tweak actions.
+ * JsonbConverter.
  */
-public enum TweakEnum {
+public class JsonbConverter implements AttributeConverter<Object, String> {
 
-    /**
-     * Sound.
-     */
-    sound,
+    @Override
+    public String convertToDatabaseColumn(Object attribute) {
+        return JsonbMapper.getInstance().convertToString(attribute);
+    }
 
-    /**
-     * Highlight.
-     */
-    highlight
+    @Override
+    public Object convertToEntityAttribute(String dbData) {
+        return JsonbMapper.getInstance().convertToObject(dbData);
+    }
 }

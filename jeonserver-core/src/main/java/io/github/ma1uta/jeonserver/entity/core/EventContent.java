@@ -16,11 +16,13 @@
 
 package io.github.ma1uta.jeonserver.entity.core;
 
+import io.github.ma1uta.jeonserver.entity.core.converter.JsonbConverter;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -43,5 +45,6 @@ public class EventContent implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence_event_content")
     private Long id;
 
+    @Convert(converter = JsonbConverter.class)
     private String content;
 }
