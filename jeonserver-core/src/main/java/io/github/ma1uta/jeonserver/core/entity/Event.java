@@ -16,7 +16,7 @@
 
 package io.github.ma1uta.jeonserver.core.entity;
 
-import io.github.ma1uta.jeonserver.entity.room.Room;
+import io.github.ma1uta.jeonserver.core.entity.room.Room;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;

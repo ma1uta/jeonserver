@@ -18,10 +18,10 @@ package io.github.ma1uta.jeonserver.service;
 
 import io.github.ma1uta.jeonserver.client.model.room.RoomIdWrapper;
 import io.github.ma1uta.jeonserver.config.IdGenerator;
-import io.github.ma1uta.jeonserver.entity.core.Event;
-import io.github.ma1uta.jeonserver.entity.room.Room;
-import io.github.ma1uta.jeonserver.entity.room.RoomState;
-import io.github.ma1uta.jeonserver.entity.room.RoomStateSnapshot;
+import io.github.ma1uta.jeonserver.core.entity.Event;
+import io.github.ma1uta.jeonserver.core.entity.room.Room;
+import io.github.ma1uta.jeonserver.core.entity.room.RoomState;
+import io.github.ma1uta.jeonserver.core.entity.room.RoomStateSnapshot;
 import io.github.ma1uta.matrix.client.model.room.CreateRoomRequest;
 import io.github.ma1uta.matrix.client.model.room.RoomId;
 import io.github.ma1uta.matrix.event.content.RoomCreateContent;
@@ -43,16 +43,16 @@ import javax.transaction.Transactional;
 public class RoomService {
 
     @Inject
-    private EntityManager em;
+    EntityManager em;
 
     @Inject
-    private Config config;
+    Config config;
 
     @Inject
-    private Clock clock;
+    Clock clock;
 
     @Inject
-    private IdGenerator idGenerator;
+    IdGenerator idGenerator;
 
     /**
      * Create a new room.
