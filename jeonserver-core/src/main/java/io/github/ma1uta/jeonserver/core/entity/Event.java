@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.github.ma1uta.jeonserver.entity.core;
+package io.github.ma1uta.jeonserver.core.entity;
 
 import io.github.ma1uta.jeonserver.entity.room.Room;
 import lombok.EqualsAndHashCode;

@@ -14,37 +14,39 @@
  * limitations under the License.
  */
 
-package io.github.ma1uta.jeonserver.entity.core;
+package io.github.ma1uta.jeonserver.core.entity.push;
 
-import io.github.ma1uta.jeonserver.entity.core.converter.JsonbConverter;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
-import javax.persistence.Convert;
+import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
- * Event content.
+ * Push action.
  */
 @Entity
-@Table(name = "event_content")
+@Table(name = "push_action")
+@DiscriminatorColumn(name = "type")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Getter
 @Setter
 @EqualsAndHashCode(of = "id")
-public class EventContent implements Serializable {
+public class Action implements Serializable {
 
     @Id
-    @SequenceGenerator(name = "pk_sequence_event_content", sequenceName = "event_content_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence_event_content")
+    @SequenceGenerator(name = "pk_sequence_push_action", sequenceName = "action_id", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence_push_action")
     private Long id;
 
-    @Convert(converter = JsonbConverter.class)
-    private String content;
+    private String type;
 }

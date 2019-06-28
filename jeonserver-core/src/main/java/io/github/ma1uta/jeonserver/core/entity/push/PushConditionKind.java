@@ -14,27 +14,25 @@
  * limitations under the License.
  */
 
-package io.github.ma1uta.jeonserver.entity.core;
-
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-
-import java.io.Serializable;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+package io.github.ma1uta.jeonserver.core.entity.push;
 
 /**
- * Domain.
+ * Push condition kinds.
  */
-@Entity
-@Table(name = "domain")
-@Getter
-@Setter
-@EqualsAndHashCode(of = "domain")
-public class Domain implements Serializable {
+public enum PushConditionKind {
 
-    @Id
-    private String domain;
+    /**
+     * Event match.
+     */
+    event_match,
+
+    /**
+     * Contains display name.
+     */
+    contains_display_name,
+
+    /**
+     * Room member count.
+     */
+    room_member_count
 }

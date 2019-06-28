@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.github.ma1uta.jeonserver.entity.core.converter;
+package io.github.ma1uta.jeonserver.core.entity.converter;
 
 import java.util.Iterator;
 import java.util.ServiceLoader;

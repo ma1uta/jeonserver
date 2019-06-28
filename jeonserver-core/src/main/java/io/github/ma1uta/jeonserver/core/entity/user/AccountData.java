@@ -14,9 +14,8 @@
  * limitations under the License.
  */
 
-package io.github.ma1uta.jeonserver.entity.core;
+package io.github.ma1uta.jeonserver.core.entity.user;
 
-import io.github.ma1uta.jeonserver.entity.room.RoomState;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -29,30 +28,37 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 /**
- * Auth events.
+ * User account data.
  */
 @Entity
-@Table(name = "auth_event")
+@Table(
+    name = "account_data",
+    uniqueConstraints = {
+        @UniqueConstraint(name = "account_data_constr_room_user_type", columnNames = {"room", "user_id", "type"})
+    }
+)
 @Getter
 @Setter
 @EqualsAndHashCode(of = "id")
-public class AuthEvent implements Serializable {
+public class AccountData implements Serializable {
 
     @Id
-    @SequenceGenerator(name = "pk_sequence_auth_event", sequenceName = "auth_event_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence_auth_event")
+    @SequenceGenerator(name = "pk_sequence_account_data", sequenceName = "account_data_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence_account_data")
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "event_id", foreignKey = @ForeignKey(name = "auh_event_fk_event"))
-    private Event event;
+    private String room;
 
-    @OneToOne
-    @JoinColumn(name = "auth_id", foreignKey = @ForeignKey(name = "auth_event_fk_auth"))
-    private RoomState auth;
+    @ManyToOne
+    @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "account_data_fk_user"))
+    private User user;
+
+    private String type;
+
+    private String content;
 }

@@ -14,13 +14,15 @@
  * limitations under the License.
  */
 
-package io.github.ma1uta.jeonserver.entity.core;
+package io.github.ma1uta.jeonserver.core.entity.push;
 
+import io.github.ma1uta.jeonserver.core.entity.user.User;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
@@ -28,37 +30,41 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 
 /**
- * Event signatures.
+ * Ruleset.
  */
 @Entity
-@Table(
-    name = "signature",
-    uniqueConstraints = {
-        @UniqueConstraint(name = "signature_constr_event_server", columnNames = {"event_id", "server"})
-    }
-)
+@Table(name = "ruleset")
 @Getter
 @Setter
 @EqualsAndHashCode(of = "id")
-public class Signature implements Serializable {
+public class Ruleset implements Serializable {
 
     @Id
-    @SequenceGenerator(name = "pk_sequence_signature", sequenceName = "signature_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence_signature")
+    @SequenceGenerator(name = "pk_sequence_ruleset", sequenceName = "ruleset_id", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence_ruleset")
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "event_id", foreignKey = @ForeignKey(name = "sign_fk_event"))
-    private Event event;
+    @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "ruleset_fk_user"))
+    private User user;
 
-    private String server;
+    @OneToMany(mappedBy = "ruleset")
+    private Set<PushRule> content;
 
-    private String key;
+    @OneToMany(mappedBy = "ruleset")
+    private Set<PushRule> override;
 
-    private String signature;
+    @OneToMany(mappedBy = "ruleset")
+    private Set<PushRule> room;
+
+    @OneToMany(mappedBy = "ruleset")
+    private Set<PushRule> sender;
+
+    @OneToMany(mappedBy = "ruleset")
+    private Set<PushRule> underride;
 }

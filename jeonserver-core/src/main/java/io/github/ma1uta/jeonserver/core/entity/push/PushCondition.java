@@ -14,38 +14,50 @@
  * limitations under the License.
  */
 
-package io.github.ma1uta.jeonserver.entity.core;
+package io.github.ma1uta.jeonserver.core.entity.push;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
-import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
- * Redacts.
+ * Push condition.
  */
 @Entity
-@Table(name = "redacts")
+@Table(name = "push_condition")
 @Getter
 @Setter
 @EqualsAndHashCode(of = "id")
-public class Redacts implements Serializable {
+public class PushCondition implements Serializable {
 
     @Id
-    @SequenceGenerator(name = "pk_sequence_redacts", sequenceName = "redacts_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence_redacts")
+    @SequenceGenerator(name = "pk_sequence_push_condition", sequenceName = "push_condition_id", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence_push_condition")
     private Long id;
 
-    @Column(name = "txn_id")
-    private String txnId;
+    @Enumerated(EnumType.STRING)
+    private PushConditionKind kind;
 
-    private String reason;
+    private String key;
+
+    private String pattern;
+
+    private String is;
+
+    @ManyToOne
+    @JoinColumn(name = "rule_id", foreignKey = @ForeignKey(name = "push_condition_fk_rule"))
+    private PushRule rule;
 }

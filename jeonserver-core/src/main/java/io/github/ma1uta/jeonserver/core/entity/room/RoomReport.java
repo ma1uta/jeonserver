@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
-package io.github.ma1uta.jeonserver.entity.core;
+package io.github.ma1uta.jeonserver.core.entity.room;
 
+import io.github.ma1uta.jeonserver.core.entity.Event;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -27,36 +28,34 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 
 /**
- * Send to device.
+ * Room report.
  */
 @Entity
-@Table(
-    name = "send_to_device",
-    uniqueConstraints = {
-        @UniqueConstraint(name = "send_to_device_constr_user_device", columnNames = {"user", "device"})
-    }
-)
+@Table(name = "room_report")
 @Getter
 @Setter
 @EqualsAndHashCode(of = "id")
-public class SendToDevice implements Serializable {
+public class RoomReport implements Serializable {
 
     @Id
-    @SequenceGenerator(name = "pk_sequence_send_to_device", sequenceName = "send_to_device_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence_send_to_device")
+    @SequenceGenerator(name = "pk_sequence_room_report", sequenceName = "room_report_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence_room_report")
     private Long id;
 
-    private String user;
+    @ManyToOne
+    @JoinColumn(name = "event_id", foreignKey = @ForeignKey(name = "room_report_fk_event"))
+    private Event event;
 
-    private String device;
+    @ManyToOne
+    @JoinColumn(name = "room_id", foreignKey = @ForeignKey(name = "room_report_fk_room"))
+    private Room room;
 
-    @OneToOne
-    @JoinColumn(name = "content_id", foreignKey = @ForeignKey(name = "send_to_device_fk_content"))
-    private EventContent content;
+    private Long score;
+
+    private String reason;
 }

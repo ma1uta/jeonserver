@@ -14,22 +14,13 @@
  * limitations under the License.
  */
 
-package io.github.ma1uta.jeonserver.entity.core.converter;
+package io.github.ma1uta.jeonserver.core.entity.push;
 
-import javax.persistence.AttributeConverter;
+import javax.persistence.DiscriminatorValue;
 
 /**
- * JsonbConverter.
+ * Coalesce action.
  */
-public class JsonbConverter implements AttributeConverter<Object, String> {
-
-    @Override
-    public String convertToDatabaseColumn(Object attribute) {
-        return JsonbMapper.getInstance().convertToString(attribute);
-    }
-
-    @Override
-    public Object convertToEntityAttribute(String dbData) {
-        return JsonbMapper.getInstance().convertToObject(dbData);
-    }
+@DiscriminatorValue("coalesce")
+public class Coalesce extends Action {
 }
