@@ -11,7 +11,7 @@
     <artifactId>jeonserver-quarkus</artifactId>
     <name>JeonServer Quarkus</name>
     <properties>
-        <version.lib.quarkus>0.17.0</version.lib.quarkus>
+        <version.lib.quarkus>0.18.0</version.lib.quarkus>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -78,11 +78,11 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
         </dependency>
-        <!--dependency>
+        <dependency>
             <groupId>org.microprofile-ext.config-ext</groupId>
             <artifactId>configsource-typesafeconfig</artifactId>
             <version>1.0.9</version>
-        </dependency-->
+        </dependency>
         <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>

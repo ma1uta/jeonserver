@@ -55,22 +55,17 @@ import javax.ws.rs.core.UriInfo;
 @Produces(MediaType.APPLICATION_JSON)
 public class RoomResource implements RoomApi {
 
-    private final Executor executor;
-
-    private final RoomService roomService;
-
-    private final Logger logger;
-
-    private final ServiceExecutor serviceExecutor;
+    @Inject
+    Executor executor;
 
     @Inject
-    public RoomResource(Executor executor, RoomService roomService, Logger logger,
-                        ServiceExecutor serviceExecutor) {
-        this.executor = executor;
-        this.roomService = roomService;
-        this.logger = logger;
-        this.serviceExecutor = serviceExecutor;
-    }
+    RoomService roomService;
+
+    @Inject
+    Logger logger;
+
+    @Inject
+    ServiceExecutor serviceExecutor;
 
     @POST
     @Path("/createRoom")

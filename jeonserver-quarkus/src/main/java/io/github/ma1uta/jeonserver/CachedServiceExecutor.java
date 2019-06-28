@@ -34,15 +34,8 @@ public class CachedServiceExecutor implements ServiceExecutor {
 
     private final Executor executor = Executors.newCachedThreadPool();
 
-    private Logger logger;
-
-    public CachedServiceExecutor() {
-    }
-
     @Inject
-    public CachedServiceExecutor(Logger logger) {
-        this.logger = logger;
-    }
+    Logger logger;
 
     @Override
     public void execute(Callable<?> runnable, AsyncResponse asyncResponse, UriInfo uriInfo) {
