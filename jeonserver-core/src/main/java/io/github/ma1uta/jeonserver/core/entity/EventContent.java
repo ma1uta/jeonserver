@@ -16,7 +16,7 @@
 
 package io.github.ma1uta.jeonserver.core.entity;
 
-import io.github.ma1uta.jeonserver.entity.core.converter.JsonbConverter;
+import io.github.ma1uta.jeonserver.core.entity.converter.JsonbConverter;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -46,5 +46,5 @@ public class EventContent implements Serializable {
     private Long id;
 
     @Convert(converter = JsonbConverter.class)
-    private String content;
+    private Object content;
 }
