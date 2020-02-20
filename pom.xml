@@ -10,8 +10,7 @@
     <version>0.1.0-SNAPSHOT</version>
     <modules>
         <module>jeonserver-bom</module>
-        <module>jeonserver-core</module>
-        <module>jeonserver-quarkus</module>
+        <module>jeonserver</module>
     </modules>
 
     <name>JeonServer Parent</name>
@@ -50,8 +49,7 @@
         <source>1.8</source>
         <target>1.8</target>
 
-        <version.lib.lombok>1.18.6</version.lib.lombok>
-        <version.lib.hibernate-jpamodelgen>5.4.2.Final</version.lib.hibernate-jpamodelgen>
+        <version.lib.hibernate-jpamodelgen>6.0.0.Alpha4</version.lib.hibernate-jpamodelgen>
 
         <version.plugin.buildnumber-maven-plugin>1.4</version.plugin.buildnumber-maven-plugin>
         <version.plugin.maven-clean-plugin>3.1.0</version.plugin.maven-clean-plugin>
@@ -68,7 +66,7 @@
         <version.plugin.build-helper-maven-plugin>3.0.0</version.plugin.build-helper-maven-plugin>
         <version.plugin.license-maven-plugin>1.16</version.plugin.license-maven-plugin>
         <version.plugin.directory-maven-plugin>0.1</version.plugin.directory-maven-plugin>
-        <version.plugin.maven-checkstyle-plugin>3.0.0</version.plugin.maven-checkstyle-plugin>
+        <version.plugin.maven-checkstyle-plugin>3.1.1</version.plugin.maven-checkstyle-plugin>
         <version.plugin.jacoco-maven-plugin>0.8.2</version.plugin.jacoco-maven-plugin>
         <version.plugin.maven-processor-plugin>2.0.5</version.plugin.maven-processor-plugin>
     </properties>
@@ -124,13 +122,6 @@
                     <configuration>
                         <source>${source}</source>
                         <target>${target}</target>
-                        <annotationProcessorPaths>
-                            <path>
-                                <groupId>org.projectlombok</groupId>
-                                <artifactId>lombok</artifactId>
-                                <version>${version.lib.lombok}</version>
-                            </path>
-                        </annotationProcessorPaths>
                     </configuration>
                     <dependencies>
                         <dependency>
@@ -204,7 +195,7 @@
                         <dependency>
                             <groupId>com.puppycrawl.tools</groupId>
                             <artifactId>checkstyle</artifactId>
-                            <version>8.18</version>
+                            <version>8.29</version>
                         </dependency>
                     </dependencies>
                 </plugin>
@@ -229,12 +220,12 @@
                         <dependency>
                             <groupId>org.apache.maven.doxia</groupId>
                             <artifactId>doxia-core</artifactId>
-                            <version>1.6</version>
+                            <version>1.9.1</version>
                         </dependency>
                         <dependency>
                             <groupId>org.apache.maven.doxia</groupId>
                             <artifactId>doxia-site-renderer</artifactId>
-                            <version>1.6</version>
+                            <version>1.9.1</version>
                         </dependency>
                     </dependencies>
                 </plugin>
@@ -305,5 +296,20 @@
                 </plugin>
             </plugins>
         </pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>license-maven-plugin</artifactId>
+                <version>${version.plugin.license-maven-plugin}</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+            </plugin>
+        </plugins>
     </build>
 </project>
