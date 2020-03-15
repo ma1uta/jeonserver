@@ -16,22 +16,17 @@
 
 package io.github.ma1uta.jeonserver.persistence.entity;
 
-import io.github.ma1uta.jeonserver.persistence.jsonb.JsonType;
-import org.hibernate.annotations.Parameter;
-import org.hibernate.annotations.Type;
-import org.hibernate.annotations.TypeDef;
-
 import java.io.Serializable;
 import java.time.ZonedDateTime;
-import java.util.Map;
+import java.util.List;
 import java.util.Objects;
 import javax.persistence.Column;
-import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 /**
@@ -39,47 +34,37 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "pdu")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "version")
-@TypeDef(
-    name = "jsonb",
-    typeClass = JsonType.class
-)
 public class PersistentDataUnit implements Serializable {
 
     @Id
-    @Column(name = "event_id")
+    @Column(name = "event_id", nullable = false)
     private String eventId;
 
-    @Column(name = "room_id")
+    @Column(name = "room_id", nullable = false)
     private String roomId;
 
-    @Column(name = "version", insertable = false, updatable = false)
+    @Column(name = "version", nullable = false)
     private String version;
 
-    @Column(name = "sender")
+    @Column(name = "sender", nullable = false)
     private String sender;
 
-    @Column(name = "origin")
+    @Column(name = "origin", nullable = false)
     private String origin;
 
-    @Column(name = "origin_server_ts")
+    @Column(name = "origin_server_ts", nullable = false)
     private Long originServerTs;
 
-    @Column(name = "type")
+    @Column(name = "type", nullable = false)
     private String type;
 
     @Column(name = "state_key")
     private String stateKey;
 
-    @Column(name = "content", columnDefinition = "jsonb")
-    @Type(
-        type = "jsonb",
-        parameters = {@Parameter(name = JsonType.TYPE, value = "java.util.HashMap")}
-    )
-    private Map<String, Object> content;
+    @Column(name = "content")
+    private String content;
 
-    @Column(name = "depth")
+    @Column(name = "depth", nullable = false)
     private Long depth;
 
     @Column(name = "redacts")
@@ -91,15 +76,19 @@ public class PersistentDataUnit implements Serializable {
     @Embedded
     private EventHash hashes;
 
-    @Column(name = "signatures", columnDefinition = "jsonb")
-    @Type(
-        type = "jsonb",
-        parameters = {@Parameter(name = JsonType.TYPE, value = "java.util.HashMap")}
-    )
-    private Map<String, Map<String, String>> signatures;
+    @Column(name = "signatures", nullable = false)
+    private String signatures;
 
-    @Column(name = "created_at")
+    @Column(name = "created_at", nullable = false)
     private ZonedDateTime createdAt;
+
+    @ManyToMany
+    @JoinTable(name = "pdu_prev_event", joinColumns = @JoinColumn(name = "event_id"), inverseJoinColumns = @JoinColumn(name = "prev_event_id"))
+    private List<PersistentDataUnit> prevEvents;
+
+    @ManyToMany
+    @JoinTable(name = "pdu_auth_events", joinColumns = @JoinColumn(name = "event_id"), inverseJoinColumns = @JoinColumn(name = "prev_event_id"))
+    private List<PersistentDataUnit> authEvents;
 
     public String getEventId() {
         return eventId;
@@ -165,11 +154,11 @@ public class PersistentDataUnit implements Serializable {
         this.stateKey = stateKey;
     }
 
-    public Map<String, Object> getContent() {
+    public String getContent() {
         return content;
     }
 
-    public void setContent(Map<String, Object> content) {
+    public void setContent(String content) {
         this.content = content;
     }
 
@@ -205,11 +194,11 @@ public class PersistentDataUnit implements Serializable {
         this.hashes = hashes;
     }
 
-    public Map<String, Map<String, String>> getSignatures() {
+    public String getSignatures() {
         return signatures;
     }
 
-    public void setSignatures(Map<String, Map<String, String>> signatures) {
+    public void setSignatures(String signatures) {
         this.signatures = signatures;
     }
 
@@ -219,6 +208,22 @@ public class PersistentDataUnit implements Serializable {
 
     public void setCreatedAt(ZonedDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public List<PersistentDataUnit> getPrevEvents() {
+        return prevEvents;
+    }
+
+    public void setPrevEvents(List<PersistentDataUnit> prevEvents) {
+        this.prevEvents = prevEvents;
+    }
+
+    public List<PersistentDataUnit> getAuthEvents() {
+        return authEvents;
+    }
+
+    public void setAuthEvents(List<PersistentDataUnit> authEvents) {
+        this.authEvents = authEvents;
     }
 
     @Override

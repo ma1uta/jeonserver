@@ -16,8 +16,8 @@
 
 package io.github.ma1uta.jeonserver.client.resource;
 
-import io.quarkus.test.junit.SubstrateTest;
+import io.quarkus.test.junit.NativeImageTest;
 
-@SubstrateTest
+@NativeImageTest
 public class NativeVersionResourceIT extends VersionResourceTest {
 }

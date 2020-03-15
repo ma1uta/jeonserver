@@ -1,66 +1,47 @@
 create table pdu
 (
-    event_id         text primary key,
-    room_id          text,
-    version          text,
-    sender           text,
-    origin           text,
-    origin_server_ts bigint,
-    type             text,
-    state_key        text,
-    content          jsonb,
-    depth            bigint,
-    redacts          text,
+    event_id         varchar(500) primary key,
+    room_id          varchar(500)             not null,
+    version          varchar(255)             not null,
+    sender           varchar(500)             not null,
+    origin           varchar(255)             not null,
+    origin_server_ts bigint                   not null,
+    type             varchar(300)             not null,
+    state_key        varchar(300),
+    content          varchar(2000),                     -- json
+    depth            bigint                   not null,
+    redacts          varchar(500),
     age              bigint,
-    replaces_state   text,
-    prev_sender      text,
-    prev_content     jsonb,
-    redacted_because text,
-    sha256           text,
-    signatures       jsonb,
-    prev_events      jsonb,
-    auth_events      jsonb,
+    replaces_state   varchar(500),
+    prev_sender      varchar(500),
+    prev_content     varchar(2000),                     -- json
+    redacted_because varchar(2000),
+    sha256           varchar(2000),
+    signatures       varchar(2000)            not null, -- json
+    prev_events      varchar(2000),                     -- json
+    auth_events      varchar(2000),                     -- json
 
-    created_at       timestamptz,
-    stream_id        text
+    created_at       timestamp with time zone not null
 );
 
 create index "pdu-room_id" on pdu (room_id);
-create index "pdu-stream_id-created_at" on pdu (stream_id, created_at desc);
 
--- create table pdu_graph
--- (
---     event_id  text references pdu (event_id),
---     parent_id text references pdu (event_id),
---     primary key (event_id, parent_id)
--- );
---
--- create table room_state
--- (
---     room_id   text primary key,
---     topic_id  text references pdu (event_id),
---     avatar_id text references pdu (event_id)
--- );
---
--- create table room_aliases
--- (
---     room_id text references pdu (event_id),
---     alias   text,
---     server  text,
---     primary key (room_id, alias)
--- );
---
--- create table room_server
--- (
---     room_id   text references pdu (event_id),
---     server    text,
---     joined_at timestamptz,
---     primary key (room_id, server)
--- );
---
--- create table room_membership
--- (
---     room_id   text references pdu (event_id),
---     member_id text references pdu (event_id)
--- );
---
+create table pdu_prev_event
+(
+    event_id      varchar(500) references pdu (event_id),
+    prev_event_id varchar(500) references pdu (event_id),
+    depth         bigint,
+    primary key (event_id, prev_event_id)
+);
+
+create index "pdu_prev_event-event_id" on pdu_prev_event (event_id);
+create index "pdu_prev_event-event_id-prev_event_id" on pdu_prev_event (event_id, prev_event_id);
+
+create table pdu_auth_event
+(
+    event_id      varchar(500) references pdu (event_id),
+    auth_event_id varchar(500) references pdu (event_id),
+    primary key (event_id, auth_event_id)
+);
+
+create index "pdu_auth_event-event_id" on pdu_auth_event (event_id);

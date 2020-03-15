@@ -16,11 +16,6 @@
 
 package io.github.ma1uta.jeonserver.persistence.entity;
 
-import io.github.ma1uta.jeonserver.persistence.jsonb.JsonType;
-import org.hibernate.annotations.Parameter;
-import org.hibernate.annotations.Type;
-
-import java.util.Map;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
@@ -39,12 +34,8 @@ public class Unsigned {
     @Column(name = "prev_sender")
     private String prevSender;
 
-    @Column(name = "prev_content", columnDefinition = "jsonb")
-    @Type(
-        type = "jsonb",
-        parameters = {@Parameter(name = JsonType.TYPE, value = "java.util.HashMap")}
-    )
-    private Map<String, Object> prevContent;
+    @Column(name = "prev_content")
+    private String prevContent;
 
     @Column(name = "redacted_because")
     private String redactedBecause;
@@ -73,11 +64,11 @@ public class Unsigned {
         this.prevSender = prevSender;
     }
 
-    public Map<String, Object> getPrevContent() {
+    public String getPrevContent() {
         return prevContent;
     }
 
-    public void setPrevContent(Map<String, Object> prevContent) {
+    public void setPrevContent(String prevContent) {
         this.prevContent = prevContent;
     }
 

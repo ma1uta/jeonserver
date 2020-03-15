@@ -18,11 +18,15 @@ package io.github.ma1uta.jeonserver.client.resource;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.ma1uta.jeonserver.persistence.entity.PersistentDataUnit;
-import io.github.ma1uta.jeonserver.persistence.entity.room.PersistentDataUnitV4;
 import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.Test;
+import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
+import java.time.ZonedDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,22 +35,41 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 
+@Testcontainers
 @QuarkusTest
 public class PduTest {
+
+    @Container
+    private PostgreSQLContainer postgresqlContainer = new PostgreSQLContainer()
+        .withDatabaseName("jeonserver")
+        .withUsername("jeonserver")
+        .withPassword("jeonserver");
 
     @Inject
     EntityManager em;
 
+    @Inject
+    ObjectMapper objectMapper;
+
     @Test
     @Transactional
-    public void versionTest() {
-        PersistentDataUnit pdu = new PersistentDataUnitV4();
+    public void versionTest() throws Exception {
+        PersistentDataUnit pdu = new PersistentDataUnit();
 
         Map<String, Object> content = new HashMap<>();
         content.put("qwe", "asd");
 
         pdu.setEventId(UUID.randomUUID().toString());
-        pdu.setContent(content);
+        pdu.setRoomId(UUID.randomUUID().toString());
+        pdu.setSender("@test:test.org");
+        pdu.setType("x.test");
+        pdu.setCreatedAt(ZonedDateTime.now());
+        pdu.setDepth(1L);
+        pdu.setOrigin("test.org");
+        pdu.setOriginServerTs(System.currentTimeMillis());
+        pdu.setVersion("1");
+        pdu.setSignatures("");
+        pdu.setContent(objectMapper.writeValueAsString(content));
 
         em.persist(pdu);
 
@@ -54,6 +77,8 @@ public class PduTest {
         List<PersistentDataUnit> pdus = em.createQuery("select pdu from PersistentDataUnit pdu", PersistentDataUnit.class)
             .getResultList();
         assertNotNull(pdus);
-        pdus.forEach(p -> System.out.println(p.getContent().get("qwe")));
+        PersistentDataUnit savedPdu = pdus.get(0);
+        Map<String, Object> contentModel = (Map<String, Object>) objectMapper.readValue(savedPdu.getContent(), Map.class);
+        pdus.forEach(p -> System.out.println(contentModel.get("qwe")));
     }
 }
