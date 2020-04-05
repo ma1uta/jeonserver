@@ -83,11 +83,19 @@ public class PersistentDataUnit implements Serializable {
     private ZonedDateTime createdAt;
 
     @ManyToMany
-    @JoinTable(name = "pdu_prev_event", joinColumns = @JoinColumn(name = "event_id"), inverseJoinColumns = @JoinColumn(name = "prev_event_id"))
+    @JoinTable(
+        name = "pdu_prev_event",
+        joinColumns = @JoinColumn(name = "event_id"),
+        inverseJoinColumns = @JoinColumn(name = "prev_event_id")
+    )
     private List<PersistentDataUnit> prevEvents;
 
     @ManyToMany
-    @JoinTable(name = "pdu_auth_events", joinColumns = @JoinColumn(name = "event_id"), inverseJoinColumns = @JoinColumn(name = "prev_event_id"))
+    @JoinTable(
+        name = "pdu_auth_events",
+        joinColumns = @JoinColumn(name = "event_id"),
+        inverseJoinColumns = @JoinColumn(name = "prev_event_id")
+    )
     private List<PersistentDataUnit> authEvents;
 
     public String getEventId() {

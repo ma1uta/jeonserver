@@ -16,6 +16,7 @@
 
 package io.github.ma1uta.jeonserver.client.resource;
 
+import io.github.ma1uta.jeonserver.service.message.CreateRoomServiceRequest;
 import io.github.ma1uta.matrix.client.api.RoomApi;
 import io.github.ma1uta.matrix.client.model.room.CreateRoomRequest;
 import io.github.ma1uta.matrix.client.model.room.InviteRequest;
@@ -26,6 +27,7 @@ import io.github.ma1uta.matrix.client.model.room.PublicRoomsRequest;
 import io.github.ma1uta.matrix.client.model.room.RoomId;
 import io.github.ma1uta.matrix.client.model.room.RoomVisibility;
 import io.github.ma1uta.matrix.client.model.room.UnbanRequest;
+import io.vertx.mutiny.core.eventbus.EventBus;
 import org.slf4j.Logger;
 
 import java.util.List;
@@ -55,6 +57,9 @@ public class RoomResource implements RoomApi {
     @Inject
     Logger logger;
 
+    @Inject
+    EventBus bus;
+
     @POST
     @Path("/createRoom")
     @Override
@@ -65,6 +70,8 @@ public class RoomResource implements RoomApi {
         @Suspended AsyncResponse asyncResponse,
         @Context SecurityContext securityContext
     ) {
+        bus.request("createRoom", new CreateRoomServiceRequest(createRoomRequest, securityContext, uriInfo, httpHeaders)).onItem()
+            .invoke(asyncResponse::resume);
     }
 
     @Override
