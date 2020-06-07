@@ -16,6 +16,7 @@
 
 package io.github.ma1uta.jeonserver.persistence.entity;
 
+import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
@@ -23,7 +24,7 @@ import javax.persistence.Embeddable;
  * Unsigned.
  */
 @Embeddable
-public class Unsigned {
+public class Unsigned implements Serializable {
 
     @Column(name = "age")
     private Long age;

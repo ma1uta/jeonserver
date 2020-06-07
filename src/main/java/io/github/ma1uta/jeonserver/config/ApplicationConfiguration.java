@@ -16,8 +16,6 @@
 
 package io.github.ma1uta.jeonserver.config;
 
-import io.github.ma1uta.jeonserver.service.RoomIdCreator;
-import io.github.ma1uta.jeonserver.service.UuidRoomIdCreator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -51,13 +49,5 @@ public class ApplicationConfiguration {
     @Produces
     public Logger logger(InjectionPoint injectionPoint) {
         return LoggerFactory.getLogger(injectionPoint.getMember().getDeclaringClass());
-    }
-
-    /**
-     * @return room id creator.
-     */
-    @Produces
-    public RoomIdCreator roomIdCreator() {
-        return new UuidRoomIdCreator();
     }
 }

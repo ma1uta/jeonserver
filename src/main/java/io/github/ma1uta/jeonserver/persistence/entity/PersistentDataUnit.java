@@ -58,6 +58,9 @@ public class PersistentDataUnit implements Serializable {
     @Column(name = "type", nullable = false)
     private String type;
 
+    @Column(name = "local_ts", nullable = false)
+    private Long localTs;
+
     @Column(name = "state_key")
     private String stateKey;
 
@@ -232,6 +235,14 @@ public class PersistentDataUnit implements Serializable {
 
     public void setAuthEvents(List<PersistentDataUnit> authEvents) {
         this.authEvents = authEvents;
+    }
+
+    public Long getLocalTs() {
+        return localTs;
+    }
+
+    public void setLocalTs(Long localTs) {
+        this.localTs = localTs;
     }
 
     @Override

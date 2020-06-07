@@ -6,6 +6,7 @@ create table pdu
     sender           varchar(500)             not null,
     origin           varchar(255)             not null,
     origin_server_ts bigint                   not null,
+    local_ts         bigint                   not null,
     type             varchar(300)             not null,
     state_key        varchar(300),
     content          varchar(2000),                     -- json

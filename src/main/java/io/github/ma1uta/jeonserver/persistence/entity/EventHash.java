@@ -16,6 +16,7 @@
 
 package io.github.ma1uta.jeonserver.persistence.entity;
 
+import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
@@ -23,7 +24,7 @@ import javax.persistence.Embeddable;
  * Event hash.
  */
 @Embeddable
-public class EventHash {
+public class EventHash implements Serializable {
 
     @Column(name = "sha256")
     private String sha256;
