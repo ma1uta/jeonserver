@@ -95,9 +95,9 @@ public class PersistentDataUnit implements Serializable {
 
     @ManyToMany
     @JoinTable(
-        name = "pdu_auth_events",
+        name = "pdu_auth_event",
         joinColumns = @JoinColumn(name = "event_id"),
-        inverseJoinColumns = @JoinColumn(name = "prev_event_id")
+        inverseJoinColumns = @JoinColumn(name = "auth_id")
     )
     private List<PersistentDataUnit> authEvents;
 

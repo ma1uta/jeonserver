@@ -19,22 +19,14 @@ package io.github.ma1uta.jeonserver.client.resource;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.hasItem;
 
+import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.parsing.Parser;
 import org.junit.jupiter.api.Test;
-import org.testcontainers.containers.PostgreSQLContainer;
-import org.testcontainers.junit.jupiter.Container;
-import org.testcontainers.junit.jupiter.Testcontainers;
 
-@Testcontainers
 @QuarkusTest
+@QuarkusTestResource(PostgreSQLTestResource.class)
 public class VersionResourceTest {
-
-    @Container
-    private PostgreSQLContainer postgresqlContainer = new PostgreSQLContainer()
-        .withDatabaseName("jeonserver")
-        .withUsername("jeonserver")
-        .withPassword("jeonserver");
 
     @Test
     public void versionTest() {

@@ -1,0 +1,22 @@
+quarkus:
+  application:
+    name: jeonserver
+  datasource:
+    driver: org.postgresql.Driver
+    url: jdbc:postgresql://localhost/jeonserver
+    username: jeonserver
+    password: jeonserver
+  hibernate-orm:
+    database:
+      globally-quoted-identifiers: true
+    dialect: org.hibernate.dialect.PostgreSQL10Dialect
+  liquibase:
+    migrate-at-start: true
+  index-dependency:
+    common-api:
+      group-id: io.github.ma1uta.matrix
+      artifact-id: common-api
+    client-api:
+      group-id: io.github.ma1uta.matrix
+      artifact-id: client-api
+

@@ -18,13 +18,12 @@ package io.github.ma1uta.jeonserver.client.resource;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.ma1uta.jeonserver.persistence.entity.PersistentDataUnit;
+import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.Test;
-import org.testcontainers.containers.PostgreSQLContainer;
-import org.testcontainers.junit.jupiter.Container;
-import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.time.ZonedDateTime;
 import java.util.HashMap;
@@ -35,15 +34,9 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 
-@Testcontainers
 @QuarkusTest
+@QuarkusTestResource(PostgreSQLTestResource.class)
 public class PduTest {
-
-    @Container
-    private PostgreSQLContainer postgresqlContainer = new PostgreSQLContainer()
-        .withDatabaseName("jeonserver")
-        .withUsername("jeonserver")
-        .withPassword("jeonserver");
 
     @Inject
     EntityManager em;
@@ -66,6 +59,7 @@ public class PduTest {
         pdu.setCreatedAt(ZonedDateTime.now());
         pdu.setDepth(1L);
         pdu.setOrigin("test.org");
+        pdu.setLocalTs(1L);
         pdu.setOriginServerTs(System.currentTimeMillis());
         pdu.setVersion("1");
         pdu.setSignatures("");
@@ -78,7 +72,8 @@ public class PduTest {
             .getResultList();
         assertNotNull(pdus);
         PersistentDataUnit savedPdu = pdus.get(0);
-        Map<String, Object> contentModel = (Map<String, Object>) objectMapper.readValue(savedPdu.getContent(), Map.class);
+        Map<String, Object> contentModel = objectMapper.readValue(savedPdu.getContent(), new TypeReference<>() {
+        });
         pdus.forEach(p -> System.out.println(contentModel.get("qwe")));
     }
 }

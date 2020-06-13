@@ -1,0 +1,124 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<!--
+  ~ Copyright JeonServer sablintolya@gmail.com
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation=" http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="v1_1__000" author="Anatoliy Sablin" labels="v1-1" logicalFilePath="v1/v1.xml">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="pdu"/>
+            </not>
+        </preConditions>
+        <comment>Initial migration</comment>
+        <createTable tableName="pdu">
+            <column name="event_id" type="varchar(512)">
+                <constraints primaryKey="true" primaryKeyName="pdu_pk"/>
+            </column>
+            <column name="room_id" type="varchar(512)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="version" type="varchar(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sender" type="varchar(512)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="origin" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="origin_server_ts" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="local_ts" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="type" type="varchar(128)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="state_key" type="varchar(256)"/>
+            <column name="content" type="varchar(2000)"/>
+            <column name="depth" type="bigint"/>
+            <column name="redacts" type="varchar(512)"/>
+            <column name="age" type="bigint"/>
+            <column name="replaces_state" type="varchar(512)"/>
+            <column name="prev_sender" type="varchar(512)"/>
+            <column name="prev_content" type="varchar(2000)"/>
+            <column name="redacted_because" type="varchar(2000)"/>
+            <column name="sha256" type="varchar(2000)"/>
+            <column name="signatures" type="varchar(2000)"/>
+            <column name="created_at" type="datetime"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="v1_1__001" author="Anatoliy Sablin" labels="v1-1" logicalFilePath="v1/v1.xml">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="pdu_prev_event"/>
+            </not>
+        </preConditions>
+        <createTable tableName="pdu_prev_event">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="event_id" type="varchar(512)">
+                <constraints
+                        nullable="false"
+                        foreignKeyName="pdu_prev_event-event_id"
+                        referencedTableName="pdu"
+                        referencedColumnNames="event_id"
+                />
+            </column>
+            <column name="prev_event_id" type="varchar(512)">
+                <constraints
+                        nullable="false"
+                        foreignKeyName="pdu_prev_event-prev_event_id"
+                        referencedTableName="pdu"
+                        referencedColumnNames="event_id"
+                />
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="v1_1__002" author="Anatoliy Sablin" labels="v1-1" logicalFilePath="v1/v1.xml">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="pdu_auth_event"/>
+            </not>
+        </preConditions>
+        <createTable tableName="pdu_auth_event">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="event_id" type="varchar(512)">
+                <constraints
+                        nullable="false"
+                        foreignKeyName="pdu_auth_event-event_id"
+                        referencedTableName="pdu"
+                        referencedColumnNames="event_id"
+                />
+            </column>
+            <column name="auth_id" type="varchar(512)">
+                <constraints
+                        nullable="false"
+                        foreignKeyName="pdu_auth_event-auth_id"
+                        referencedTableName="pdu"
+                        referencedColumnNames="event_id"
+                />
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>
