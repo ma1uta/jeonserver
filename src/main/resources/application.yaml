@@ -20,3 +20,5 @@ quarkus:
       group-id: io.github.ma1uta.matrix
       artifact-id: client-api
 
+jeon:
+  domain: example.org

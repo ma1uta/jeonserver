@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.github.ma1uta.jeonserver.client.resource;
+package io.github.ma1uta.jeonserver.test;
 
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.testcontainers.containers.PostgreSQLContainer;

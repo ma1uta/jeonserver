@@ -14,10 +14,13 @@
  * limitations under the License.
  */
 
-package io.github.ma1uta.jeonserver.client.resource;
+package io.github.ma1uta.jeonserver.persistence.repository;
 
-import io.quarkus.test.junit.NativeImageTest;
+import io.github.ma1uta.jeonserver.persistence.entity.Room;
+import io.quarkus.hibernate.orm.panache.PanacheRepositoryBase;
 
-@NativeImageTest
-public class NativeVersionResourceIT extends VersionResourceTest {
+import javax.enterprise.context.ApplicationScoped;
+
+@ApplicationScoped
+public class RoomRepository implements PanacheRepositoryBase<Room, String> {
 }

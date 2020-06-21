@@ -14,13 +14,14 @@
  * limitations under the License.
  */
 
-package io.github.ma1uta.jeonserver.client.resource;
+package io.github.ma1uta.jeonserver.test.persistence;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.ma1uta.jeonserver.persistence.entity.PersistentDataUnit;
+import io.github.ma1uta.jeonserver.test.PostgreSQLTestResource;
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.Test;

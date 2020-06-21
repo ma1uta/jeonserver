@@ -14,23 +14,26 @@
  * limitations under the License.
  */
 
-package io.github.ma1uta.jeonserver.client.resource;
+package io.github.ma1uta.jeonserver.event;
 
-import static io.restassured.RestAssured.given;
-import static org.hamcrest.CoreMatchers.hasItem;
+import javax.ws.rs.container.AsyncResponse;
 
-import io.quarkus.test.common.QuarkusTestResource;
-import io.quarkus.test.junit.QuarkusTest;
-import io.restassured.parsing.Parser;
-import org.junit.jupiter.api.Test;
+public abstract class AbstractEvent<R> {
 
-@QuarkusTest
-@QuarkusTestResource(PostgreSQLTestResource.class)
-public class VersionResourceTest {
+    private final AsyncResponse asyncResponse;
 
-    @Test
-    public void versionTest() {
-        given().when().get("/_matrix/client/versions").then().statusCode(200).defaultParser(Parser.JSON)
-            .body("versions", hasItem("r0.5.0"));
+    private final R request;
+
+    protected AbstractEvent(AsyncResponse asyncResponse, R request) {
+        this.asyncResponse = asyncResponse;
+        this.request = request;
+    }
+
+    public AsyncResponse getAsyncResponse() {
+        return asyncResponse;
+    }
+
+    public R getRequest() {
+        return request;
     }
 }
