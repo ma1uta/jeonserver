@@ -62,6 +62,7 @@
         <version.plugin.maven-checkstyle-plugin>3.1.1</version.plugin.maven-checkstyle-plugin>
         <version.plugin.jacoco-maven-plugin>0.8.2</version.plugin.jacoco-maven-plugin>
         <version.plugin.maven-processor-plugin>2.0.5</version.plugin.maven-processor-plugin>
+        <version.plugin.maven-failsafe-plugin>3.0.0-M5</version.plugin.maven-failsafe-plugin>
 
         <version.lib.microprofile>3.3</version.lib.microprofile>
         <version.lib.javax.inject>1</version.lib.javax.inject>
@@ -471,6 +472,9 @@
                     <name>native</name>
                 </property>
             </activation>
+            <properties>
+                <quarkus.package.type>native</quarkus.package.type>
+            </properties>
             <build>
                 <plugins>
                     <plugin>
@@ -489,7 +493,9 @@
                         </executions>
                     </plugin>
                     <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-failsafe-plugin</artifactId>
+                        <version>${version.plugin.maven-failsafe-plugin}</version>
                         <executions>
                             <execution>
                                 <goals>

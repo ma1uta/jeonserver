@@ -84,7 +84,7 @@ public class CreationRoomService implements AbstractService<CreateRoomEvent, Roo
     private final ObjectMapper mapper;
 
     @ConfigProperty(name = "jeon.domain")
-    private String domain;
+    String domain;
 
     public CreationRoomService(
         MembershipRepository membershipRepository,
