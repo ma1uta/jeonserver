@@ -27,11 +27,16 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
  * Persistent data unit.
  */
+@NamedQueries( {
+    @NamedQuery(name = "pdu.timeline", query = "select p from PersistentDataUnit p where p.roomId = :roomId order by p.createdAt desc")
+})
 @Entity
 @Table(name = "pdu")
 public class PersistentDataUnit implements Serializable {

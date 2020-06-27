@@ -32,7 +32,6 @@ import io.vertx.mutiny.core.eventbus.EventBus;
 
 import java.util.List;
 import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -53,8 +52,11 @@ import javax.ws.rs.core.UriInfo;
 @Produces(MediaType.APPLICATION_JSON)
 public class RoomResource implements RoomApi {
 
-    @Inject
-    EventBus eventBus;
+    private final EventBus eventBus;
+
+    public RoomResource(EventBus eventBus) {
+        this.eventBus = eventBus;
+    }
 
     @POST
     @Path("/createRoom")

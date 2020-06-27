@@ -16,6 +16,7 @@
 
 package io.github.ma1uta.jeonserver.persistence.entity;
 
+import java.io.Serializable;
 import java.time.ZonedDateTime;
 import java.util.Objects;
 import javax.persistence.Column;
@@ -25,7 +26,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "room")
-public class Room {
+public class Room implements Serializable {
 
     @Id
     @Column(name = "room_id")

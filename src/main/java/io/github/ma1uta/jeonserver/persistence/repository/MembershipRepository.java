@@ -16,20 +16,18 @@
 
 package io.github.ma1uta.jeonserver.persistence.repository;
 
-import io.github.ma1uta.jeonserver.persistence.entity.PersistentDataUnit;
+import io.github.ma1uta.jeonserver.persistence.entity.Membership;
+import io.github.ma1uta.jeonserver.persistence.entity.MembershipId;
 import io.quarkus.hibernate.orm.panache.PanacheRepositoryBase;
-import io.reactivex.annotations.NonNull;
 
 import java.util.List;
 import java.util.Map;
 import javax.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
-public class PersistentDataUnitRepository implements PanacheRepositoryBase<PersistentDataUnit, String> {
+public class MembershipRepository implements PanacheRepositoryBase<Membership, MembershipId> {
 
-    private static final int DEFAULT_PAGE_SIZE = 20;
-
-    public List<PersistentDataUnit> timeline(@NonNull String roomId) {
-        return find("#pdu.timeline", Map.of("roomId", roomId)).range(0, DEFAULT_PAGE_SIZE).list();
+    public List<Membership> findRooms(String mxid) {
+        return list("#Membership.findRooms", Map.of("mxid", mxid));
     }
 }

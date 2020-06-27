@@ -20,8 +20,11 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.ma1uta.jeonserver.client.model.room.RoomIdWrapper;
 import io.github.ma1uta.jeonserver.event.CreateRoomEvent;
+import io.github.ma1uta.jeonserver.persistence.entity.Membership;
+import io.github.ma1uta.jeonserver.persistence.entity.MembershipId;
 import io.github.ma1uta.jeonserver.persistence.entity.PersistentDataUnit;
 import io.github.ma1uta.jeonserver.persistence.entity.Room;
+import io.github.ma1uta.jeonserver.persistence.repository.MembershipRepository;
 import io.github.ma1uta.jeonserver.persistence.repository.PersistentDataUnitRepository;
 import io.github.ma1uta.jeonserver.persistence.repository.RoomRepository;
 import io.github.ma1uta.jeonserver.service.AbstractService;
@@ -62,6 +65,8 @@ public class CreationRoomService implements AbstractService<CreateRoomEvent, Roo
 
     private final PersistentDataUnitRepository pduRepository;
 
+    private final MembershipRepository membershipRepository;
+
     private final RoomRepository roomRepository;
 
     private final Clock clock;
@@ -82,14 +87,18 @@ public class CreationRoomService implements AbstractService<CreateRoomEvent, Roo
     private String domain;
 
     public CreationRoomService(
-        RoomRepository roomRepository, Logger logger,
+        MembershipRepository membershipRepository,
+        RoomRepository roomRepository,
+        Logger logger,
         ManagedExecutor managedExecutor,
         PersistentDataUnitRepository pduRepository,
         Clock clock,
         RoomIdCreator roomIdCreator,
         EventIdCreator eventIdCreator,
         NewRoomVersion newRoomVersion,
-        ObjectMapper mapper) {
+        ObjectMapper mapper
+    ) {
+        this.membershipRepository = membershipRepository;
         this.roomRepository = roomRepository;
         this.pduRepository = pduRepository;
         this.clock = clock;
@@ -229,6 +238,17 @@ public class CreationRoomService implements AbstractService<CreateRoomEvent, Roo
             List.of(roomCreate, powerLevel)
         );
         pduRepository.persist(event);
+
+        var membership = new Membership();
+        var membershipId = new MembershipId();
+        membershipId.setRoom(room);
+        membershipId.setMxid(String.format("@%s:%s", sender, domain));
+        membership.setId(membershipId);
+        membership.setCreatedAt(room.getCreatedAt());
+        membership.setEventId(event.getEventId());
+        membership.setMembership(RoomMemberContent.INVITE);
+        membershipRepository.persist(membership);
+
         return event;
     }
 
