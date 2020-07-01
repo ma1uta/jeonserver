@@ -1,0 +1,8 @@
+jeon:
+  domain: jeonserver.org
+
+db:
+  type: postgresql
+  url: //192.168.1.39/jeonserver
+  username: jeonserver
+  password: jeonserver

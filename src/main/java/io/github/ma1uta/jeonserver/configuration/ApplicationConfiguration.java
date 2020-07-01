@@ -34,7 +34,6 @@ import io.github.ma1uta.matrix.support.jackson.RoomEncryptedContentDeserializer;
 import io.github.ma1uta.matrix.support.jackson.RoomMessageContentDeserializer;
 import io.github.ma1uta.matrix.support.jackson.workaround.ReceiptTsDeserialized4898;
 import io.quarkus.jackson.ObjectMapperCustomizer;
-import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -50,8 +49,11 @@ import javax.enterprise.inject.spi.InjectionPoint;
 @ApplicationScoped
 public class ApplicationConfiguration {
 
-    @ConfigProperty(name = "jeon.domain")
-    String domain;
+    private final JeonConfig config;
+
+    public ApplicationConfiguration(JeonConfig config) {
+        this.config = config;
+    }
 
     /**
      * Application clock.
@@ -76,12 +78,12 @@ public class ApplicationConfiguration {
 
     @Produces
     public RoomIdCreator roomIdCreator() {
-        return () -> String.format("%s%s:%s", Id.Sigil.ROOM, UUID.randomUUID().toString().replaceAll("-", ""), domain);
+        return () -> String.format("%s%s:%s", Id.Sigil.ROOM, UUID.randomUUID().toString().replaceAll("-", ""), config.getDomain());
     }
 
     @Produces
     public EventIdCreator eventIdCreator() {
-        return () -> String.format("%s%s:%s", Id.Sigil.EVENT, UUID.randomUUID().toString().replaceAll("-", ""), domain);
+        return () -> String.format("%s%s:%s", Id.Sigil.EVENT, UUID.randomUUID().toString().replaceAll("-", ""), config.getDomain());
     }
 
     @Produces

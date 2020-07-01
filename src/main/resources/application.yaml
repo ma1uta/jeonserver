@@ -3,13 +3,12 @@ quarkus:
     name: jeonserver
   datasource:
     driver: org.postgresql.Driver
-    url: jdbc:postgresql://localhost/jeonserver
-    username: jeonserver
-    password: jeonserver
+    url: jdbc:${db.type}:${db.url}
+    username: ${db.username}
+    password: ${db.password}
   hibernate-orm:
     database:
       globally-quoted-identifiers: true
-    dialect: org.hibernate.dialect.PostgreSQL10Dialect
   liquibase:
     migrate-at-start: true
   security:
@@ -29,4 +28,4 @@ quarkus:
       artifact-id: client-api
 
 jeon:
-  domain: example.org
+  domain: ${jeon.domain:jeonserver.org}

@@ -9,7 +9,6 @@ quarkus:
   hibernate-orm:
     database:
       globally-quoted-identifiers: true
-    dialect: org.hibernate.dialect.PostgreSQL10Dialect
   liquibase:
     migrate-at-start: true
   security:
