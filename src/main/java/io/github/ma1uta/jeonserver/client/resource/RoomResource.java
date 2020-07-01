@@ -67,7 +67,7 @@ public class RoomResource implements RoomApi {
         @Context HttpHeaders httpHeaders,
         @Suspended AsyncResponse asyncResponse,
         @Context SecurityContext securityContext) {
-        eventBus.publish("createRoom", new CreateRoomEvent(createRoomRequest, securityContext, asyncResponse));
+        eventBus.publish("createRoom", new CreateRoomEvent(createRoomRequest, securityContext.getUserPrincipal().getName(), asyncResponse));
     }
 
     @PUT

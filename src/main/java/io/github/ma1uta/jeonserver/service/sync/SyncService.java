@@ -35,14 +35,16 @@ import io.github.ma1uta.matrix.client.model.sync.SyncResponse;
 import io.github.ma1uta.matrix.client.model.sync.Timeline;
 import io.github.ma1uta.matrix.event.Event;
 import io.github.ma1uta.matrix.event.RoomEvent;
-import io.github.ma1uta.matrix.event.RoomMember;
 import io.github.ma1uta.matrix.event.StateEvent;
+import io.github.ma1uta.matrix.event.Unsigned;
 import io.github.ma1uta.matrix.event.content.EventContent;
 import io.github.ma1uta.matrix.event.content.RoomMemberContent;
 import io.quarkus.vertx.ConsumeEvent;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.eclipse.microprofile.context.ManagedExecutor;
 import org.slf4j.Logger;
 
+import java.time.Clock;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -61,18 +63,25 @@ public class SyncService implements AbstractService<SyncEvent, SyncResponse> {
 
     private final ObjectMapper mapper;
 
+    private final Clock clock;
+
+    @ConfigProperty(name = "jeon.domain")
+    String domain;
+
     public SyncService(
         Logger logger,
         ManagedExecutor managedExecutor,
         PersistentDataUnitRepository pduRepository,
         MembershipRepository membershipRepository,
-        ObjectMapper mapper
+        ObjectMapper mapper,
+        Clock clock
     ) {
         this.logger = logger;
         this.managedExecutor = managedExecutor;
         this.pduRepository = pduRepository;
         this.membershipRepository = membershipRepository;
         this.mapper = mapper;
+        this.clock = clock;
     }
 
     @ConsumeEvent("sync")
@@ -87,7 +96,7 @@ public class SyncService implements AbstractService<SyncEvent, SyncResponse> {
 
     @Override
     public SyncResponse action(SyncEvent event) {
-        var sender = event.getSecurityContext().getUserPrincipal().getName();
+        var sender = String.format("@%s:%s", event.getSender(), domain);
         var response = new SyncResponse();
 
         var rooms = new Rooms();
@@ -122,13 +131,15 @@ public class SyncService implements AbstractService<SyncEvent, SyncResponse> {
         try {
             var invitePdu = pduRepository.findById(membership.getEventId());
 
-            var inviteState = new InviteState();
-            inviteState.setEvents(List.of(fillRoomEvent(new RoomMember(), invitePdu, RoomMemberContent.class)));
+            var inviteEvent = toEvent(invitePdu);
+            if (inviteEvent != null) {
+                var inviteState = new InviteState();
+                inviteState.setEvents(List.of(inviteEvent));
+                var inviteRoom = new InvitedRoom();
+                inviteRoom.setInviteState(inviteState);
 
-            var inviteRoom = new InvitedRoom();
-            inviteRoom.setInviteState(inviteState);
-
-            invites.put(room.getRoomId(), inviteRoom);
+                invites.put(room.getRoomId(), inviteRoom);
+            }
         } catch (Exception e) {
             logger.error("Unable to get invite event", e);
         }
@@ -163,6 +174,10 @@ public class SyncService implements AbstractService<SyncEvent, SyncResponse> {
     }
 
     private Event<?> toEvent(PersistentDataUnit pdu) {
+        if (pdu == null) {
+            logger.error("Empty pdu");
+            return null;
+        }
         try {
             var typeMap = EventTypeMap.getInstance();
             var eventPair = typeMap.getEvent(pdu.getType());
@@ -194,6 +209,10 @@ public class SyncService implements AbstractService<SyncEvent, SyncResponse> {
         event.setOriginServerTs(pdu.getOriginServerTs());
         event.setSender(pdu.getSender());
         event.setContent(mapper.readValue(pdu.getContent(), contentClass));
+
+        var unsigned = new Unsigned<C>();
+        unsigned.setAge(clock.millis() - pdu.getOriginServerTs());
+        event.setUnsigned(unsigned);
         return event;
     }
 

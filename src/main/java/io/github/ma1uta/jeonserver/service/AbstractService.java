@@ -19,6 +19,7 @@ package io.github.ma1uta.jeonserver.service;
 import io.github.ma1uta.jeonserver.event.AbstractEvent;
 import org.eclipse.microprofile.context.ManagedExecutor;
 
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.container.AsyncResponse;
 
 public interface AbstractService<E extends AbstractEvent<?>, R> {
@@ -27,7 +28,7 @@ public interface AbstractService<E extends AbstractEvent<?>, R> {
         getManagedExecutor().supplyAsync(() -> action(event)).whenComplete((result, exception) -> {
             AsyncResponse asyncResponse = event.getAsyncResponse();
             if (exception != null) {
-                asyncResponse.resume(exception);
+                asyncResponse.resume(exception.getCause() instanceof WebApplicationException ? exception.getCause() : exception);
             } else {
                 asyncResponse.resume(result);
             }

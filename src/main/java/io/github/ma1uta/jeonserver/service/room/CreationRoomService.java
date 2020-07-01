@@ -31,6 +31,7 @@ import io.github.ma1uta.jeonserver.service.AbstractService;
 import io.github.ma1uta.jeonserver.service.EventIdCreator;
 import io.github.ma1uta.jeonserver.service.NewRoomVersion;
 import io.github.ma1uta.jeonserver.service.RoomIdCreator;
+import io.github.ma1uta.matrix.Id;
 import io.github.ma1uta.matrix.client.model.room.CreateRoomRequest;
 import io.github.ma1uta.matrix.client.model.room.RoomId;
 import io.github.ma1uta.matrix.event.RoomAliases;
@@ -131,7 +132,7 @@ public class CreationRoomService implements AbstractService<CreateRoomEvent, Roo
 
             Room room = room(roomId, request, content, roomVersion);
 
-            var sender = createRoomEvent.getSecurityContext().getUserPrincipal().getName();
+            var sender = String.format("%s%s:%s", Id.Sigil.USER, createRoomEvent.getSender(), domain);
             var depth = 0L;
             var roomCreate = roomCreate(content, room, sender, depth++);
             var powerLevel = roomPowerLevel(room, request, sender, depth++, roomCreate);
@@ -226,13 +227,14 @@ public class CreationRoomService implements AbstractService<CreateRoomEvent, Roo
         PersistentDataUnit powerLevel
     ) throws JsonProcessingException {
         var roomMemberContent = new RoomMemberContent();
-        roomMemberContent.setMembership(sender);
+        roomMemberContent.setMembership(RoomMemberContent.INVITE);
         roomMemberContent.setDirect(room.getDirect());
         PersistentDataUnit event = createEvent(
             room,
             sender,
             RoomMember.TYPE,
             roomMemberContent,
+            sender,
             depth,
             roomCreate,
             List.of(roomCreate, powerLevel)
@@ -242,7 +244,7 @@ public class CreationRoomService implements AbstractService<CreateRoomEvent, Roo
         var membership = new Membership();
         var membershipId = new MembershipId();
         membershipId.setRoom(room);
-        membershipId.setMxid(String.format("@%s:%s", sender, domain));
+        membershipId.setMxid(sender);
         membership.setId(membershipId);
         membership.setCreatedAt(room.getCreatedAt());
         membership.setEventId(event.getEventId());

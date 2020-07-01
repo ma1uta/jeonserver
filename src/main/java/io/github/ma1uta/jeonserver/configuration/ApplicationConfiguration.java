@@ -24,6 +24,7 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 import io.github.ma1uta.jeonserver.service.EventIdCreator;
 import io.github.ma1uta.jeonserver.service.NewRoomVersion;
 import io.github.ma1uta.jeonserver.service.RoomIdCreator;
+import io.github.ma1uta.matrix.Id;
 import io.github.ma1uta.matrix.event.Event;
 import io.github.ma1uta.matrix.event.content.RoomEncryptedContent;
 import io.github.ma1uta.matrix.event.content.RoomMessageContent;
@@ -75,12 +76,12 @@ public class ApplicationConfiguration {
 
     @Produces
     public RoomIdCreator roomIdCreator() {
-        return () -> String.format("!%s:%s", UUID.randomUUID().toString().replaceAll("-", ""), domain);
+        return () -> String.format("%s%s:%s", Id.Sigil.ROOM, UUID.randomUUID().toString().replaceAll("-", ""), domain);
     }
 
     @Produces
     public EventIdCreator eventIdCreator() {
-        return () -> String.format("$%s:%s", UUID.randomUUID().toString().replaceAll("-", ""), domain);
+        return () -> String.format("%s%s:%s", Id.Sigil.EVENT, UUID.randomUUID().toString().replaceAll("-", ""), domain);
     }
 
     @Produces
@@ -93,6 +94,7 @@ public class ApplicationConfiguration {
         return objectMapper -> {
             objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
             objectMapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
+            objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
             objectMapper.enable(MapperFeature.SORT_PROPERTIES_ALPHABETICALLY);
 
             SimpleModule eventModule = new SimpleModule("Jackson Matrix Module");

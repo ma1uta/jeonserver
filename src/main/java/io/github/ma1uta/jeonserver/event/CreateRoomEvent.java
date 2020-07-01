@@ -23,14 +23,14 @@ import javax.ws.rs.core.SecurityContext;
 
 public class CreateRoomEvent extends AbstractEvent<CreateRoomRequest> {
 
-    private final SecurityContext securityContext;
+    private final String sender;
 
-    public CreateRoomEvent(CreateRoomRequest request, SecurityContext securityContext, AsyncResponse asyncResponse) {
+    public CreateRoomEvent(CreateRoomRequest request, String sender, AsyncResponse asyncResponse) {
         super(asyncResponse, request);
-        this.securityContext = securityContext;
+        this.sender = sender;
     }
 
-    public SecurityContext getSecurityContext() {
-        return securityContext;
+    public String getSender() {
+        return sender;
     }
 }

@@ -29,7 +29,7 @@ public class SyncEvent extends AbstractEvent<String> {
 
     private final Long timeout;
 
-    private final SecurityContext securityContext;
+    private final String sender;
 
     public SyncEvent(
         AsyncResponse asyncResponse,
@@ -38,14 +38,14 @@ public class SyncEvent extends AbstractEvent<String> {
         Boolean fullState,
         String setPresence,
         Long timeout,
-        SecurityContext securityContext
+        String sender
     ) {
         super(asyncResponse, since);
         this.filter = filter;
         this.fullState = fullState;
         this.setPresence = setPresence;
         this.timeout = timeout;
-        this.securityContext = securityContext;
+        this.sender = sender;
     }
 
     public String getFilter() {
@@ -64,7 +64,7 @@ public class SyncEvent extends AbstractEvent<String> {
         return timeout;
     }
 
-    public SecurityContext getSecurityContext() {
-        return securityContext;
+    public String getSender() {
+        return sender;
     }
 }

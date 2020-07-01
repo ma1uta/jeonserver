@@ -60,7 +60,18 @@ public class SyncResource implements SyncApi {
         @Suspended AsyncResponse asyncResponse,
         @Context SecurityContext securityContext
     ) {
-        eventBus.publish("sync", new SyncEvent(asyncResponse, since, filter, fullState, setPresence, timeout, securityContext));
+        eventBus.publish(
+            "sync",
+            new SyncEvent(
+                asyncResponse,
+                since,
+                filter,
+                fullState,
+                setPresence,
+                timeout,
+                securityContext.getUserPrincipal().getName()
+            )
+        );
     }
 
     @Override

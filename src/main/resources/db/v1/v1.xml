@@ -120,5 +120,57 @@
             </column>
         </createTable>
     </changeSet>
-
+    <changeSet id="v1_1__003" author="Anatoliy Sablin" labels="v1-1" logicalFilePath="v1/v1.xml">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="room"/>
+            </not>
+        </preConditions>
+        <createTable tableName="room">
+            <column name="room_id" type="varchar(512)">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="version" type="varchar(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="federated" type="boolean"/>
+            <column name="direct" type="boolean"/>
+            <column name="name" type="varchar(512)"/>
+            <column name="prev_room_id" type="varchar(512)">
+                <constraints foreignKeyName="room-prev_room_id" referencedTableName="room" referencedColumnNames="room_id"/>
+            </column>
+            <column name="prev_event_id" type="varchar(512)">
+                <constraints foreignKeyName="room-prev_event_id" referencedTableName="pdu" referencedColumnNames="event_id"/>
+            </column>
+            <column name="ts" type="bigint"/>
+            <column name="created_at" type="timestamp with time zone">
+                <constraints nullable="false"/>
+            </column>
+            <column name="visibility" type="varchar(64)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="v1_1__004" author="Anatoliy Sablin" labels="v1-1" logicalFilePath="v1/v1.xml">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="membership"/>
+            </not>
+        </preConditions>
+        <createTable tableName="membership">
+            <column name="room_id" type="varchar(512)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="mxid" type="varchar(512)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="timestamp with time zone">
+                <constraints nullable="false"/>
+            </column>
+            <column name="event_id" type="varchar(512)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="membership" type="varchar(32)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
 </databaseChangeLog>
