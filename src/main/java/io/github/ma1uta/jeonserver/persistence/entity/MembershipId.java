@@ -26,6 +26,14 @@ import javax.persistence.ManyToOne;
 @Embeddable
 public class MembershipId implements Serializable {
 
+    public MembershipId() {
+    }
+
+    public MembershipId(Room room, String mxid) {
+        this.room = room;
+        this.mxid = mxid;
+    }
+
     @ManyToOne
     @JoinColumn(name = "room_id")
     private Room room;

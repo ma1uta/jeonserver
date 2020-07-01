@@ -19,6 +19,7 @@ package io.github.ma1uta.jeonserver.service.room;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.ma1uta.jeonserver.client.model.room.RoomIdWrapper;
+import io.github.ma1uta.jeonserver.configuration.JeonConfig;
 import io.github.ma1uta.jeonserver.event.CreateRoomEvent;
 import io.github.ma1uta.jeonserver.persistence.entity.Membership;
 import io.github.ma1uta.jeonserver.persistence.entity.MembershipId;
@@ -50,7 +51,6 @@ import io.github.ma1uta.matrix.event.content.RoomPowerLevelsContent;
 import io.github.ma1uta.matrix.event.content.RoomTopicContent;
 import io.quarkus.vertx.ConsumeEvent;
 import org.apache.commons.lang3.StringUtils;
-import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.eclipse.microprofile.context.ManagedExecutor;
 import org.slf4j.Logger;
 
@@ -84,8 +84,7 @@ public class CreationRoomService implements AbstractService<CreateRoomEvent, Roo
 
     private final ObjectMapper mapper;
 
-    @ConfigProperty(name = "jeon.domain")
-    String domain;
+    private final JeonConfig config;
 
     public CreationRoomService(
         MembershipRepository membershipRepository,
@@ -97,7 +96,8 @@ public class CreationRoomService implements AbstractService<CreateRoomEvent, Roo
         RoomIdCreator roomIdCreator,
         EventIdCreator eventIdCreator,
         NewRoomVersion newRoomVersion,
-        ObjectMapper mapper
+        ObjectMapper mapper,
+        JeonConfig config
     ) {
         this.membershipRepository = membershipRepository;
         this.roomRepository = roomRepository;
@@ -109,6 +109,7 @@ public class CreationRoomService implements AbstractService<CreateRoomEvent, Roo
         this.managedExecutor = managedExecutor;
         this.newRoomVersion = newRoomVersion;
         this.mapper = mapper;
+        this.config = config;
     }
 
     @Override
@@ -132,7 +133,7 @@ public class CreationRoomService implements AbstractService<CreateRoomEvent, Roo
 
             Room room = room(roomId, request, content, roomVersion);
 
-            var sender = String.format("%s%s:%s", Id.Sigil.USER, createRoomEvent.getSender(), domain);
+            var sender = String.format("%s%s:%s", Id.Sigil.USER, createRoomEvent.getSender(), config.getDomain());
             var depth = 0L;
             var roomCreate = roomCreate(content, room, sender, depth++);
             var powerLevel = roomPowerLevel(room, request, sender, depth++, roomCreate);
@@ -374,7 +375,7 @@ public class CreationRoomService implements AbstractService<CreateRoomEvent, Roo
         pdu.setDepth(depth);
         pdu.setVersion(room.getVersion());
         pdu.setSender(sender);
-        pdu.setOrigin(domain);
+        pdu.setOrigin(config.getDomain());
         pdu.setOriginServerTs(room.getTs());
         pdu.setLocalTs(room.getTs());
         pdu.setSignatures("");

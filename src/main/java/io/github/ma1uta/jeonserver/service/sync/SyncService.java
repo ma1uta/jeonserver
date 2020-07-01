@@ -20,6 +20,7 @@ import static java.lang.Boolean.TRUE;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.github.ma1uta.jeonserver.configuration.JeonConfig;
 import io.github.ma1uta.jeonserver.event.SyncEvent;
 import io.github.ma1uta.jeonserver.persistence.entity.Membership;
 import io.github.ma1uta.jeonserver.persistence.entity.PersistentDataUnit;
@@ -40,7 +41,6 @@ import io.github.ma1uta.matrix.event.Unsigned;
 import io.github.ma1uta.matrix.event.content.EventContent;
 import io.github.ma1uta.matrix.event.content.RoomMemberContent;
 import io.quarkus.vertx.ConsumeEvent;
-import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.eclipse.microprofile.context.ManagedExecutor;
 import org.slf4j.Logger;
 
@@ -65,8 +65,7 @@ public class SyncService implements AbstractService<SyncEvent, SyncResponse> {
 
     private final Clock clock;
 
-    @ConfigProperty(name = "jeon.domain")
-    String domain;
+    private final JeonConfig config;
 
     public SyncService(
         Logger logger,
@@ -74,7 +73,8 @@ public class SyncService implements AbstractService<SyncEvent, SyncResponse> {
         PersistentDataUnitRepository pduRepository,
         MembershipRepository membershipRepository,
         ObjectMapper mapper,
-        Clock clock
+        Clock clock,
+        JeonConfig config
     ) {
         this.logger = logger;
         this.managedExecutor = managedExecutor;
@@ -82,6 +82,7 @@ public class SyncService implements AbstractService<SyncEvent, SyncResponse> {
         this.membershipRepository = membershipRepository;
         this.mapper = mapper;
         this.clock = clock;
+        this.config = config;
     }
 
     @ConsumeEvent("sync")
@@ -96,7 +97,7 @@ public class SyncService implements AbstractService<SyncEvent, SyncResponse> {
 
     @Override
     public SyncResponse action(SyncEvent event) {
-        var sender = String.format("@%s:%s", event.getSender(), domain);
+        var sender = String.format("@%s:%s", event.getSender(), config.getDomain());
         var response = new SyncResponse();
 
         var rooms = new Rooms();

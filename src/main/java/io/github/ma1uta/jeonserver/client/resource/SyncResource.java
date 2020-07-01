@@ -20,6 +20,7 @@ import io.github.ma1uta.jeonserver.event.SyncEvent;
 import io.github.ma1uta.matrix.client.api.SyncApi;
 import io.vertx.mutiny.core.eventbus.EventBus;
 
+import javax.annotation.security.RolesAllowed;
 import javax.enterprise.context.ApplicationScoped;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -48,6 +49,7 @@ public class SyncResource implements SyncApi {
 
     @GET
     @Path("/sync")
+    @RolesAllowed({"USER"})
     @Override
     public void sync(
         @QueryParam("filter") String filter,

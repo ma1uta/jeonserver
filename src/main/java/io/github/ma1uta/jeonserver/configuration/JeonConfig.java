@@ -14,22 +14,20 @@
  * limitations under the License.
  */
 
-package io.github.ma1uta.jeonserver.event;
+package io.github.ma1uta.jeonserver.configuration;
 
-import io.github.ma1uta.matrix.client.model.room.CreateRoomRequest;
+import io.quarkus.arc.config.ConfigProperties;
 
-import javax.ws.rs.container.AsyncResponse;
+@ConfigProperties(prefix = "jeon")
+public class JeonConfig {
 
-public class CreateRoomEvent extends AbstractEvent<CreateRoomRequest> {
+    private String domain;
 
-    private final String sender;
-
-    public CreateRoomEvent(CreateRoomRequest request, String sender, AsyncResponse asyncResponse) {
-        super(asyncResponse, request);
-        this.sender = sender;
+    public String getDomain() {
+        return domain;
     }
 
-    public String getSender() {
-        return sender;
+    public void setDomain(String domain) {
+        this.domain = domain;
     }
 }

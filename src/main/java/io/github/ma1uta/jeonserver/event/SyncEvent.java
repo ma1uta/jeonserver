@@ -17,7 +17,6 @@
 package io.github.ma1uta.jeonserver.event;
 
 import javax.ws.rs.container.AsyncResponse;
-import javax.ws.rs.core.SecurityContext;
 
 public class SyncEvent extends AbstractEvent<String> {
 

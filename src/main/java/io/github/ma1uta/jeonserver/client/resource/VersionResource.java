@@ -20,6 +20,7 @@ import io.github.ma1uta.jeonserver.client.model.version.VersionResponseWrapper;
 import io.github.ma1uta.matrix.client.api.VersionApi;
 
 import java.util.Collections;
+import javax.annotation.security.PermitAll;
 import javax.enterprise.context.ApplicationScoped;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -44,6 +45,7 @@ public class VersionResource implements VersionApi {
 
     @GET
     @Path("/")
+    @PermitAll
     @Override
     public void versions(
         @Context UriInfo uriInfo,

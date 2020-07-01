@@ -31,6 +31,7 @@ import io.github.ma1uta.matrix.client.model.room.UnbanRequest;
 import io.vertx.mutiny.core.eventbus.EventBus;
 
 import java.util.List;
+import javax.annotation.security.RolesAllowed;
 import javax.enterprise.context.ApplicationScoped;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -60,6 +61,7 @@ public class RoomResource implements RoomApi {
 
     @POST
     @Path("/createRoom")
+    @RolesAllowed( {"USER"})
     @Override
     public void create(
         CreateRoomRequest createRoomRequest,
@@ -72,6 +74,7 @@ public class RoomResource implements RoomApi {
 
     @PUT
     @Path("/directory/room/{roomAlias}")
+    @RolesAllowed( {"USER"})
     @Override
     public void createAlias(
         @PathParam("roomAlias") String roomAlias,

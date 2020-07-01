@@ -16,17 +16,42 @@
 
 package io.github.ma1uta.jeonserver.event;
 
-import io.github.ma1uta.matrix.client.model.room.CreateRoomRequest;
+import io.github.ma1uta.matrix.event.content.EventContent;
 
 import javax.ws.rs.container.AsyncResponse;
 
-public class CreateRoomEvent extends AbstractEvent<CreateRoomRequest> {
+public class MessageEvent extends AbstractEvent<EventContent> {
 
+    private final String roomId;
+    private final String eventType;
+    private final String transactionId;
     private final String sender;
 
-    public CreateRoomEvent(CreateRoomRequest request, String sender, AsyncResponse asyncResponse) {
+    public MessageEvent(
+        AsyncResponse asyncResponse,
+        EventContent request,
+        String roomId,
+        String eventType,
+        String transactionId,
+        String sender
+    ) {
         super(asyncResponse, request);
+        this.roomId = roomId;
+        this.eventType = eventType;
+        this.transactionId = transactionId;
         this.sender = sender;
+    }
+
+    public String getRoomId() {
+        return roomId;
+    }
+
+    public String getEventType() {
+        return eventType;
+    }
+
+    public String getTransactionId() {
+        return transactionId;
     }
 
     public String getSender() {
