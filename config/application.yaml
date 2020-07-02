@@ -3,6 +3,6 @@ jeon:
 
 db:
   type: postgresql
-  url: //192.168.1.39/jeonserver
+  url: //localhost/jeonserver
   username: jeonserver
   password: jeonserver
