@@ -75,7 +75,7 @@
         <version.lib.hibernate-jpamodelgen>5.4.2.Final</version.lib.hibernate-jpamodelgen>
         <version.lib.jaxb-api>2.3.1</version.lib.jaxb-api>
         <version.lib.logback-classic>1.2.3</version.lib.logback-classic>
-        <version.lib.quarkus>1.5.2.Final</version.lib.quarkus>
+        <version.lib.quarkus>1.6.1.Final</version.lib.quarkus>
 
         <version.lib.postgresql>42.2.10</version.lib.postgresql>
         <version.lib.jsr305>3.0.2</version.lib.jsr305>
